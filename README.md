@@ -1,14 +1,15 @@
 # Material Design Icons - Website Components
 
 > Note this repo is for the Material Design Icons website. If you want components for your own project look here:
-> 
+>
 > - [React](https://github.com/Templarian/MaterialDesign-React/)
 > - [Web Component](https://github.com/Templarian/MaterialDesign-WebComponent/)
 
 The website is made of many components...
 
-- [mdi-icon](src/mdi/icon/)
-- [mdi-search](src/mdi/search/)
+- [mdi-grid](src/mdi/grid/) - Icon grid
+- [mdi-icon](src/mdi/icon/) - Single icon
+- [mdi-search](src/mdi/search/) - Global search
 
 ## Contribute to this Project
 
