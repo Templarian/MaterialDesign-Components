@@ -10,4 +10,6 @@ import '@mdi/web-component/mdiIcon.js';
 <mdi-icon path="..."></mdi-icon>
 ```
 
-... write docs ...
+| Attributes | Tested   | Description |
+| ---------- | -------- | ----------- |
+| path       | &#x2705; | Set path data |

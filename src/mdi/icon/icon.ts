@@ -15,7 +15,6 @@ export default class MdiIcon extends HTMLElement {
 
   @Part() $path: SVGPathElement;
 
-  // @Conditional('path', 'path')
   render() {
     this.$path.setAttribute('d', this.path);
   }
