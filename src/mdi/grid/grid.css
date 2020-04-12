@@ -1,0 +1,13 @@
+[part~=grid] {
+  display: grid;
+  grid-template-columns: repeat(1.5rem);
+  grid-template-rows: repeat(1.5rem);
+  min-height: 1.5rem;
+  overflow: hidden;
+}
+
+button {
+  border: 0;
+  background: transparent;
+  padding: 0;
+}
