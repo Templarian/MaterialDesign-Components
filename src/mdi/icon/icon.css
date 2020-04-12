@@ -1,0 +1,10 @@
+:host {
+  display: inline-flex;
+}
+:host [part~=svg] {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+:host [part~=path] {
+  fill: #222;
+}
