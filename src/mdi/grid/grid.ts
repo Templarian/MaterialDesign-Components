@@ -23,7 +23,6 @@ export default class MdiSearch extends HTMLElement {
     const count = this.icons.length;
     // Render more grid items
     for(let i = this.currentCount; i < count; i++) {
-      console.log('add item', i);
       this.currentCount = i + 1;
       const btn = document.createElement('button');
       btn.addEventListener('click', () => {
@@ -37,7 +36,6 @@ export default class MdiSearch extends HTMLElement {
       this.$grid.appendChild(btn);
       this.items.push([btn, path]);
     }
-    console.log('render grid', this.currentCount);
     const columns = Math.floor(this.$grid.offsetWidth / 24);
     this.$grid.style.gridTemplateColumns = `repeat(${columns}, 1.5rem)`;
     const rows = Math.ceil(count / columns);

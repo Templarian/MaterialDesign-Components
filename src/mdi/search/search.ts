@@ -16,10 +16,13 @@ export default class MdiSearch extends HTMLElement {
   @Part() $input: HTMLInputElement;
 
   connectedCallback() {
-    this.$input.addEventListener('input', (e) => {
-      const target = e.target as HTMLInputElement;
-      console.log(target.value);
-    });
+    this.$input.addEventListener('input', this.handleInput);
+  }
+
+  handleInput(e) {
+    const target = e.target as HTMLInputElement;
+    const { value } = target;
+    console.log(value);
   }
 
   render() {
