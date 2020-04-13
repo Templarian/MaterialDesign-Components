@@ -9,6 +9,7 @@ The website is made of many components...
 
 - [mdi-grid](src/mdi/grid/) - Icon grid
 - [mdi-icon](src/mdi/icon/) - Single icon
+- [mdi-nav](src/mdi/nav/) - Site navigation
 - [mdi-search](src/mdi/search/) - Global search
 
 ## Contribute to this Project
