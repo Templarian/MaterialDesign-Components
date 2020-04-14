@@ -1,4 +1,5 @@
 import { Component, Prop, Part } from '@mdi/element';
+import { debounce } from './utils';
 
 import template from './grid.html';
 import style from './grid.css';
@@ -22,13 +23,14 @@ export default class MdiSearch extends HTMLElement {
   items: [HTMLButtonElement, SVGPathElement][] = [];
   svg = 'http://www.w3.org/2000/svg';
   columns: number;
+  debounceRender = debounce(() => this.render(), 300);
 
   resizeObserver = new ResizeObserver(entries => {
     const { width } = entries[0].contentRect;
     const columns = Math.floor(width / this.size);
     if (this.columns !== columns) {
       this.columns = columns;
-      this.render();
+      this.debounceRender();
     }
   });
 
@@ -37,6 +39,7 @@ export default class MdiSearch extends HTMLElement {
   }
 
   render() {
+    console.log('render');
     const count = this.icons.length;
     // Render more grid items
     for(let i = this.currentCount; i < count; i++) {
