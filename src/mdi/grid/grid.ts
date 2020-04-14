@@ -14,15 +14,22 @@ declare const ResizeObserver;
 })
 export default class MdiSearch extends HTMLElement {
   @Prop() icons: any = [];
+  @Prop() size: number = 24;
 
   @Part() $grid: HTMLDivElement;
 
   currentCount = 0;
   items: [HTMLButtonElement, SVGPathElement][] = [];
   svg = 'http://www.w3.org/2000/svg';
+  columns: number;
 
   resizeObserver = new ResizeObserver(entries => {
-    console.log(entries[0].contentRect.width)
+    const { width } = entries[0].contentRect;
+    const columns = Math.floor(width / this.size);
+    if (this.columns !== columns) {
+      this.columns = columns;
+      this.render();
+    }
   });
 
   connectedCallback() {
@@ -46,14 +53,12 @@ export default class MdiSearch extends HTMLElement {
       this.$grid.appendChild(btn);
       this.items.push([btn, path]);
     }
-    const columns = Math.floor(this.$grid.offsetWidth / 24);
-    // this.$grid.style.gridTemplateColumns = `repeat(${columns}, 1.5rem)`;
-    const rows = Math.ceil(count / columns);
+    const rows = Math.ceil(count / this.columns);
     this.$grid.style.gridTemplateRows = `repeat(${rows}, 1.5rem)`;
     this.items.forEach(([btn, path], i) => {
       if (this.icons[i]) {
-        btn.style.gridColumn = `${(i % columns + 1)}`;
-        btn.style.gridRow = `${Math.ceil((i + 1) / columns)}`;
+        btn.style.gridColumn = `${(i % this.columns + 1)}`;
+        btn.style.gridRow = `${Math.ceil((i + 1) / this.columns)}`;
         path.setAttribute('d', this.icons[i].data);
         this.icons[i].id = i;
       } else {
