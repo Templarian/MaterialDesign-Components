@@ -5,6 +5,8 @@ import style from './grid.css';
 
 const noIcon = 'M0 0h24v24H0V0zm2 2v20h20V2H2z';
 
+declare const ResizeObserver;
+
 @Component({
   selector: 'mdi-grid',
   style,
@@ -18,6 +20,14 @@ export default class MdiSearch extends HTMLElement {
   currentCount = 0;
   items: [HTMLButtonElement, SVGPathElement][] = [];
   svg = 'http://www.w3.org/2000/svg';
+
+  resizeObserver = new ResizeObserver(entries => {
+    console.log(entries[0].contentRect.width)
+  });
+
+  connectedCallback() {
+    this.resizeObserver.observe(this.$grid);
+  }
 
   render() {
     const count = this.icons.length;
@@ -37,7 +47,7 @@ export default class MdiSearch extends HTMLElement {
       this.items.push([btn, path]);
     }
     const columns = Math.floor(this.$grid.offsetWidth / 24);
-    this.$grid.style.gridTemplateColumns = `repeat(${columns}, 1.5rem)`;
+    // this.$grid.style.gridTemplateColumns = `repeat(${columns}, 1.5rem)`;
     const rows = Math.ceil(count / columns);
     this.$grid.style.gridTemplateRows = `repeat(${rows}, 1.5rem)`;
     this.items.forEach(([btn, path], i) => {
