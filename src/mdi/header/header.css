@@ -1,5 +1,7 @@
 header {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 1fr;
   grid-row: 1;
   grid-column: 1 / span 2;
   background: #414F56;
@@ -7,6 +9,7 @@ header {
   height: 3rem;
 }
 header > a {
+  grid-column: 1;
   display: inline-flex;
   color: #FFF;
   text-decoration: none;
@@ -25,4 +28,9 @@ header > a > span {
   margin: 0;
   font-weight: normal;
   padding-bottom: 1px;
+}
+header > div {
+  display: flex;
+  grid-column: 2;
+  justify-self: right;
 }

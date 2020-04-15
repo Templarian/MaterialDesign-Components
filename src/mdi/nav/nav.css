@@ -1,4 +1,14 @@
+:host {
+  align-self: center;
+}
 svg {
   width: 1.5rem;
   height: 1.5rem;
+}
+button {
+  border: 0;
+  background: transparent;
+}
+button > svg {
+  fill: #fff;
 }
