@@ -1,0 +1,41 @@
+:host {
+  align-self: center;
+}
+
+div {
+  display: grid;
+  grid-template-columns: 1fr 0;
+  grid-template-rows: 1fr 0;
+}
+input {
+  grid-row: 1;
+  grid-column: 1;
+  border-radius: 0.25rem;
+  border: 0;
+  padding: 0.25rem 0.5rem;
+  font-size: 1rem;
+  width: 10rem;
+  outline: none;
+}
+input:focus + svg path {
+  fill: #ccc;
+}
+svg {
+  grid-row: 1;
+  grid-column: 2;
+  width: 1.5rem;
+  height: 1.5rem;
+  justify-self: right;
+  margin-right: 0.25rem;
+  pointer-events: none;
+  align-self: center;
+}
+svg > path {
+  fill: #555;
+  transition: fill 0.3s ease-in-out;
+}
+ul {
+  background: #FFF;
+  grid-row: 2;
+  grid-column: 1 / span 2;
+}
