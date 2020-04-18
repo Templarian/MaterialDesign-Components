@@ -1,4 +1,5 @@
 import { Component, Prop, Part } from '@mdi/element';
+import { debounce } from './utils';
 
 import template from './search.html';
 import style from './search.css';
@@ -14,9 +15,13 @@ export default class MdiSearch extends HTMLElement {
   @Prop() path: string = noIcon;
 
   @Part() $input: HTMLInputElement;
+  @Part() $list: HTMLUListElement;
+
+  isOpen: boolean = false;
 
   connectedCallback() {
-    this.$input.addEventListener('input', this.handleInput);
+    this.$input.addEventListener('input', this.handleInput.bind(this));
+    this.$input.addEventListener('focus', this.handleFocus.bind(this));
   }
 
   handleInput(e) {
@@ -25,7 +30,12 @@ export default class MdiSearch extends HTMLElement {
     console.log(value);
   }
 
+  handleFocus() {
+    this.isOpen = true;
+    this.$list.style.display = 'block';
+  }
+
   render() {
-    // this.$path.setAttribute('d', this.path);
+
   }
 }

@@ -27,7 +27,7 @@ export default class MdiSearch extends HTMLElement {
 
   resizeObserver = new ResizeObserver(entries => {
     const { width } = entries[0].contentRect;
-    const columns = Math.floor(width / this.size);
+    const columns = Math.floor(width / (this.size + 20));
     if (this.columns !== columns) {
       this.columns = columns;
       this.debounceRender();
@@ -57,7 +57,7 @@ export default class MdiSearch extends HTMLElement {
       this.items.push([btn, path]);
     }
     const rows = Math.ceil(count / this.columns);
-    this.$grid.style.gridTemplateRows = `repeat(${rows}, 1.5rem)`;
+    this.$grid.style.gridTemplateRows = `repeat(${rows}, 2.75rem)`;
     this.items.forEach(([btn, path], i) => {
       if (this.icons[i]) {
         btn.style.gridColumn = `${(i % this.columns + 1)}`;
@@ -68,6 +68,6 @@ export default class MdiSearch extends HTMLElement {
         path.setAttribute('d', '');
       }
     });
-    this.$grid.style.height = `${1.5 * rows}rem`;
+    this.$grid.style.height = `${2.75 * rows}rem`;
   }
 }

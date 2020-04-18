@@ -36,6 +36,7 @@ svg > path {
   transition: fill 0.3s ease-in-out;
 }
 ul {
+  display: none;
   background: #FFF;
   grid-row: 2;
   grid-column: 1 / span 2;
