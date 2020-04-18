@@ -157,6 +157,11 @@
     </section>
     <script src="dist/mdiGrid.js"></script>
     <script>
+      const ele = document.getElementsByTagName('mdi-grid')[0];
+      ele.addEventListener('select', (e) => {
+        const icon = e.detail;
+        alert(icon.name);
+      });
       window.iconGrid = {
         basic: (count) => {
           const element = document.getElementById('iconGrid1');
