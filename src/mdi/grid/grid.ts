@@ -19,6 +19,7 @@ export default class MdiSearch extends HTMLElement {
 
   @Part() $grid: HTMLDivElement;
   @Part() $tooltip: HTMLDivElement;
+  @Part() $tooltipText: HTMLSpanElement;
 
   currentCount = 0;
   items: [HTMLButtonElement, SVGPathElement][] = [];
@@ -49,13 +50,13 @@ export default class MdiSearch extends HTMLElement {
     const tileX = Math.floor(x / 44);
     const tileY = Math.floor(y / 44);
     const index = tileX + (tileY * this.columns);
-    if (this.index !== index) {
+    if (this.index !== index && this.icons[index]) {
       if (tileX > this.columns - 1) {
         this.hideTooltip();
       } else {
         this.showTooltip(this.icons[index], index);
-        this.index = 0;
       }
+      this.index = index;
     }
   }
 
@@ -102,7 +103,7 @@ export default class MdiSearch extends HTMLElement {
   }
 
   showTooltip(icon: any, index: number) {
-    this.$tooltip.innerText = `${icon.name} ${icon.id}`;
+    this.$tooltipText.innerText = `${icon.name} ${icon.id}`;
     const { x, y } = this.getPositionFromIndex(index);
     this.$tooltip.style.gridColumn = `${x + 1}`;
     this.$tooltip.style.gridRow = `${y + 1}`;

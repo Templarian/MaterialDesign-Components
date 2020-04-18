@@ -4,7 +4,6 @@
   grid-template-rows: repeat(1, 2.75rem);
   min-height: 2.75rem;
   overflow: hidden;
-  position: relative;
 }
 
 :host {
@@ -27,18 +26,22 @@ button > svg {
 }
 
 [part~=tooltip] {
-  position: absolute;
-  display: inline-block;
-  background: #737E9E;
-  border-radius: 0.25rem;
-  color: #FFF;
-  padding: 0.15rem 0.5rem 0.3rem 0.5rem;
-  margin-top: 2.75rem;
+  order: 1;
   opacity: 0;
-  transition: opacity 0.2s ease-in;
   pointer-events: none;
 }
 
 [part~=tooltip].visible {
   opacity: 1;
+}
+
+[part~=tooltipText] {
+  background: #737E9E;
+  border-radius: 0.25rem;
+  color: #FFF;
+  padding: 0.15rem 0.5rem 0.3rem 0.5rem;
+  transition: opacity 0.2s ease-in;
+  white-space: nowrap;
+  position: relative;
+  top: 44px;
 }
