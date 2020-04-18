@@ -2,6 +2,8 @@
   display: inline-flex;
   align-items: center;
   font-family: var(--mdi-font-family);
+  font-size: 1rem;
+  line-height: 1.5rem;
 }
 
 [part~=button]:hover {
