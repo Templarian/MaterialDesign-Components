@@ -27,15 +27,15 @@ button > svg {
 
 [part~=tooltip] {
   order: 1;
-  opacity: 0;
   pointer-events: none;
 }
 
-[part~=tooltip].visible {
+[part~=tooltip].visible [part~=tooltipText] {
   opacity: 1;
 }
 
 [part~=tooltipText] {
+  opacity: 0;
   background: #737E9E;
   border-radius: 0.25rem;
   color: #FFF;
