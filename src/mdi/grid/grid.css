@@ -36,6 +36,7 @@ button > svg {
   margin-top: 2.75rem;
   opacity: 0;
   transition: opacity 0.2s ease-in;
+  pointer-events: none;
 }
 
 [part~=tooltip].visible {

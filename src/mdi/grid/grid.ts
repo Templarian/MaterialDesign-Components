@@ -79,7 +79,7 @@ export default class MdiSearch extends HTMLElement {
   }
 
   showTooltip(icon: any, index: number) {
-    this.$tooltip.innerText = icon.name;
+    this.$tooltip.innerText = `${icon.name} ${icon.id}`;
     const { x, y } = this.getPositionFromIndex(index);
     this.$tooltip.style.gridColumn = `${x + 1}`;
     this.$tooltip.style.gridRow = `${y + 1}`;
