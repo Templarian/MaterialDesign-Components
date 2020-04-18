@@ -1,0 +1,25 @@
+[part~=button] {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--mdi-font-family);
+}
+
+[part~=button].base {
+  border: 1px solid #4281E9;
+  background: #4281E9;
+  color: #FFF;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  outline: none;
+  --mdi-icon-color: #FFF;
+}
+
+[part~=button].base-inverse {
+  border: 1px solid #F1F1F1;
+  background: #FFF;
+  color: #4281E9;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  outline: none;
+  --mdi-icon-color: #4281E9;
+}

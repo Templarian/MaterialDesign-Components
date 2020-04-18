@@ -1,10 +1,9 @@
 :host {
   display: inline-flex;
+  color: var(--mdi-icon-color, #222);
 }
+
 :host [part~=svg] {
   width: 1.5rem;
   height: 1.5rem;
-}
-:host [part~=path] {
-  fill: #222;
 }
