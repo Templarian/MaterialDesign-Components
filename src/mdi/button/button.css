@@ -4,6 +4,10 @@
   font-family: var(--mdi-font-family);
 }
 
+[part~=button]:hover {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
 [part~=button].base {
   border: 1px solid #4281E9;
   background: #4281E9;
@@ -12,6 +16,10 @@
   border-radius: 0.25rem;
   outline: none;
   --mdi-icon-color: #FFF;
+}
+
+[part~=button].base:hover {
+  background-color: #4F8FF9;
 }
 
 [part~=button].base-inverse {
