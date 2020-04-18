@@ -112,6 +112,7 @@ export default class MdiSearch extends HTMLElement {
 
   hideTooltip() {
     this.$tooltip.classList.remove('visible');
+    this.index = -1;
   }
 
   getPositionFromIndex(index: number) {
