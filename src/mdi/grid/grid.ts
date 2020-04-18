@@ -18,6 +18,7 @@ export default class MdiSearch extends HTMLElement {
   @Prop() size: number = 24;
 
   @Part() $grid: HTMLDivElement;
+  @Part() $tooltip: HTMLDivElement;
 
   currentCount = 0;
   items: [HTMLButtonElement, SVGPathElement][] = [];
@@ -48,6 +49,12 @@ export default class MdiSearch extends HTMLElement {
       btn.addEventListener('click', () => {
         console.log(this.icons[i]);
       });
+      btn.addEventListener('mouseenter', () => {
+        this.showTooltip(this.icons[i], i);
+      });
+      btn.addEventListener('mouseleave', () => {
+        this.hideTooltip();
+      });
       const svg = document.createElementNS(this.svg, 'svg');
       svg.setAttribute('viewBox', '0 0 24 24');
       const path = document.createElementNS(this.svg, 'path') as SVGPathElement;
@@ -69,5 +76,24 @@ export default class MdiSearch extends HTMLElement {
       }
     });
     this.$grid.style.height = `${2.75 * rows}rem`;
+  }
+
+  showTooltip(icon: any, index: number) {
+    this.$tooltip.innerText = icon.name;
+    const { x, y } = this.getPositionFromIndex(index);
+    this.$tooltip.style.gridColumn = `${x + 1}`;
+    this.$tooltip.style.gridRow = `${y + 1}`;
+    this.$tooltip.classList.add('visible');
+  }
+
+  hideTooltip() {
+    this.$tooltip.classList.remove('visible');
+  }
+
+  getPositionFromIndex(index: number) {
+    return {
+      x: index % this.columns,
+      y: Math.floor(index / this.columns)
+    };
   }
 }
