@@ -14,6 +14,10 @@ import '@mdi/web-component/mdiGrid.js';
 | ---------- | -------- | ----------- |
 | icons      | &#x2705; | Set icon data |
 
+| Events     | Tested   | Description |
+| ---------- | -------- | ----------- |
+| select     | &#x2705; | Fired on icon selections |
+
 The minimal data set must contain the `name` and `data` field.
 
 ```json

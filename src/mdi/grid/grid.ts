@@ -45,8 +45,8 @@ export default class MdiGrid extends HTMLElement {
   index = 0;
   handleTooltip(e: any) {
     var rect = e.target.getBoundingClientRect();
-    const x = Math.round(e.clientX - rect.left);
-    const y = Math.round(e.clientY - rect.top);
+    const x = Math.floor(e.clientX - rect.left);
+    const y = Math.floor(e.clientY - rect.top);
     const tileX = Math.floor(x / 44);
     const tileY = Math.floor(y / 44);
     const index = tileX + (tileY * this.columns);
@@ -77,6 +77,9 @@ export default class MdiGrid extends HTMLElement {
       });
       btn.addEventListener('keydown', (e: KeyboardEvent) => {
         this.moveFocus(e, i);
+      });
+      btn.addEventListener('contextmenu', (e: any) => {
+        this.contextMenu(i);
       });
       const svg = document.createElementNS(this.svg, 'svg');
       svg.setAttribute('viewBox', '0 0 24 24');
@@ -137,6 +140,10 @@ export default class MdiGrid extends HTMLElement {
         }
         break;
     }
+  }
+
+  contextMenu(index: number) {
+    console.log('contextMenu', index);
   }
 
   handleClick(icon: any) {
