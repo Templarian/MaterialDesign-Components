@@ -107,9 +107,10 @@
 }
 
 [part~=contextMenu] > div.group > button {
+  display: flex;
   flex: 1;
   padding: 0.25rem 0;
-  text-align: center;
+  justify-content: center;
   border: 0;
   margin: 0;
   background: transparent;
@@ -129,6 +130,13 @@
   text-align: left;
   color: #FFF;
   font-size: 1rem;
+}
+
+[part~=contextMenu] > div.group > button > svg,
+[part~=contextMenu] > button > svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  align-self: center;
 }
 
 [part~=contextMenu] > div.group > button:hover,
