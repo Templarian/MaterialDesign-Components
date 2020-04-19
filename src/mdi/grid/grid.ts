@@ -13,7 +13,7 @@ declare const ResizeObserver;
   style,
   template
 })
-export default class MdiSearch extends HTMLElement {
+export default class MdiGrid extends HTMLElement {
   @Prop() icons: any = [];
   @Prop() size: number = 24;
 
@@ -50,13 +50,17 @@ export default class MdiSearch extends HTMLElement {
     const tileX = Math.floor(x / 44);
     const tileY = Math.floor(y / 44);
     const index = tileX + (tileY * this.columns);
-    if (this.index !== index && this.icons[index]) {
-      if (tileX > this.columns - 1) {
-        this.hideTooltip();
+    if (this.index !== index) {
+      if (this.icons[index]) {
+        if (tileX > this.columns - 1) {
+          this.hideTooltip();
+        } else {
+          this.showTooltip(this.icons[index], index);
+        }
+        this.index = index;
       } else {
-        this.showTooltip(this.icons[index], index);
+        this.hideTooltip();
       }
-      this.index = index;
     }
   }
 
@@ -70,6 +74,9 @@ export default class MdiSearch extends HTMLElement {
       btn.dataset.index = `${i}`;
       btn.addEventListener('click', () => {
         this.handleClick(this.icons[i]);
+      });
+      btn.addEventListener('keydown', (e: KeyboardEvent) => {
+        this.moveFocus(e, i);
       });
       const svg = document.createElementNS(this.svg, 'svg');
       svg.setAttribute('viewBox', '0 0 24 24');
@@ -94,6 +101,44 @@ export default class MdiSearch extends HTMLElement {
     this.$grid.style.height = `${2.75 * rows}rem`;
   }
 
+  moveFocus(e: KeyboardEvent, index: number) {
+    console.log(e.which, index);
+    let newIndex;
+    switch(e.which) {
+      case 37:
+        newIndex = index - 1;
+        if (newIndex >= 0) {
+          this.items[newIndex][0].focus();
+          e.preventDefault();
+        }
+        break;
+      case 38:
+        newIndex = index - this.columns;
+        if (newIndex >= 0) {
+          this.items[newIndex][0].focus();
+          e.preventDefault();
+        }
+        break;
+      case 39:
+        newIndex = index + 1;
+        if (newIndex < this.icons.length) {
+          this.items[newIndex][0].focus();
+          e.preventDefault();
+        }
+        break;
+      case 40:
+        newIndex = index + this.columns;
+        if (newIndex < this.icons.length) {
+          this.items[newIndex][0].focus();
+          e.preventDefault();
+        } else if (newIndex !== this.icons.length - 1) {
+          this.items[this.icons.length - 1][0].focus();
+          e.preventDefault();
+        }
+        break;
+    }
+  }
+
   handleClick(icon: any) {
     this.dispatchEvent(
       new CustomEvent('select', {
@@ -105,8 +150,10 @@ export default class MdiSearch extends HTMLElement {
   showTooltip(icon: any, index: number) {
     this.$tooltipText.innerText = icon.name;
     const { x, y } = this.getPositionFromIndex(index);
-    this.$tooltip.style.gridColumn = `${x + 1}`;
-    this.$tooltip.style.gridRow = `${y + 1}`;
+    //this.$tooltip.style.gridColumn = `${x + 1}`;
+    //this.$tooltip.style.gridRow = `${y + 1}`;
+    this.$tooltip.style.left = `${x * 44}px`;
+    this.$tooltip.style.top = `${(y * 44 + 5)}px`;
     this.$tooltip.classList.add('visible');
   }
 
