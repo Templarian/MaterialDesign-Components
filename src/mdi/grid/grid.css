@@ -132,6 +132,15 @@
   font-size: 1rem;
 }
 
+[part~=contextMenu] > div.group > button.active {
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3) inset;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+[part~=contextMenu] > div.group > button.active:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
 [part~=contextMenu] > div.group > button > svg,
 [part~=contextMenu] > button > svg {
   width: 1.5rem;
