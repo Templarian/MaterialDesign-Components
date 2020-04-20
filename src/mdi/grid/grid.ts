@@ -25,6 +25,20 @@ export default class MdiGrid extends HTMLElement {
   @Part() $pngBlack: HTMLButtonElement;
   @Part() $pngWhite: HTMLButtonElement;
   @Part() $pngColor: HTMLButtonElement;
+  @Part() $png24: HTMLButtonElement;
+  @Part() $png36: HTMLButtonElement;
+  @Part() $png48: HTMLButtonElement;
+  @Part() $png96: HTMLButtonElement;
+  @Part() $svgBlack: HTMLButtonElement;
+  @Part() $svgWhite: HTMLButtonElement;
+  @Part() $svgColor: HTMLButtonElement;
+  @Part() $svgDownload: HTMLButtonElement;
+  @Part() $copySvgInline: HTMLButtonElement;
+  @Part() $copySvgFile: HTMLButtonElement;
+  @Part() $copySvgPath: HTMLButtonElement;
+  @Part() $copyUnicode: HTMLButtonElement;
+  @Part() $copyCodepoint: HTMLButtonElement;
+  @Part() $copyPreview: HTMLButtonElement;
 
   @Part() $tooltip: HTMLDivElement;
   @Part() $tooltipText: HTMLSpanElement;
