@@ -82,9 +82,8 @@ export default class MdiGrid extends HTMLElement {
       btn.addEventListener('contextmenu', (e: any) => {
         var rect = this.$grid.getBoundingClientRect();
         const x = Math.floor(e.clientX - rect.left);
-      const y = Math.floor(e.clientY - rect.top);
-        this.contextMenu(i, x, y);
-        this.hideTooltip();
+        const y = Math.floor(e.clientY - rect.top);
+        this.showContextMenu(i, x, y);
         e.preventDefault();
       });
       const svg = document.createElementNS(this.svg, 'svg');
@@ -148,12 +147,6 @@ export default class MdiGrid extends HTMLElement {
     }
   }
 
-  contextMenu(index: number, x: number, y: number) {
-    this.$contextMenu.style.left = `${x}px`;
-    this.$contextMenu.style.top = `${y}px`;
-    this.$contextMenu.style.visibility = 'visible';
-  }
-
   handleClick(icon: any) {
     this.dispatchEvent(
       new CustomEvent('select', {
@@ -162,7 +155,39 @@ export default class MdiGrid extends HTMLElement {
     );
   }
 
+  canOpenTooltip = true;
+  preventClose = false;
+
+  showContextMenu(index: number, x: number, y: number) {
+    this.$contextMenu.style.left = `${x}px`;
+    this.$contextMenu.style.top = `${y}px`;
+    this.$contextMenu.style.visibility = 'visible';
+    this.hideTooltip();
+    this.canOpenTooltip = false;
+    const self = this;
+    this.$contextMenu.addEventListener('mouseenter', () => {
+      this.preventClose = true;
+    });
+    this.$contextMenu.addEventListener('mouseleave', () => {
+      this.preventClose = false;
+    });
+    function handleMouseDown(e) {
+      if (!self.preventClose) {
+        self.hideContextMenu();
+        document.removeEventListener('mousedown', handleMouseDown);
+      }
+    }
+    this.preventClose = false;
+    document.addEventListener('mousedown', handleMouseDown);
+  }
+
+  hideContextMenu() {
+    this.$contextMenu.style.visibility = 'hidden';
+    this.canOpenTooltip = true;
+  }
+
   showTooltip(icon: any, index: number) {
+    if (!this.canOpenTooltip) { return; }
     this.$tooltipText.innerText = icon.name;
     const { x, y } = this.getPositionFromIndex(index);
     //this.$tooltip.style.gridColumn = `${x + 1}`;

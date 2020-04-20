@@ -83,7 +83,7 @@
   width: 12rem;
   display: flex;
   flex-direction: column;
-  padding-bottom: 0.25rem;
+  padding: 0.25rem 0;
   visibility: hidden;
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3)
 }
@@ -145,7 +145,8 @@
   border-radius: 0.125rem 0 0 0.125rem;
 }
 
-[part~=contextMenu] > button {
+[part~=contextMenu] > button,
+[part~=contextMenu] > a {
   display: flex;
   border: 0;
   margin: 0;
@@ -154,6 +155,8 @@
   text-align: left;
   color: #FFF;
   font-size: 1rem;
+  text-decoration: none;
+  cursor: default;
 }
 
 [part~=contextMenu] div.group > button.active {
@@ -181,7 +184,8 @@
 
 [part~=contextMenu] > div.row > div.group > button:hover,
 [part~=contextMenu] > div.group > button:hover,
-[part~=contextMenu] > button:hover {
+[part~=contextMenu] > button:hover,
+[part~=contextMenu] > a:hover {
   background: rgba(255, 255, 255, 0.2);
 }
 
@@ -192,7 +196,7 @@
 .divider {
   border-top: 1px solid rgba(255, 255, 255, 0.3);
   margin-top: 0.5rem;
-  height: 0.5rem;
+  height: 0.4375rem;
 }
 
 .black {
