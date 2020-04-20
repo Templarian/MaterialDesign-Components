@@ -77,12 +77,15 @@
 }
 
 [part~=contextMenu] {
+  position: absolute;
   background: #737E9E;
   border-radius: 0.25rem;
   width: 12rem;
   display: flex;
   flex-direction: column;
   padding-bottom: 0.25rem;
+  visibility: hidden;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3)
 }
 
 [part~=contextMenu] > div.section {

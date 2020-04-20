@@ -18,6 +18,7 @@ export default class MdiGrid extends HTMLElement {
   @Prop() size: number = 24;
 
   @Part() $grid: HTMLDivElement;
+  @Part() $contextMenu: HTMLDivElement;
   @Part() $tooltip: HTMLDivElement;
   @Part() $tooltipText: HTMLSpanElement;
 
@@ -79,7 +80,12 @@ export default class MdiGrid extends HTMLElement {
         this.moveFocus(e, i);
       });
       btn.addEventListener('contextmenu', (e: any) => {
-        this.contextMenu(i);
+        var rect = this.$grid.getBoundingClientRect();
+        const x = Math.floor(e.clientX - rect.left);
+      const y = Math.floor(e.clientY - rect.top);
+        this.contextMenu(i, x, y);
+        this.hideTooltip();
+        e.preventDefault();
       });
       const svg = document.createElementNS(this.svg, 'svg');
       svg.setAttribute('viewBox', '0 0 24 24');
@@ -142,8 +148,10 @@ export default class MdiGrid extends HTMLElement {
     }
   }
 
-  contextMenu(index: number) {
-    console.log('contextMenu', index);
+  contextMenu(index: number, x: number, y: number) {
+    this.$contextMenu.style.left = `${x}px`;
+    this.$contextMenu.style.top = `${y}px`;
+    this.$contextMenu.style.visibility = 'visible';
   }
 
   handleClick(icon: any) {
