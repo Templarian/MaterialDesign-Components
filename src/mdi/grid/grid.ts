@@ -1,5 +1,5 @@
 import { Component, Prop, Part } from '@mdi/element';
-import { debounce } from './utils';
+import { debounce, copyText } from './utils';
 
 import template from './grid.html';
 import style from './grid.css';
@@ -18,7 +18,14 @@ export default class MdiGrid extends HTMLElement {
   @Prop() size: number = 24;
 
   @Part() $grid: HTMLDivElement;
+
   @Part() $contextMenu: HTMLDivElement;
+  @Part() $newTab: HTMLAnchorElement;
+  @Part() $copyIconName: HTMLButtonElement;
+  @Part() $pngBlack: HTMLButtonElement;
+  @Part() $pngWhite: HTMLButtonElement;
+  @Part() $pngColor: HTMLButtonElement;
+
   @Part() $tooltip: HTMLDivElement;
   @Part() $tooltipText: HTMLSpanElement;
 
@@ -41,6 +48,9 @@ export default class MdiGrid extends HTMLElement {
     this.resizeObserver.observe(this.$grid);
     this.addEventListener('mousemove', this.handleTooltip.bind(this));
     this.addEventListener('mouseleave', this.hideTooltip.bind(this));
+    // Wire Up Context Menu
+    this.$copyIconName.addEventListener('click', this.handleCopyIconName.bind(this));
+    this.$pngBlack.classList.add('active');
   }
 
   index = 0;
@@ -157,8 +167,12 @@ export default class MdiGrid extends HTMLElement {
 
   canOpenTooltip = true;
   preventClose = false;
+  currentIndex = 0;
 
   showContextMenu(index: number, x: number, y: number) {
+    this.currentIndex = index;
+    var icon = this.icons[index];
+    this.$newTab.href = `icons/${icon.name}`;
     this.$contextMenu.style.left = `${x}px`;
     this.$contextMenu.style.top = `${y}px`;
     this.$contextMenu.style.visibility = 'visible';
@@ -184,6 +198,23 @@ export default class MdiGrid extends HTMLElement {
   hideContextMenu() {
     this.$contextMenu.style.visibility = 'hidden';
     this.canOpenTooltip = true;
+  }
+
+  handleCopyIconName() {
+    const icon = this.icons[this.currentIndex];
+    copyText(icon.name);
+    this.dispatchEvent(
+      new CustomEvent('toast', {
+        detail: {
+          type: 'info',
+          icon: 'content-copy',
+          message: `Copied "${icon.name}" to clipboard.`
+        },
+        composed: true,
+        bubbles: true
+      })
+    );
+    this.hideContextMenu();
   }
 
   showTooltip(icon: any, index: number) {

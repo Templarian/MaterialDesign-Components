@@ -107,6 +107,7 @@
   border-radius: 0.25rem;
   display: flex;
   flex-direction: row;
+  overflow: hidden;
 }
 [part~=contextMenu] > div.row > div.group {
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -114,6 +115,7 @@
   display: flex;
   flex-direction: row;
   flex: 1;
+  overflow: hidden;
 }
 
 [part~=contextMenu] > div.row > div.group:first-child {
@@ -138,11 +140,7 @@
   font-size: 1rem;
   line-height: 1.25rem;
   align-items: center;
-}
-
-[part~=contextMenu] > div.group > button:first-child,
-[part~=contextMenu] > div.row > div.group > button:first-child {
-  border-radius: 0.125rem 0 0 0.125rem;
+  outline: none;
 }
 
 [part~=contextMenu] > button,
@@ -157,6 +155,7 @@
   font-size: 1rem;
   text-decoration: none;
   cursor: default;
+  outline: none;
 }
 
 [part~=contextMenu] div.group > button.active {

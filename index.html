@@ -295,6 +295,15 @@
     </section>
     <script src="dist/mdiSearch.js"></script>
 
+    <script>
+      function handleToast(e) {
+        console.log(e.detail);
+      }
+      document.body.addEventListener('toast', (e) => {
+        console.log(e);
+      });
+    </script>
+
   </main>
 </body>
 </html>
