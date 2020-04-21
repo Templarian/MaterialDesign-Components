@@ -10,9 +10,12 @@ import '@mdi/web-component/mdiGrid.js';
 <mdi-icon></mdi-icon>
 ```
 
-| Attributes | Tested   | Description |
-| ---------- | -------- | ----------- |
-| icons      | &#x2705; | Set icon data |
+| Attributes | Tested   | Description | Default |
+| ---------- | -------- | ----------- | ------ |
+| icons      | &#x2705; | Set icon data | `[]` |
+| size       | &#x2705; | Set icon size | `24` |
+| width      | &#x2705; | Set grid width | `'auto'` |
+| height     | &#x2705; | Set grid height | `'auto'` |
 
 | Events     | Tested   | Description |
 | ---------- | -------- | ----------- |

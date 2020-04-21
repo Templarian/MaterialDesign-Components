@@ -16,6 +16,8 @@ declare const ResizeObserver;
 export default class MdiGrid extends HTMLElement {
   @Prop() icons: any = [];
   @Prop() size: number = 24;
+  @Prop() width: string = 'auto';
+  @Prop() height: string = 'auto';
 
   @Part() $grid: HTMLDivElement;
 
@@ -130,7 +132,13 @@ export default class MdiGrid extends HTMLElement {
         path.setAttribute('d', '');
       }
     });
-    this.$grid.style.height = `${2.75 * rows}rem`;
+    if (this.height === 'auto') {
+      this.$grid.style.height = `${2.75 * rows}rem`;
+      this.$grid.style.overflow = 'visible';
+    } else {
+      this.$grid.style.height = this.height;
+      this.$grid.style.overflow = 'auto';
+    }
   }
 
   moveFocus(e: KeyboardEvent, index: number) {
@@ -184,6 +192,14 @@ export default class MdiGrid extends HTMLElement {
   currentIndex = 0;
 
   showContextMenu(index: number, x: number, y: number) {
+    const gridRect = this.$grid.getBoundingClientRect();
+    const cmRect = this.$contextMenu.getBoundingClientRect();
+    const scrollY = window.scrollY;
+    const scrollX = window.scrollX;
+    if (y + gridRect.top + cmRect.height + 4 > window.innerHeight) {
+      y -= y + gridRect.top + cmRect.height + 4 - window.innerHeight;
+      console.log('yep')
+    }
     this.currentIndex = index;
     var icon = this.icons[index];
     this.$newTab.href = `icons/${icon.name}`;

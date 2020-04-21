@@ -16,34 +16,6 @@
   outline: none;
 }
 
-[part~=scroll] {
-  overflow-y: auto;
-  width: 28.5rem;
-  height: 12.5rem;
-  margin-left: -4px;
-  margin-right: -4px;
-  padding: 0 4px 0 0;
-}
-
-[part~=scroll]::-webkit-scrollbar {
-  width: 1em;
-}
-
-[part~=scroll]::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 6px rgba(0,0,0,0.2);
-  border-radius: 0.25rem;
-}
-
-[part~=scroll]::-webkit-scrollbar-thumb {
-  background-color: #453C4F;
-  outline: 1px solid slategrey;
-  border-radius: 0.25rem;
-}
-
-[part~=grid] {
-  width: 27.5rem;
-}
-
 [part~=arrow],
 [part~=arrow]::before {
   position: absolute;
