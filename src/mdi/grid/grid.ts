@@ -196,9 +196,14 @@ export default class MdiGrid extends HTMLElement {
     const cmRect = this.$contextMenu.getBoundingClientRect();
     const scrollY = window.scrollY;
     const scrollX = window.scrollX;
-    if (y + gridRect.top + cmRect.height + 4 > window.innerHeight) {
+    if (y + gridRect.top + cmRect.height + 4 > window.innerHeight
+      && x + gridRect.left + cmRect.width + 24 > window.innerWidth) {
+      y = y - cmRect.height;
+      x -= x + gridRect.left + cmRect.width + 24 - window.innerWidth;
+     } else if (y + gridRect.top + cmRect.height + 4 > window.innerHeight) {
       y -= y + gridRect.top + cmRect.height + 4 - window.innerHeight;
-      console.log('yep')
+    } else if (x + gridRect.left + cmRect.width + 24 > window.innerWidth) {
+      x -= x + gridRect.left + cmRect.width + 24 - window.innerWidth;
     }
     this.currentIndex = index;
     var icon = this.icons[index];

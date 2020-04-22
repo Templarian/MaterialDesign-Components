@@ -41,6 +41,8 @@
   pointer-events: none;
   visibility: hidden;
   position: absolute;
+  top: 0;
+  left: 0;
 }
 
 [part~=tooltip].visible {
@@ -93,6 +95,8 @@
 
 [part~=contextMenu] {
   position: absolute;
+  top: 0;
+  left: 0;
   background: #737E9E;
   border-radius: 0.25rem;
   width: 12rem;
