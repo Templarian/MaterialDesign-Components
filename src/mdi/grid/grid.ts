@@ -1,4 +1,5 @@
-import { Component, Prop, Part } from '@mdi/element';
+import { Component, Prop, Part, Local } from '@mdi/element';
+import { createPopper } from '@popperjs/core';
 import { debounce, copyText } from './utils';
 
 import template from './grid.html';
@@ -45,6 +46,10 @@ export default class MdiGrid extends HTMLElement {
   @Part() $tooltip: HTMLDivElement;
   @Part() $tooltipText: HTMLSpanElement;
 
+  @Local('#000') cachePngColor: string;
+  @Local('24') cachePngSize: string;
+  @Local('#000') cacheSvgColor: string;
+
   currentCount = 0;
   items: [HTMLButtonElement, SVGPathElement][] = [];
   svg = 'http://www.w3.org/2000/svg';
@@ -66,7 +71,46 @@ export default class MdiGrid extends HTMLElement {
     this.addEventListener('mouseleave', this.hideTooltip.bind(this));
     // Wire Up Context Menu
     this.$copyIconName.addEventListener('click', this.handleCopyIconName.bind(this));
-    this.$pngBlack.classList.add('active');
+    this.$svgBlack.addEventListener('click', () => {
+      this.cacheSvgColor = '#000';
+      this.render();
+    });
+    this.$svgWhite.addEventListener('click', () => {
+      this.cacheSvgColor = '#fff';
+      this.render();
+    });
+    this.$svgColor.addEventListener('click', () => {
+      this.cacheSvgColor = '#f0f';
+      this.render();
+    });
+    this.$pngBlack.addEventListener('click', () => {
+      this.cachePngColor = '#000';
+      this.render();
+    });
+    this.$pngWhite.addEventListener('click', () => {
+      this.cachePngColor = '#fff';
+      this.render();
+    });
+    this.$pngColor.addEventListener('click', () => {
+      this.cachePngColor = '#f0f';
+      this.render();
+    });
+    this.$png24.addEventListener('click', () => {
+      this.cachePngSize = '24';
+      this.render();
+    });
+    this.$png36.addEventListener('click', () => {
+      this.cachePngSize = '36';
+      this.render();
+    });
+    this.$png48.addEventListener('click', () => {
+      this.cachePngSize = '48';
+      this.render();
+    });
+    this.$png96.addEventListener('click', () => {
+      this.cachePngSize = '96';
+      this.render();
+    });
   }
 
   index = 0;
@@ -138,6 +182,27 @@ export default class MdiGrid extends HTMLElement {
     } else {
       this.$grid.style.height = this.height;
       this.$grid.style.overflow = 'auto';
+    }
+    // Context Menu
+    this.$svgBlack.classList.toggle('active', this.cacheSvgColor === '#000');
+    this.$svgWhite.classList.toggle('active', this.cacheSvgColor === '#fff');
+    this.$svgColor.classList.toggle('active', this.cacheSvgColor !== '#000' && this.cacheSvgColor !== '#fff');
+    this.$pngBlack.classList.toggle('active', this.cachePngColor === '#000');
+    this.$pngWhite.classList.toggle('active', this.cachePngColor === '#fff');
+    this.$pngColor.classList.toggle('active', this.cachePngColor !== '#000' && this.cachePngColor !== '#fff');
+    this.$png24.classList.toggle('active', this.cachePngSize === '24');
+    this.$png36.classList.toggle('active', this.cachePngSize === '36');
+    this.$png48.classList.toggle('active', this.cachePngSize === '48');
+    this.$png96.classList.toggle('active', this.cachePngSize === '96');
+    if (this.cachePngColor !== '#000' && this.cachePngColor !== '#fff') {
+      this.$pngColor.style.color = this.cachePngColor;
+    } else {
+      this.$pngColor.style.color = 'transparent';
+    }
+    if (this.cacheSvgColor !== '#000' && this.cacheSvgColor !== '#fff') {
+      this.$svgColor.style.color = this.cacheSvgColor;
+    } else {
+      this.$svgColor.style.color = 'transparent';
     }
   }
 
