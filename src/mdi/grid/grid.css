@@ -245,3 +245,8 @@
   height: 1rem;
   background: #FFF;
 }
+
+.download svg {
+  margin-bottom: -0.125rem;
+  margin-left: 0.25rem;
+}
