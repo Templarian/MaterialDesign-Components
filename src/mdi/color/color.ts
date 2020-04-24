@@ -25,11 +25,9 @@ export default class MdiColor extends HTMLElement {
         const button = document.createElement('button');
         button.style.background = `#${color.hex}`;
         if (color.name === 'black') {
-          button.style.gridArea = `13 / 17 / 14 / 19`;
-          button.classList.add('black');
+          button.style.gridArea = `13 / 17 / 15 / 20`;
         } else if (color.name === 'white') {
-          button.style.gridArea = `11 / 17 / 12 / 19`;
-          button.classList.add('white');
+          button.style.gridArea = `11 / 17 / 13 / 20`;
         } else {
           button.style.gridRow = `${colorIndex + 1}`;
           button.style.gridColumn = `${groupIndex + 1}`;
