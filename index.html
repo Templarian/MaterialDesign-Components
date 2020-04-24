@@ -181,6 +181,23 @@
     </script>
 
     <section>
+      <h2>mdi-color</h2>
+      <h3>Basic <small>Color</small></h3>
+      <div class="example">
+        <mdi-color id="color1" value="#000"></mdi-color>
+        <code>Selected: <span id="colorSelected"></span></code>
+      </div>
+    </section>
+    <script src="dist/mdiColor.js"></script>
+    <script>
+      document.getElementById('color1').addEventListener('select', (e) => {
+        const { rgb, hex } = e.detail;
+        document.getElementById('colorSelected').innerText =
+          `${hex} or rgba(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+      });
+    </script>
+
+    <section>
       <h2>mdi-grid</h2>
       <h3>Basic <small>Icon Grid</small></h3>
       <div class="example">
