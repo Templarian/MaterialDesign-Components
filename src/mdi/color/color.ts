@@ -28,6 +28,7 @@ export default class MdiColor extends HTMLElement {
           button.style.gridArea = `13 / 17 / 15 / 20`;
         } else if (color.name === 'white') {
           button.style.gridArea = `11 / 17 / 13 / 20`;
+          button.classList.add('white');
         } else {
           button.style.gridRow = `${colorIndex + 1}`;
           button.style.gridColumn = `${groupIndex + 1}`;
