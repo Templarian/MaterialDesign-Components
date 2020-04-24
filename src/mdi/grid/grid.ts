@@ -1,6 +1,7 @@
 import { Component, Prop, Part, Local } from '@mdi/element';
 import { createPopper } from '@popperjs/core';
 import { debounce, copyText } from './utils';
+import { getCopySvgInline } from './copy';
 
 import template from './grid.html';
 import style from './grid.css';
@@ -32,6 +33,7 @@ export default class MdiGrid extends HTMLElement {
   @Part() $png36: HTMLButtonElement;
   @Part() $png48: HTMLButtonElement;
   @Part() $png96: HTMLButtonElement;
+  @Part() $copyPng: HTMLButtonElement;
   @Part() $svgBlack: HTMLButtonElement;
   @Part() $svgWhite: HTMLButtonElement;
   @Part() $svgColor: HTMLButtonElement;
@@ -111,6 +113,7 @@ export default class MdiGrid extends HTMLElement {
       this.cachePngSize = '96';
       this.render();
     });
+    this.$copyPng.addEventListener('click', this.handleCopyPng.bind(this));
   }
 
   index = 0;
@@ -257,6 +260,12 @@ export default class MdiGrid extends HTMLElement {
   currentIndex = 0;
 
   showContextMenu(index: number, x: number, y: number) {
+    // Disable Copy PNG in browsers which do not support the necessary features
+    if (!('ClipboardItem' in window && 'Path2D' in window &&
+        'clipboard' in navigator && 'write' in navigator.clipboard)) {
+      this.$copyPng.style.display = "none";
+      console.log("Copy PNG disabled");
+    }
     const gridRect = this.$grid.getBoundingClientRect();
     const cmRect = this.$contextMenu.getBoundingClientRect();
     const scrollY = window.scrollY;
@@ -298,6 +307,58 @@ export default class MdiGrid extends HTMLElement {
   hideContextMenu() {
     this.$contextMenu.style.visibility = 'hidden';
     this.canOpenTooltip = true;
+  }
+
+  handleCopyPng() {
+    const icon = this.icons[this.currentIndex];
+    // TODO: is there another way to get the selected scale as number?
+    const pngSize = Number(this.cachePngSize);
+    console.log(icon.data);
+    console.log(pngSize);
+    // TODO: do we have to remove the element manually?
+    const canvas = document.createElement('canvas');
+    // TODO: transparent by default, but Windows clipboard loses transparency?
+    // It does work in Paint.NET and Chrome (e.g. StackOverflow) however...
+    // https://community.adobe.com/t5/photoshop/pasted-transparent-png-files-have-a-black-background/td-p/4923267
+    // https://www.reddit.com/r/photoshop/comments/5hsd98/why_cant_i_paste_pngs_with_transparency_from_the/
+    //canvas.style.background = 'transparent';
+    canvas.width = canvas.height = pngSize;
+    const ctx = canvas.getContext('2d');
+    if (ctx) {
+      // Transparent by default
+      //ctx.clearRect(0, 0, pngSize, pngSize);
+      const path = new Path2D(icon.data);
+      const scaleFactor = pngSize / this.size;
+      ctx.transform(scaleFactor, 0, 0, scaleFactor, 0, 0);
+      ctx.fillStyle = this.cachePngColor;
+      ctx.fill(path);
+      canvas.toBlob(async blob => {
+          if (blob) {
+            await navigator.clipboard.write([
+              new ClipboardItem({
+                [blob.type]: blob
+              })
+            ]);
+            console.log("PNG copied");
+          } else {
+            console.log("Failed to get blob");
+          }
+        }, "image/png");
+    } else {
+      console.log("Failed to get canvas context");
+    }
+    this.dispatchEvent(
+      new CustomEvent('toast', {
+        detail: {
+          type: 'info',
+          icon: 'content-copy',
+          message: `Copied "${icon.name}" to clipboard as PNG image.`
+        },
+        composed: true,
+        bubbles: true
+      })
+    );
+    this.hideContextMenu();
   }
 
   handleCopyIconName() {
