@@ -98,6 +98,7 @@ export default class MdiGrid extends HTMLElement {
           self.$color.style.visibility = 'hidden';
           document.removeEventListener('mousedown', handleMouseDown);
           preventSvgColor = true;
+          self.render();
           setTimeout(() => preventSvgColor = false, 500);
         }
       }
@@ -129,6 +130,7 @@ export default class MdiGrid extends HTMLElement {
           self.$color.style.visibility = 'hidden';
           document.removeEventListener('mousedown', handleMouseDown);
           preventPngColor = true;
+          self.render();
           setTimeout(() => preventPngColor = false, 500);
         }
       }
