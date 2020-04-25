@@ -1,0 +1,90 @@
+div {
+  display: grid;
+  grid-template-rows: auto 1rem 2rem 1rem 2rem 1rem 2rem;
+  grid-template-rows: 1fr;
+}
+
+[part~="hex"] {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+[part~="labelRed"] {
+  grid-row: 1;
+  grid-column: 2;
+  background: red;
+}
+
+[part~="red"] {
+  grid-row: 1;
+  grid-column: 3;
+}
+
+[part~="labelGreen"] {
+  grid-row: 1;
+  grid-column: 4;
+  background: green;
+  color: white;
+}
+
+[part~="green"] {
+  grid-row: 1;
+  grid-column: 5;
+}
+
+[part~="labelBlue"] {
+  grid-row: 1;
+  grid-column: 6;
+  background: blue;
+  color: white;
+}
+
+[part~="blue"] {
+  grid-row: 1;
+  grid-column: 7;
+}
+
+[part~="labelRed"],
+[part~="labelGreen"],
+[part~="labelBlue"] {
+  display: flex;
+  margin-left: 0.25rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.25rem 0 0 0.25rem;
+  color: white;
+  min-width: 1rem;
+}
+
+[part~="hex"] {
+  border-radius: 0.25rem;
+}
+
+[part~="hex"],
+[part~="red"],
+[part~="green"],
+[part~="blue"] {
+  outline: none;
+  font-size: 1rem;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #453C4F;
+}
+
+[part~="red"],
+[part~="green"],
+[part~="blue"] {
+  border-radius: 0 0.25rem 0.25rem 0;
+  -moz-appearance: textfield;
+  width: 3rem;
+  width: calc(100% - 1rem);
+}
+
+[part~="red"]::-webkit-inner-spin-button,
+[part~="red"]::-webkit-outer-spin-button,
+[part~="green"]::-webkit-inner-spin-button,
+[part~="green"]::-webkit-outer-spin-button,
+[part~="blue"]::-webkit-inner-spin-button,
+[part~="blue"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

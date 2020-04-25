@@ -118,9 +118,11 @@
     <div>Components</div>
     <ul>
       <li>mdi-body</li>
+      <li>mdi-color</li>
       <li>mdi-grid</li>
       <li>mdi-header</li>
       <li>mdi-icon</li>
+      <li>mdi-input-range</li>
       <li>mdi-markdown</li>
       <li>mdi-nav</li>
       <li>mdi-search</li>
@@ -255,6 +257,40 @@
           element.path = val;
         }
       };
+    </script>
+
+    <section>
+      <h2>mdi-input-hex-rgb</h2>
+      <h3>Basic <small>Value</small></h3>
+      <div class="example">
+        <mdi-input-hex-rgb id="inputHexRgb1" value="#000000"></mdi-input-hex-rgb>
+        <code>Selected: <span id="inputHexRgbValue1"></span></code>
+      </div>
+    </section>
+    <script src="dist/mdiInputHexRgb.js"></script>
+    <script>
+      document.getElementById('inputHexRgb1').addEventListener('change', (e) => {
+        const { rgb, hex } = e.target.value;
+        document.getElementById('inputHexRgbValue1').innerText =
+          `${hex} or rgba(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+      });
+    </script>
+
+    <section>
+      <h2>mdi-input-range</h2>
+      <h3>Basic <small>Value</small></h3>
+      <div class="example">
+        <mdi-input-range id="inputRange1" value="50"></mdi-input-range>
+        <code>Selected: <span id="inputRangeValue1"></span></code>
+      </div>
+    </section>
+    <script src="dist/mdiColor.js"></script>
+    <script>
+      document.getElementById('inputRange1').addEventListener('change', (e) => {
+        const { rgb, hex } = e.target.value;
+        document.getElementById('inputRangeValue1').innerText =
+          `${hex} or rgba(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+      });
     </script>
 
     <section>
