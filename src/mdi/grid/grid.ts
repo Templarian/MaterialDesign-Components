@@ -57,6 +57,7 @@ export default class MdiGrid extends HTMLElement {
   svg = 'http://www.w3.org/2000/svg';
   columns: number;
   debounceRender = debounce(() => this.render(), 300);
+  color = 'svg';
 
   resizeObserver = new ResizeObserver(entries => {
     const { width } = entries[0].contentRect;
@@ -84,6 +85,7 @@ export default class MdiGrid extends HTMLElement {
     let preventSvgColor = false;
     this.$svgColor.addEventListener('click', () => {
       if (preventSvgColor) { preventSvgColor = false; return; }
+      this.color = 'svg';
       this.$colorPicker.value = this.cacheSvgColor;
       const self = this;
       createPopper(this.$svgColor, this.$color, {
@@ -114,6 +116,7 @@ export default class MdiGrid extends HTMLElement {
     let preventPngColor = false;
     this.$pngColor.addEventListener('click', () => {
       if (preventPngColor) { preventPngColor = false; return; }
+      this.color = 'png';
       this.$colorPicker.value = this.cachePngColor;
       const self = this;
       createPopper(this.$pngColor, this.$color, {
@@ -246,8 +249,16 @@ export default class MdiGrid extends HTMLElement {
   }
 
   handleColorSelect(e) {
-    this.cachePngColor = e.detail.hex;
-    this.$pngColor.style.color = this.cachePngColor;
+    switch(this.color) {
+      case 'svg':
+        this.cacheSvgColor = e.detail.hex;
+        this.$svgColor.style.color = this.cacheSvgColor;
+        break;
+      case 'png':
+        this.cachePngColor = e.detail.hex;
+        this.$pngColor.style.color = this.cachePngColor;
+        break;
+    }
   }
 
   moveFocus(e: KeyboardEvent, index: number) {
