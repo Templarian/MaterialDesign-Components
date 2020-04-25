@@ -45,6 +45,8 @@ export default class MdiGrid extends HTMLElement {
 
   @Part() $tooltip: HTMLDivElement;
   @Part() $tooltipText: HTMLSpanElement;
+  @Part() $color: any;
+  @Part() $colorPicker: any;
 
   @Local('#000') cachePngColor: string;
   @Local('24') cachePngSize: string;
@@ -79,9 +81,27 @@ export default class MdiGrid extends HTMLElement {
       this.cacheSvgColor = '#fff';
       this.render();
     });
+    let preventSvgColor = false;
     this.$svgColor.addEventListener('click', () => {
-      this.cacheSvgColor = '#f0f';
-      this.render();
+      if (preventSvgColor) { preventSvgColor = false; return; }
+      this.$colorPicker.value = this.cacheSvgColor;
+      const self = this;
+      createPopper(this.$svgColor, this.$color, {
+        placement: 'bottom-start'
+      });
+      this.$color.style.visibility = 'visible';
+      let outside = true;
+      function handleMouseDown(e) {
+        if (outside) {
+          self.$color.style.visibility = 'hidden';
+          document.removeEventListener('mousedown', handleMouseDown);
+          preventSvgColor = true;
+          setTimeout(() => preventSvgColor = false, 500);
+        }
+      }
+      this.$color.addEventListener('mouseenter', () => outside = false);
+      this.$color.addEventListener('mouseleave', () => outside = true);
+      document.addEventListener('mousedown', handleMouseDown);
     });
     this.$pngBlack.addEventListener('click', () => {
       this.cachePngColor = '#000';
@@ -91,9 +111,27 @@ export default class MdiGrid extends HTMLElement {
       this.cachePngColor = '#fff';
       this.render();
     });
+    let preventPngColor = false;
     this.$pngColor.addEventListener('click', () => {
-      this.cachePngColor = '#f0f';
-      this.render();
+      if (preventPngColor) { preventPngColor = false; return; }
+      this.$colorPicker.value = this.cachePngColor;
+      const self = this;
+      createPopper(this.$pngColor, this.$color, {
+        placement: 'bottom-start'
+      });
+      this.$color.style.visibility = 'visible';
+      let outside = true;
+      function handleMouseDown(e) {
+        if (outside) {
+          self.$color.style.visibility = 'hidden';
+          document.removeEventListener('mousedown', handleMouseDown);
+          preventPngColor = true;
+          setTimeout(() => preventPngColor = false, 500);
+        }
+      }
+      this.$color.addEventListener('mouseenter', () => outside = false);
+      this.$color.addEventListener('mouseleave', () => outside = true);
+      document.addEventListener('mousedown', handleMouseDown);
     });
     this.$png24.addEventListener('click', () => {
       this.cachePngSize = '24';
@@ -204,6 +242,12 @@ export default class MdiGrid extends HTMLElement {
     } else {
       this.$svgColor.style.color = 'transparent';
     }
+    this.$colorPicker.addEventListener('select', this.handleColorSelect.bind(this));
+  }
+
+  handleColorSelect(e) {
+    this.cachePngColor = e.detail.hex;
+    this.$pngColor.style.color = this.cachePngColor;
   }
 
   moveFocus(e: KeyboardEvent, index: number) {
@@ -293,10 +337,12 @@ export default class MdiGrid extends HTMLElement {
     }
     this.preventClose = false;
     document.addEventListener('mousedown', handleMouseDown);
+    this.$color.style.visibility = 'hidden';
   }
 
   hideContextMenu() {
     this.$contextMenu.style.visibility = 'hidden';
+    this.$color.style.visibility = 'hidden';
     this.canOpenTooltip = true;
   }
 
