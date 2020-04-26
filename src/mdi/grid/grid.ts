@@ -47,10 +47,11 @@ export default class MdiGrid extends HTMLElement {
   @Part() $tooltipText: HTMLSpanElement;
   @Part() $color: any;
   @Part() $colorPicker: any;
+  @Part() $colorHexRgb: any;
 
-  @Local('#000') cachePngColor: string;
+  @Local('#000000') cachePngColor: string;
   @Local('24') cachePngSize: string;
-  @Local('#000') cacheSvgColor: string;
+  @Local('#000000') cacheSvgColor: string;
 
   currentCount = 0;
   items: [HTMLButtonElement, SVGPathElement][] = [];
@@ -75,11 +76,11 @@ export default class MdiGrid extends HTMLElement {
     // Wire Up Context Menu
     this.$copyIconName.addEventListener('click', this.handleCopyIconName.bind(this));
     this.$svgBlack.addEventListener('click', () => {
-      this.cacheSvgColor = '#000';
+      this.cacheSvgColor = '#000000';
       this.render();
     });
     this.$svgWhite.addEventListener('click', () => {
-      this.cacheSvgColor = '#fff';
+      this.cacheSvgColor = '#FFFFFF';
       this.render();
     });
     let preventSvgColor = false;
@@ -87,6 +88,7 @@ export default class MdiGrid extends HTMLElement {
       if (preventSvgColor) { preventSvgColor = false; return; }
       this.color = 'svg';
       this.$colorPicker.value = this.cacheSvgColor;
+      this.$colorHexRgb.value = this.cacheSvgColor;
       const self = this;
       createPopper(this.$svgColor, this.$color, {
         placement: 'bottom-start'
@@ -107,11 +109,11 @@ export default class MdiGrid extends HTMLElement {
       document.addEventListener('mousedown', handleMouseDown);
     });
     this.$pngBlack.addEventListener('click', () => {
-      this.cachePngColor = '#000';
+      this.cachePngColor = '#000000';
       this.render();
     });
     this.$pngWhite.addEventListener('click', () => {
-      this.cachePngColor = '#fff';
+      this.cachePngColor = '#FFFFFF';
       this.render();
     });
     let preventPngColor = false;
@@ -119,6 +121,7 @@ export default class MdiGrid extends HTMLElement {
       if (preventPngColor) { preventPngColor = false; return; }
       this.color = 'png';
       this.$colorPicker.value = this.cachePngColor;
+      this.$colorHexRgb.value = this.cachePngColor;
       const self = this;
       createPopper(this.$pngColor, this.$color, {
         placement: 'bottom-start'
@@ -179,7 +182,6 @@ export default class MdiGrid extends HTMLElement {
   }
 
   render() {
-    console.log('render');
     const count = this.icons.length;
     // Render more grid items
     for(let i = this.currentCount; i < count; i++) {
@@ -227,39 +229,58 @@ export default class MdiGrid extends HTMLElement {
       this.$grid.style.overflow = 'auto';
     }
     // Context Menu
-    this.$svgBlack.classList.toggle('active', this.cacheSvgColor === '#000');
-    this.$svgWhite.classList.toggle('active', this.cacheSvgColor === '#fff');
-    this.$svgColor.classList.toggle('active', this.cacheSvgColor !== '#000' && this.cacheSvgColor !== '#fff');
-    this.$pngBlack.classList.toggle('active', this.cachePngColor === '#000');
-    this.$pngWhite.classList.toggle('active', this.cachePngColor === '#fff');
-    this.$pngColor.classList.toggle('active', this.cachePngColor !== '#000' && this.cachePngColor !== '#fff');
+    this.$svgBlack.classList.toggle('active', this.cacheSvgColor === '#000000');
+    this.$svgWhite.classList.toggle('active', this.cacheSvgColor === '#FFFFFF');
+    this.$svgColor.classList.toggle('active', this.cacheSvgColor !== '#000000' && this.cacheSvgColor !== '#FFFFFF');
+    this.$pngBlack.classList.toggle('active', this.cachePngColor === '#000000');
+    this.$pngWhite.classList.toggle('active', this.cachePngColor === '#FFFFFF');
+    this.$pngColor.classList.toggle('active', this.cachePngColor !== '#000000' && this.cachePngColor !== '#FFFFFF');
     this.$png24.classList.toggle('active', this.cachePngSize === '24');
     this.$png36.classList.toggle('active', this.cachePngSize === '36');
     this.$png48.classList.toggle('active', this.cachePngSize === '48');
     this.$png96.classList.toggle('active', this.cachePngSize === '96');
-    if (this.cachePngColor !== '#000' && this.cachePngColor !== '#fff') {
-      this.$pngColor.style.color = this.cachePngColor;
-    } else {
-      this.$pngColor.style.color = 'transparent';
-    }
-    if (this.cacheSvgColor !== '#000' && this.cacheSvgColor !== '#fff') {
-      this.$svgColor.style.color = this.cacheSvgColor;
-    } else {
-      this.$svgColor.style.color = 'transparent';
-    }
     this.$colorPicker.addEventListener('select', this.handleColorSelect.bind(this));
+    this.$colorHexRgb.addEventListener('change', this.handleHexRgbChange.bind(this));
+    this.syncEyedropper();
   }
 
   handleColorSelect(e) {
     switch(this.color) {
       case 'svg':
         this.cacheSvgColor = e.detail.hex;
-        this.$svgColor.style.color = this.cacheSvgColor;
         break;
       case 'png':
         this.cachePngColor = e.detail.hex;
-        this.$pngColor.style.color = this.cachePngColor;
         break;
+    }
+    this.$colorHexRgb.value = e.detail.hex;
+    this.syncEyedropper();
+  }
+
+  handleHexRgbChange(e) {
+    console.log('hmm')
+    switch(this.color) {
+      case 'svg':
+        this.cacheSvgColor = e.detail.hex;
+        break;
+      case 'png':
+        this.cachePngColor = e.detail.hex;
+        break;
+    }
+    this.$colorPicker.value = e.detail.hex;
+    this.syncEyedropper();
+  }
+
+  syncEyedropper() {
+    if (this.cachePngColor !== '#000000' && this.cachePngColor !== '#FFFFFF') {
+      this.$pngColor.style.color = this.cachePngColor;
+    } else {
+      this.$pngColor.style.color = 'transparent';
+    }
+    if (this.cacheSvgColor !== '#000000' && this.cacheSvgColor !== '#FFFFFF') {
+      this.$svgColor.style.color = this.cacheSvgColor;
+    } else {
+      this.$svgColor.style.color = 'transparent';
     }
   }
 

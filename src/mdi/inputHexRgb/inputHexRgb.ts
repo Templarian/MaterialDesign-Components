@@ -20,10 +20,10 @@ export default class MdiNav extends HTMLElement {
   connectedCallback() {
     this.$hex.value = this.value;
     this.updateRgb();
-    this.$hex.addEventListener('input', this.updateRgb.bind(this));
-    this.$red.addEventListener('input', this.updateHex.bind(this));
-    this.$green.addEventListener('input', this.updateHex.bind(this));
-    this.$blue.addEventListener('input', this.updateHex.bind(this));
+    this.$hex.addEventListener('input', this.updateRgbDispatch.bind(this));
+    this.$red.addEventListener('input', this.updateHexDispatch.bind(this));
+    this.$green.addEventListener('input', this.updateHexDispatch.bind(this));
+    this.$blue.addEventListener('input', this.updateHexDispatch.bind(this));
   }
 
   updateRgb() {
@@ -34,10 +34,14 @@ export default class MdiNav extends HTMLElement {
       this.$green.value = rgb.g.toString();
       this.$blue.value = rgb.b.toString();
     }
+  }
+
+  updateRgbDispatch() {
+    this.updateRgb();
     this.dispatchSelect();
   }
 
-  updateHex() {
+  updateHexDispatch() {
     this.$hex.value = rgbToHex(
       parseInt(this.$red.value || '0', 10),
       parseInt(this.$green.value || '0', 10),
@@ -65,6 +69,11 @@ export default class MdiNav extends HTMLElement {
   }
 
   render() {
-
+    const hex = normalizeHex(this.value);
+    const rgb = hexToRgb(hex);
+    this.$hex.value = hex;
+    this.$red.value = `${rgb ? rgb.r : 0}`;
+    this.$green.value = `${rgb ? rgb.g : 0}`;
+    this.$blue.value = `${rgb ? rgb.b : 0}`;
   }
 }

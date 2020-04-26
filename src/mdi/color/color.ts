@@ -81,4 +81,17 @@ export default class MdiColor extends HTMLElement {
     button.classList.toggle('active', true);
     this.index = index;
   }
+
+  render() {
+    if (this.index !== -1) {
+      const [lastButton] = this.buttons[this.index];
+      lastButton.classList.toggle('active', false);
+    }
+    const index = this.buttons.findIndex((a) => a[1] === this.value);
+    this.index = index;
+    if (this.buttons[index]) {
+      const [button] = this.buttons[index];
+      button.classList.toggle('active', true);
+    }
+  }
 }
