@@ -32,6 +32,7 @@ export default class MdiGrid extends HTMLElement {
   @Part() $png36: HTMLButtonElement;
   @Part() $png48: HTMLButtonElement;
   @Part() $png96: HTMLButtonElement;
+  @Part() $pngDownload: HTMLButtonElement;
   @Part() $svgBlack: HTMLButtonElement;
   @Part() $svgWhite: HTMLButtonElement;
   @Part() $svgColor: HTMLButtonElement;
@@ -157,6 +158,12 @@ export default class MdiGrid extends HTMLElement {
       this.cachePngSize = '96';
       this.render();
     });
+    this.$svgDownload.addEventListener('click', () => {
+      alert(`SVG ${this.cacheSvgColor}`);
+    });
+    this.$pngDownload.addEventListener('click', () => {
+      alert(`SVG ${this.cachePngSize} ${this.cachePngColor}`);
+    });
   }
 
   index = 0;
@@ -183,7 +190,7 @@ export default class MdiGrid extends HTMLElement {
 
   render() {
     const count = this.icons.length;
-    // Render more grid items
+    // Grid
     for(let i = this.currentCount; i < count; i++) {
       this.currentCount = i + 1;
       const btn = document.createElement('button');
@@ -258,7 +265,6 @@ export default class MdiGrid extends HTMLElement {
   }
 
   handleHexRgbChange(e) {
-    console.log('hmm')
     switch(this.color) {
       case 'svg':
         this.cacheSvgColor = e.detail.hex;

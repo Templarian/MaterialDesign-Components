@@ -1,6 +1,8 @@
 # `<mdi-grid>`
 
-The `mdi-grid` component allows a standard way to render a grid of icons. Note this is setup for performance and does not reduce rendered nodes. So if 500 icons are passed the dom notes will stay for later renders.
+The `mdi-grid` component allows a standard way to render a grid of icons.
+
+> A vast majority of code within this component handles the context menu for power users.
 
 ```typescript
 import '@mdi/web-component/mdiGrid.js';
