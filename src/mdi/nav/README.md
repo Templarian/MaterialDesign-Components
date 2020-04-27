@@ -3,7 +3,7 @@
 The `mdi-nav` component renders the navigation for the site. This includes `mdi-search`.
 
 ```typescript
-import '@mdi/web-component/mdiNav.js';
+import '@mdi/web-components/mdiNav.js';
 ```
 
 ```html

@@ -5,7 +5,7 @@ The `mdi-grid` component allows a standard way to render a grid of icons.
 > A vast majority of code within this component handles the context menu for power users.
 
 ```typescript
-import '@mdi/web-component/mdiGrid.js';
+import '@mdi/web-components/mdiGrid.js';
 ```
 
 ```html

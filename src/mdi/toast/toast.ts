@@ -26,7 +26,7 @@ export default class MdiToast extends HTMLElement {
 
   connectedCallback() {
     this.$button.addEventListener('click', () => {
-
+      removeToast(this.key);
     });
   }
 

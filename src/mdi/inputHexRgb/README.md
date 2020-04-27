@@ -3,7 +3,7 @@
 The `mdi-input-hex-rgb` component allows quick input of hex or RGB color input. This is commonly placed above the `mdi-color` selection.
 
 ```typescript
-import '@mdi/web-component/mdiInputHexRgb.js';
+import '@mdi/web-components/mdiInputHexRgb.js';
 ```
 
 ```html

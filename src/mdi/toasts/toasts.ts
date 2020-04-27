@@ -40,7 +40,7 @@ export default class MdiToasts extends HTMLElement {
         const ele = document.createElement('mdi-toast') as MdiToast;
         ele.setAttribute('key', toast.key);
         ele.message = toast.message;
-        document.body.appendChild(ele);
+        this.appendChild(ele);
       }
     });
   }

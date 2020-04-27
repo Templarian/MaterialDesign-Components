@@ -1,34 +1,37 @@
 # `<mdi-toast>`
 
-The `mdi-toast` lives inside of the `mdi-body` element and listens for content.
+The `mdi-toasts` will create instances of `mdi-toast`.
 
 ```typescript
-import '@mdi/web-component/mdiToast.js';
+import '@mdi/web-components/mdiToast.js';
 ```
 
 ```html
-<mdi-toast></mdi-toast>
+<mdi-toasts></mdi-toasts>
 ```
 
 ## Open Toast
 
+All of these functions will return the unique key used to track them. Note by default toasts disappear after `3` seconds. Setting `0` seconds will keep the toast opened indefinitely.
+
 ```js
+import { addToast, addInfoToast } from '@mdi/web-component';
 // Info
 addInfoToast(message, seconds = 3);
 addInfoToast('Hello World!');
 // Generic
-addToast({
-  id: 'unique',
+const key = addToast({
   message: 'Hello World!',
-  seconds: 3,
+  seconds: 10,
   loading: true
 });
+// removeToast(key)
 ```
 
-## Close Toast
+## Close or Remove Toast
 
-Toasts that define an `id` can also be removed.
+Toasts that define an `key` can also be removed.
 
 ```js
-removeToast(id);
+removeToast(key);
 ```

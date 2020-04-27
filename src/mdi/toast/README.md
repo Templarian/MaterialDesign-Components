@@ -3,7 +3,7 @@
 The `mdi-toast` lives inside of the `mdi-body` element and listens for content.
 
 ```typescript
-import '@mdi/web-component/mdiToast.js';
+import '@mdi/web-components/mdiToast.js';
 ```
 
 ```html
@@ -18,7 +18,7 @@ addInfoToast(message, seconds = 3);
 addInfoToast('Hello World!');
 // Generic
 addToast({
-  id: 'unique',
+  key: 'unique',
   message: 'Hello World!',
   seconds: 3,
   loading: true
@@ -27,8 +27,8 @@ addToast({
 
 ## Close Toast
 
-Toasts that define an `id` can also be removed.
+Toasts that define an `key` can also be removed.
 
 ```js
-removeToast(id);
+removeToast(key);
 ```

@@ -7,7 +7,7 @@ The `mdi-search` component allows a standard way to search all content on the si
 - Search Icons by Name
 
 ```typescript
-import '@mdi/web-component/mdiSearch.js';
+import '@mdi/web-components/mdiSearch.js';
 ```
 
 ```html
