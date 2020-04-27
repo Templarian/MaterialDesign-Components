@@ -1,0 +1,7 @@
+[part~=button] {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background: #FFF;
+  border: 1px solid blue;
+}

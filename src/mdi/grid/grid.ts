@@ -1,11 +1,11 @@
 import { Component, Prop, Part, Local } from '@mdi/element';
 import { createPopper } from '@popperjs/core';
+import { addInfoToast } from '../utils/toast';
 import { debounce, copyText } from './utils';
+import { getCopySvgInline } from './copy';
 
 import template from './grid.html';
 import style from './grid.css';
-
-const noIcon = 'M0 0h24v24H0V0zm2 2v20h20V2H2z';
 
 declare const ResizeObserver;
 
@@ -163,6 +163,27 @@ export default class MdiGrid extends HTMLElement {
     });
     this.$pngDownload.addEventListener('click', () => {
       alert(`SVG ${this.cachePngSize} ${this.cachePngColor}`);
+    });
+    this.$copySvgInline.addEventListener('click', () => {
+      const icon = this.icons[this.currentIndex];
+      copyText(getCopySvgInline(icon));
+      this.hideContextMenu();
+      addInfoToast(`Copied inline SVG "${icon.name}" to clipboard.`);
+    });
+    this.$copySvgFile.addEventListener('click', () => {
+
+    });
+    this.$copySvgPath.addEventListener('click', () => {
+
+    });
+    this.$copyUnicode.addEventListener('click', () => {
+
+    });
+    this.$copyCodepoint.addEventListener('click', () => {
+
+    });
+    this.$copyPreview.addEventListener('click', () => {
+
     });
   }
 
@@ -389,17 +410,7 @@ export default class MdiGrid extends HTMLElement {
   handleCopyIconName() {
     const icon = this.icons[this.currentIndex];
     copyText(icon.name);
-    this.dispatchEvent(
-      new CustomEvent('toast', {
-        detail: {
-          type: 'info',
-          icon: 'content-copy',
-          message: `Copied "${icon.name}" to clipboard.`
-        },
-        composed: true,
-        bubbles: true
-      })
-    );
+    addInfoToast(`Copied "${icon.name}" to clipboard.`);
     this.hideContextMenu();
   }
 

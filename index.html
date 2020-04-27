@@ -346,15 +346,17 @@
     </section>
     <script src="dist/mdiSearch.js"></script>
 
+    <div>
+      <mdi-toasts></mdi-toasts>
+    </div>
+    <script src="dist/mdiToast.js"></script>
+    <script src="dist/mdiToasts.js"></script>
+
     <script>
-      function handleToast(e) {
+      document.body.addEventListener('mditoastopen', (e) => {
         console.log(e.detail);
-      }
-      document.body.addEventListener('toast', (e) => {
-        console.log(e);
       });
     </script>
-
   </main>
 </body>
 </html>
