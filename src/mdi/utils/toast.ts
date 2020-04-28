@@ -40,3 +40,8 @@ export function addWarningToast(message, seconds = 3) {
   const type = 'warning';
   return addToast({ type, message, seconds });
 }
+
+export function addErrorToast(message, seconds = 3) {
+  const type = 'error';
+  return addToast({ type, message, seconds });
+}

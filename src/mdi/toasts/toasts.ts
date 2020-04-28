@@ -13,6 +13,8 @@ import style from './toasts.css';
 export default class MdiToasts extends HTMLElement {
   toasts: any[] = [];
 
+  @Part() $container: HTMLDivElement;
+
   connectedCallback() {
     observeToasts({
       add: (toast) => {
@@ -23,24 +25,24 @@ export default class MdiToasts extends HTMLElement {
         const index = this.toasts.findIndex(t => t.key === key);
         if (index !== -1) {
           var [toast] = this.toasts.splice(index, 1);
-          console.log(toast, 'hmm');
-          document.querySelector(`[key="${toast.key}"]`)?.remove();
+          this.$container.querySelector(`[key="${toast.key}"]`)?.remove();
         }
       }
     });
   }
 
   render() {
-    console.log(this.toasts);
     this.toasts.forEach((toast) => {
-      const existing = document.querySelector(`[key="${toast.key}"]`) as MdiToast;
+      const existing = this.$container.querySelector(`[key="${toast.key}"]`) as MdiToast;
       if (existing) {
         existing.message = toast.message;
+        existing.loading = toast.loading;
       } else {
         const ele = document.createElement('mdi-toast') as MdiToast;
         ele.setAttribute('key', toast.key);
         ele.message = toast.message;
-        this.appendChild(ele);
+        ele.loading = toast.loading;
+        this.$container.appendChild(ele);
       }
     });
   }

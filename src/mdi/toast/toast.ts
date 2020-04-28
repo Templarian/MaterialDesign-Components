@@ -13,14 +13,14 @@ import style from './toast.css';
 export default class MdiToast extends HTMLElement {
   @Prop() loading: boolean = false;
   @Prop() message: string = '';
-  @Prop() seconds: string = '3';
   @Prop() type: string = 'default';
   @Prop() key: string = uuid();
 
   @Part() $button: HTMLButtonElement;
   @Part() $loadingIcon: SVGElement;
   @Part() $closeIcon: SVGElement;
-  @Part() $message: HTMLDivElement;
+  @Part() $message: HTMLSpanElement;
+  @Part() $loading: HTMLSpanElement;
 
   toasts: any[] = [];
 
@@ -32,5 +32,6 @@ export default class MdiToast extends HTMLElement {
 
   render() {
     this.$message.innerText = this.message;
+    this.$loading.classList.toggle('hide', !this.loading);
   }
 }

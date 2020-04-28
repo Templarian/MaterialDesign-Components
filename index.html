@@ -346,11 +346,76 @@
     </section>
     <script src="dist/mdiSearch.js"></script>
 
-    <div>
-      <mdi-toasts></mdi-toasts>
-    </div>
+    <section>
+      <h2>mdi-search</h2>
+      <h3>Basic <small>Search Docs</small></h3>
+      <div>
+        <div class="example">
+          <mdi-toasts></mdi-toasts>
+        </div>
+        <button id="toast1">Info</button>
+        <button id="toast2">Warning</button>
+        <button id="toast3">Error</button>
+        <button id="toast4">Loading</button>
+        <button id="toast5">Close</button>
+        <p>Note: This just triggers the show to make styling easier.</p>
+      </div>
+    </section>
     <script src="dist/mdiToast.js"></script>
     <script src="dist/mdiToasts.js"></script>
+    <script>
+      function uuid() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+          var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+          return v.toString(16);
+        });
+      }
+      document.getElementById('toast1').addEventListener('click', () => {
+        document.body.dispatchEvent(new CustomEvent('mditoastadd', {
+          detail: {
+            type: 'info',
+            message: 'Hello World! With really long content that wraps rows.',
+            key: uuid()
+          }
+        }))
+      });
+      document.getElementById('toast2').addEventListener('click', () => {
+        document.body.dispatchEvent(new CustomEvent('mditoastadd', {
+          detail: {
+            type: 'warning',
+            message: 'testing',
+            key: uuid()
+          }
+        }))
+      });
+      document.getElementById('toast3').addEventListener('click', () => {
+        document.body.dispatchEvent(new CustomEvent('mditoastadd', {
+          detail: {
+            type: 'error',
+            message: 'testing',
+            key: uuid()
+          }
+        }))
+      });
+      const key = uuid();
+      document.getElementById('toast4').addEventListener('click', () => {
+        document.body.dispatchEvent(new CustomEvent('mditoastadd', {
+          detail: {
+            type: 'error',
+            message: 'testing',
+            loading: true,
+            key: key
+          }
+        }))
+      });
+      document.getElementById('toast5').addEventListener('click', () => {
+        document.body.dispatchEvent(new CustomEvent('mditoastremove', {
+          detail: {
+            key: key
+          }
+        }))
+      });
+    </script>
 
     <script>
       document.body.addEventListener('mditoastopen', (e) => {
