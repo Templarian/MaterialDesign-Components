@@ -16,8 +16,8 @@
 }
 
 [part~=loading] {
-  padding-right: 0.5rem;
   height: 1.5rem;
+  margin: -0.25rem 0.5rem -0.25rem -0.5rem;
 }
 
 [part~=button]:hover {
@@ -37,7 +37,6 @@
   animation: spin 2s infinite linear;
   width: 1.5rem;
   height: 1.5rem;
-  margin: -0.25rem 0 -0.25rem -0.25rem;
 }
 
 @keyframes progress {
@@ -70,4 +69,44 @@
 
 .hide {
   display: none;
+}
+
+/* Error */
+
+[part~=button].error {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+[part~=button].error [part~=closeIcon] {
+  color: rgba(114, 28, 36, 0.6);
+}
+
+[part~=button].error:hover {
+  border-color: #721c24;
+}
+
+[part~=button].error:hover [part~=closeIcon] {
+  color: #721c24;
+}
+
+/* Warning */
+
+[part~=button].warning {
+  color: #856404;
+  background-color: #fff3cd;
+  border-color: #ffeeba;
+}
+
+[part~=button].warning [part~=closeIcon] {
+  color: rgba(133, 101, 4, 0.6);
+}
+
+[part~=button].warning:hover {
+  border-color: #856404;
+}
+
+[part~=button].warning:hover [part~=closeIcon] {
+  color: #856404;
 }

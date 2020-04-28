@@ -33,5 +33,7 @@ export default class MdiToast extends HTMLElement {
   render() {
     this.$message.innerText = this.message;
     this.$loading.classList.toggle('hide', !this.loading);
+    this.$button.classList.toggle('error', this.type === 'error');
+    this.$button.classList.toggle('warning', this.type === 'warning');
   }
 }

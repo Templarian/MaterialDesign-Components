@@ -37,11 +37,13 @@ export default class MdiToasts extends HTMLElement {
       if (existing) {
         existing.message = toast.message;
         existing.loading = toast.loading;
+        existing.type = toast.type;
       } else {
         const ele = document.createElement('mdi-toast') as MdiToast;
         ele.setAttribute('key', toast.key);
         ele.message = toast.message;
         ele.loading = toast.loading;
+        ele.type = toast.type;
         this.$container.appendChild(ele);
       }
     });
