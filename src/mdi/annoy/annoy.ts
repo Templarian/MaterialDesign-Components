@@ -14,11 +14,16 @@ export default class MdiAnnoy extends HTMLElement {
   @Part() $contextMenu: HTMLDivElement;
   @Part() $extension: HTMLDivElement;
   @Part() $react: HTMLDivElement;
+  @Part() $upgrade: HTMLDivElement;
+
+  @Part() $close: HTMLButtonElement;
+  @Part() $list: HTMLDivElement;
 
   list = [
     'contextMenu',
     'extension',
-    'react'
+    'react',
+    'upgrade'
   ];
 
   connectedCallback() {
@@ -28,5 +33,8 @@ export default class MdiAnnoy extends HTMLElement {
     }
     this.current = this.list[next];
     this[`$${this.current}`].classList.add('show');
+    this.$close.addEventListener('click', () => {
+      this.$list.style.display = 'none';
+    });
   }
 }
