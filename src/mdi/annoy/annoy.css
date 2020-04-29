@@ -118,6 +118,61 @@
   cursor: default;
 }
 
+[part=react] code {
+  padding: 0.5rem;
+  background: #222;
+  border-radius: 0.25rem;
+  color: #FFF;
+  font-size: 12px;
+  text-align: center;
+  margin: 0.25rem;
+}
+
+[part=react] a {
+  display: grid;
+  position: relative;
+  grid-row: 1;
+  grid-column: 1;
+  grid-template-rows: auto 2rem;
+  grid-template-columns: auto;
+  color: #453C4F;
+  border: 1px solid #453C4F;
+  border-radius: 0.25rem;
+  padding: 0.5rem 0 0 0;
+  margin: 0.25rem;
+  text-decoration: none;
+}
+
+[part=react] a:hover,
+[part=react] a:hover {
+  color: #fff;
+  background: #453C4F;
+}
+
+[part=react] a svg.link {
+  width: 1.5rem;
+  height: 1.5rem;
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+}
+
+[part=react] a svg.file {
+  width: 4rem;
+  height: 4rem;
+  grid-row: 1;
+  grid-column: 1;
+  justify-self: center;
+}
+
+[part=react] a .link-text {
+  grid-row: 2;
+  grid-column: 1;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Upgrade */
 
 [part=upgrade] {
   grid-template-rows: auto auto;
