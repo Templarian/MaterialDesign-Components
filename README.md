@@ -30,3 +30,15 @@ To build just the components.
 ```bash
 npm run build
 ```
+
+### Web Components
+
+Web Components with a very basic wrapper. The only magic is...
+
+- `@Prop() foo = 'Hello World`;
+  - Calls `this.render()` on change.
+- `@Part() $foo: HTMLDivElement;` = `<div part="foo"></div>`
+  - `this.$part.innerText = 'Hello World!';`
+- `@Local('default') foo;` Shorthand for localStorage.
+
+Learn More: https://github.com/Templarian/Element

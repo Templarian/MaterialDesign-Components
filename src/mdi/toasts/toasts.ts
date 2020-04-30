@@ -1,5 +1,5 @@
 import { Component, Prop, Part } from '@mdi/element';
-import { observeToasts } from '../utils/toast';
+import { observeToasts } from '../shared/toast';
 import MdiToast from '../toast/toast';
 
 import template from './toasts.html';

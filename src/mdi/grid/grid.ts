@@ -1,6 +1,6 @@
 import { Component, Prop, Part, Local } from '@mdi/element';
 import { createPopper } from '@popperjs/core';
-import { addInfoToast } from '../utils/toast';
+import { addInfoToast } from '../shared/toast';
 import { debounce, copyText } from './utils';
 import { getCopySvgInline } from './copy';
 

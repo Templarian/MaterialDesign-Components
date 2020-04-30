@@ -1,6 +1,6 @@
 import { Component, Prop, Part } from '@mdi/element';
-import { uuid } from '../utils/uuid';
-import { removeToast } from '../utils/toast';
+import { uuid } from '../shared/uuid';
+import { removeToast } from '../shared/toast';
 
 import template from './toast.html';
 import style from './toast.css';
