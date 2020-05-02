@@ -10,10 +10,6 @@ interface StringMap {
   [key: string]: string;
 }
 
-const font = new Font().from({
-  id: 'D051337E-BC7E-11E5-A4E9-842B2B6CFE1B'
-} as Font);
-
 export class DatabaseService {
 
   private db = new Database();
@@ -79,8 +75,11 @@ export class DatabaseService {
     }
   }
 
-  async sync() {
+  async resync(fontId) {
     console.log('start');
+    const font = new Font().from({
+      id: fontId
+    } as Font);
     const hashes = await this.getHashesFromServer(font);
     const hashIds = Object.keys(hashes);
     const localHashObj = await this.db.hashes.toArray();
@@ -160,6 +159,15 @@ export class DatabaseService {
     console.log('done');
   }
 
+  synced = false;
+
+  async sync(fontId: string) {
+    if (!this.synced) {
+      await this.resync(fontId);
+      this.synced = true;
+    }
+  }
+
   convert(local: IconTable) {
     const icon = new Icon();
     icon.id = local.idFull;
@@ -184,24 +192,23 @@ export class DatabaseService {
 
   // ToDo, cache into a format that can be parsed quicker for search
 
-  async getIcons(term?: string) {
+  async getIcons(fontId: string, term?: string) {
     let icons;
     if (term) {
       const safeTerm = term.toLowerCase().replace(/[^a-z0-9-]/g, '');
       const reg = new RegExp(`${safeTerm}`);
-      icons = await this.db.icons.where('fontId').equals(font.id)
+      icons = await this.db.icons.where('fontId').equals(fontId)
         .filter((icon) => {
-          console.log(JSON.parse(icon.aliases));
           return icon.name.match(reg) !== null;
         }).sortBy('name');
     } else {
-      icons = await this.db.icons.where('fontId').equals(font.id).sortBy('name');
+      icons = await this.db.icons.where('fontId').equals(fontId).sortBy('name');
     }
     return icons.map(icon => this.convert(icon));
   }
 
-  async getCount() {
-    return await this.db.icons.where('fontId').equals('D051337E-BC7E-11E5-A4E9-842B2B6CFE1B').count();
+  async getCount(fontId: string) {
+    return await this.db.icons.where('fontId').equals(fontId).count();
   }
 
   async delete() {

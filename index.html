@@ -274,15 +274,6 @@
     </script>
 
     <section>
-      <h2>mdi-indexeddb</h2>
-      <h3>Basic <small>Sync Data</small></h3>
-      <div class="example">
-        <mdi-indexeddb></mdi-indexeddb>
-      </div>
-    </section>
-    <script src="dist/mdiIndexeddb.js"></script>
-
-    <section>
       <h2>mdi-input-hex-rgb</h2>
       <h3>Basic <small>Value</small></h3>
       <div class="example">
@@ -440,10 +431,17 @@
       });
     </script>
 
+    <mdi-database></mdi-database>
+    <script src="dist/mdiDatabase.js"></script>
     <script>
-      document.body.addEventListener('mditoastopen', (e) => {
-        console.log(e.detail);
+      const fontId = 'D051337E-BC7E-11E5-A4E9-842B2B6CFE1B';
+      const database = document.getElementsByTagName('mdi-database')[0];
+      database.addEventListener('sync', async (e) => {
+        const { db } = e.detail;
+        const count = await db.getCount(fontId);
+        console.log('Total Icons', count);
       });
+      database.font = fontId;
     </script>
   </main>
 </body>
