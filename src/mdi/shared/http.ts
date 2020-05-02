@@ -4,16 +4,24 @@ interface HttpResponse<T> extends Response {
 
 interface Params { [key: string]: string; }
 
+const isLocal = window.location.href.match(/localhost/);
+
 export async function get<T>(
   request: RequestInfo,
-  params: { [key: string]: Params } = {}
+  options: { [key: string]: Params } = {}
 ): Promise<T> {
 
+  const { params = {} } = options;
   const keys = Object.keys(params);
   const p = `?${keys.map(k => `${k}=${params[k]}`).join('&')}`;
-
+  if (isLocal) {
+    const mock = keys.map(k => `${k}/${params[k]}`).join('/');
+    if (mock) {
+      request += `/_/${mock}`;
+    }
+  }
   const response: HttpResponse<T> = await fetch(
-    `${request}${p === '?' ? '' : p}`
+    isLocal ? `${request}/mock.get.json` :  `${request}${p === '?' ? '' : p}`
   );
 
   try {
