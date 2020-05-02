@@ -16,8 +16,10 @@ export default class MdiNav extends HTMLElement {
   @Part() $sync: HTMLButtonElement;
 
   connectedCallback() {
-    this.$sync.addEventListener('click', () => {
-      db.sync();
+    this.$sync.addEventListener('click', async () => {
+      await db.sync();
+      const count = await db.getCount();
+      console.log('Total Icons', count);
     });
   }
 

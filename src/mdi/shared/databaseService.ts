@@ -200,6 +200,10 @@ export class DatabaseService {
     return icons.map(icon => this.convert(icon));
   }
 
+  async getCount() {
+    return await this.db.icons.where('fontId').equals('D051337E-BC7E-11E5-A4E9-842B2B6CFE1B').count();
+  }
+
   async delete() {
     await this.db.delete();
   }
