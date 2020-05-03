@@ -24,3 +24,5 @@ await db.sync();
 > Note: All data is parsed into models. This can take a second, so data needs to be cached once pulled from the database.
 
 ## Toast
+
+Reference the toast documentation.
