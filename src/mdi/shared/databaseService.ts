@@ -134,7 +134,7 @@ export class DatabaseService {
           })
         ));
       });
-    } else {
+    } else if (modifiedIds.length !== 0) {
       // Sync every icon into the database
       let size = 500,
         pages = Math.ceil(hashIds.length / size),
@@ -162,8 +162,10 @@ export class DatabaseService {
         })
       );
     }
-    await this.db.hashes.bulkPut(hashIds.map(id => ({ id, hash: hashes[id] })));
-    await this.db.hashes.bulkDelete(removeIds);
+    if (modified) {
+      await this.db.hashes.bulkPut(hashIds.map(id => ({ id, hash: hashes[id] })));
+      await this.db.hashes.bulkDelete(removeIds);
+    }
     return modified;
   }
 
