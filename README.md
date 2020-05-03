@@ -7,6 +7,7 @@
 
 The website is made of many components...
 
+- [mdi-database](src/mdi/database/) - Database
 - [mdi-grid](src/mdi/grid/) - Icon grid
 - [mdi-header](src/mdi/header/) - Header
 - [mdi-icon](src/mdi/icon/) - Single icon

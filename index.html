@@ -131,21 +131,6 @@
   <main>
     <p>Use this application <code>index.html</code> to debug components. Along with the examples here components have a seperate documentation readme file in their folder.</p>
 
-    <script>
-      function getIcons(count) {
-        const icons = [];
-        for (var i = 0; i < count; i++) {
-          icons.push({
-            name: (i % 2) ? `account-${i}` : `book-${i}`,
-            data: (i % 2)
-              ? 'M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z'
-              : 'M18,22A2,2 0 0,0 20,20V4C20,2.89 19.1,2 18,2H12V9L9.5,7.5L7,9V2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18Z'
-          });
-        }
-        return icons;
-      }
-    </script>
-
     <section>
       <h2>mdi-annoy</h2>
       <h3>Basic <small>Annoyance</small></h3>
@@ -238,7 +223,6 @@
           element.icons = getIcons(count);
         }
       };
-      iconGrid.basic(10);
     </script>
 
     <section>
@@ -348,7 +332,7 @@
     </section>
     <script src="dist/mdiPicker.js"></script>
     <script>
-      document.getElementById('picker1').icons = getIcons(200);
+      // Code is down below to share icon data
     </script>
 
     <section>
@@ -440,6 +424,15 @@
         const { db } = e.detail;
         const count = await db.getCount(fontId);
         console.log('Total Icons', count);
+        const icons = await db.getIcons(fontId);
+        console.log('Icon Objects:', icons.length);
+
+        window.getIcons = (count) => {
+          return icons.slice(0, count);
+        };
+        // Init examples with icons
+        document.getElementById('picker1').icons = getIcons(200);
+        iconGrid.basic(10);
       });
       database.font = fontId;
     </script>

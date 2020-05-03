@@ -17,12 +17,26 @@ export default class MdiNav extends HTMLElement {
 
   async render() {
     if (this.font !== '') {
-      await db.sync(this.font);
-      this.dispatchEvent(new CustomEvent('sync', {
-        detail: {
-          db
-        }
-      }));
+      const exists = await db.exists(this.font);
+      let delay = true;
+      if (exists) {
+        this.dispatchEvent(new CustomEvent('sync', {
+          detail: {
+            db,
+            delay
+          }
+        }));
+      }
+      const modified = await db.sync(this.font);
+      if (modified) {
+        delay = false;
+        this.dispatchEvent(new CustomEvent('sync', {
+          detail: {
+            db,
+            delay
+          }
+        }));
+      }
     }
   }
 }

@@ -60,19 +60,19 @@
   top: 44px;
 }
 
-[part~=arrow] {
+[part~=tooltipArrow] {
   left: 18px;
   bottom: -26px;
 }
 
-[part~=arrow],
-[part~=arrow]::before {
+[part~=tooltipArrow],
+[part~=tooltipArrow]::before {
   position: absolute;
   width: 10px;
   height: 10px;
 }
 
-[part~=arrow]::before {
+[part~=tooltipArrow]::before {
   content: '';
   transform: rotate(45deg);
   background: #737E9E;

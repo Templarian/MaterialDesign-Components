@@ -75,8 +75,13 @@ export class DatabaseService {
     }
   }
 
-  async resync(fontId) {
-    console.log('start');
+  async exists(fontId: string) {
+    const count = await this.getCount(fontId);
+    return count > 0;
+  }
+
+  async resync(fontId: string) {
+    let modified = false;
     const font = new Font().from({
       id: fontId
     } as Font);
@@ -101,6 +106,9 @@ export class DatabaseService {
       }
     });
     await this.db.icons.bulkDelete(removeIds);
+    if (modifiedIds.length > 0 || removeIds.length > 0) {
+      modified = true;
+    }
     if (modifiedIds.length < 500) {
       // Do a partial update patch of data
       let i, j, chunkIds: any[] = [], chunk = 100;
@@ -156,16 +164,18 @@ export class DatabaseService {
     }
     await this.db.hashes.bulkPut(hashIds.map(id => ({ id, hash: hashes[id] })));
     await this.db.hashes.bulkDelete(removeIds);
-    console.log('done');
+    return modified;
   }
 
   synced = false;
 
   async sync(fontId: string) {
     if (!this.synced) {
-      await this.resync(fontId);
+      const modified = await this.resync(fontId);
       this.synced = true;
+      return modified;
     }
+    return false;
   }
 
   convert(local: IconTable) {

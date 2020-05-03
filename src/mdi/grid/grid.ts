@@ -46,6 +46,7 @@ export default class MdiGrid extends HTMLElement {
 
   @Part() $tooltip: HTMLDivElement;
   @Part() $tooltipText: HTMLSpanElement;
+  @Part() $tooltipArrow: HTMLDivElement;
   @Part() $color: any;
   @Part() $colorPicker: any;
   @Part() $colorHexRgb: any;
@@ -418,10 +419,15 @@ export default class MdiGrid extends HTMLElement {
     if (!this.canOpenTooltip) { return; }
     this.$tooltipText.innerText = icon.name;
     const { x, y } = this.getPositionFromIndex(index);
-    //this.$tooltip.style.gridColumn = `${x + 1}`;
-    //this.$tooltip.style.gridRow = `${y + 1}`;
-    this.$tooltip.style.left = `${x * 44}px`;
+    const half = Math.ceil(this.columns / 2);
+    let offsetX = 0;
+    if (x >= half) {
+      const { width } = this.$tooltip.getBoundingClientRect();
+      offsetX -= width - 44;
+    }
+    this.$tooltip.style.left = `${x * 44 + offsetX}px`;
     this.$tooltip.style.top = `${(y * 44 + 5)}px`;
+    this.$tooltipArrow.style.left = `${16 + (-1 * offsetX)}px`;
     this.$tooltip.classList.add('visible');
   }
 
