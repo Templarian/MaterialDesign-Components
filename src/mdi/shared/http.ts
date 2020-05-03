@@ -4,7 +4,7 @@ interface HttpResponse<T> extends Response {
 
 interface Params { [key: string]: string; }
 
-const isLocal = window.location.href.match(/localhost/);
+const isLocal = window.location.href.match(/localhost|templarian\.github\.io/);
 
 export async function get<T>(
   request: RequestInfo,
