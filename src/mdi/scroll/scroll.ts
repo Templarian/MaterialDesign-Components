@@ -29,7 +29,9 @@ export default class MdiScroll extends HTMLElement {
     const { innerHeight } = window;
     const { y, height } = this.getBoundingClientRect();
     const top = y < 0 ? -1 * y : 0;
-    const calcY = height - top - innerHeight < 0 ? height - innerHeight : top;
+    const calcY = height - top - innerHeight < 0
+      ? height - innerHeight < 0 ? 0 : height - innerHeight
+      : top;
     const calcHeight = height < innerHeight
       ? height
       : y + height - innerHeight > 0 ? innerHeight : y + height - innerHeight;
