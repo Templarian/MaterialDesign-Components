@@ -29,13 +29,14 @@ export default class MdiScroll extends HTMLElement {
     const { innerHeight } = window;
     const { y, height } = this.getBoundingClientRect();
     const top = y < 0 ? -1 * y : 0;
-    const maxHeight = height > innerHeight ? innerHeight : height;
-    const minHeight = y + height - innerHeight > 0 ? maxHeight : maxHeight + y + height - innerHeight;
     const calcY = height - top - innerHeight < 0 ? height - innerHeight : top;
+    const calcHeight = height < innerHeight
+      ? height
+      : y + height - innerHeight > 0 ? innerHeight : y + height - innerHeight;
     return {
       visible: y < innerHeight && height + y > 0,
       y: calcY,
-      height: height > innerHeight && minHeight < innerHeight ? innerHeight : minHeight,
+      height: calcHeight,
       offsetRows: Math.floor(calcY / 44)
     }
   }
