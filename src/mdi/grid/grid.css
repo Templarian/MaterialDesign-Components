@@ -2,17 +2,18 @@
   font-family: var(--mdi-font-family);
 }
 
+:host {
+  display: block;
+}
+
 [part~=grid] {
   display: grid;
   grid-template-columns: repeat(auto-fill, 2.75rem);
   grid-template-rows: repeat(1, 2.75rem);
   min-height: 2.75rem;
   overflow: hidden;
-}
-
-:host {
-  display: block;
-  position: relative;
+  justify-items: start;
+  align-items: flex-start;
 }
 
 [part~=grid] > button {
@@ -20,6 +21,8 @@
   background: transparent;
   padding: 0.625rem;
   outline: none;
+  width: 2.75rem;
+  height: 2.75rem;
 }
 
 [part~=grid] > button:focus {
@@ -35,14 +38,11 @@
 }
 
 [part~=tooltip] {
-  order: 1;
+  will-change: transform;
   opacity: 0;
   transition: opacity 0.2s ease-in;
   pointer-events: none;
   visibility: hidden;
-  position: absolute;
-  top: 0;
-  left: 0;
 }
 
 [part~=tooltip].visible {
@@ -56,8 +56,6 @@
   color: #FFF;
   padding: 0.15rem 0.5rem 0.3rem 0.5rem;
   white-space: nowrap;
-  position: relative;
-  top: 44px;
 }
 
 [part~=tooltipArrow] {

@@ -1,0 +1,8 @@
+:host {
+  display: block;
+}
+
+div {
+  transition: translateY(0);
+  background: red;
+}

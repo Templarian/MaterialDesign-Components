@@ -433,10 +433,9 @@ export default class MdiGrid extends HTMLElement {
       const { width } = this.$tooltip.getBoundingClientRect();
       offsetX -= width - 44;
     }
-    this.$tooltip.style.left = `${x * 44 + offsetX}px`;
-    this.$tooltip.style.top = `${(y * 44 + 5)}px`;
-    this.$tooltipArrow.style.left = `${16 + (-1 * offsetX)}px`;
-    this.$tooltip.classList.add('visible');
+    //this.$tooltip.style.transform = `translate(${x * 44 + offsetX}px, ${(y * 44 + 5)}px`;
+    //this.$tooltipArrow.style.transform = `translate(${16 + (-1 * offsetX)}px, 0)`;
+    //this.$tooltip.classList.add('visible');
   }
 
   hideTooltip() {
