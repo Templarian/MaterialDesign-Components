@@ -13,11 +13,13 @@ declare const ResizeObserver;
 export default class MdiScroll extends HTMLElement {
   @Part() $scroll: HTMLDivElement;
 
+  columns = 10;
   size = 44;
+  visible = false;
 
   resizeObserver = new ResizeObserver(entries => {
     const { width } = entries[0].contentRect;
-    const columns = Math.floor(width / (this.size + 20));
+    this.columns = Math.floor(width / (this.size + 20));
   });
 
   getView() {
@@ -25,7 +27,6 @@ export default class MdiScroll extends HTMLElement {
     const { y, height } = this.getBoundingClientRect();
     const top = y < 0 ? -1 * y : 0;
     const maxHeight = height > innerHeight ? innerHeight : height;
-    console.log(y, height, innerHeight, y - height - innerHeight > 0)
     return {
       visible: y < innerHeight && height + y > 0,
       y: top,
@@ -34,15 +35,36 @@ export default class MdiScroll extends HTMLElement {
     }
   }
 
-  connectedCallback() {
-    window.addEventListener('scroll', () => {
-      const { visible, y, height, offsetRows } = this.getView();
-      if (visible) {
-        this.$scroll.innerText = `Offset Rows: ${offsetRows}`;
-        this.$scroll.style.transform = `translateY(${y}px)`;
-        this.$scroll.style.height = `${height}px`;
+  calculateScroll() {
+    const { visible, y, height, offsetRows } = this.getView();
+    if (visible) {
+      this.$scroll.innerText = `Offset Rows: ${offsetRows}`;
+      this.$scroll.style.transform = `translateY(${y}px)`;
+      this.$scroll.style.height = `${height}px`;
+    }
+    if (this.visible !== visible) {
+      this.visible = visible;
+      if (this.visible) {
+        this.enterView();
+      } else {
+        this.leaveView();
       }
-    });
+    }
+  }
+
+  enterView() {
+    console.log('Enter View');
+  }
+
+  leaveView() {
+    console.log('Leave View');
+  }
+
+  connectedCallback() {
     this.style.height = '2000px';
+    window.addEventListener('scroll', () => {
+      this.calculateScroll();
+    });
+    this.calculateScroll();
   }
 }
