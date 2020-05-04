@@ -12,6 +12,9 @@ declare const ResizeObserver;
 })
 export default class MdiScroll extends HTMLElement {
   @Part() $scroll: HTMLDivElement;
+  @Part() $text: HTMLDivElement;
+  @Part() $small: HTMLButtonElement;
+  @Part() $large: HTMLButtonElement;
 
   columns = 10;
   size = 44;
@@ -27,18 +30,20 @@ export default class MdiScroll extends HTMLElement {
     const { y, height } = this.getBoundingClientRect();
     const top = y < 0 ? -1 * y : 0;
     const maxHeight = height > innerHeight ? innerHeight : height;
+    const minHeight = y + height - innerHeight > 0 ? maxHeight : maxHeight + y + height - innerHeight;
+    const calcY = height - top - innerHeight < 0 ? height - innerHeight : top;
     return {
       visible: y < innerHeight && height + y > 0,
-      y: top,
-      height: y + height - innerHeight > 0 ? maxHeight : maxHeight + y + height - innerHeight,
-      offsetRows: Math.floor(top / 44)
+      y: calcY,
+      height: height > innerHeight && minHeight < innerHeight ? innerHeight : minHeight,
+      offsetRows: Math.floor(calcY / 44)
     }
   }
 
   calculateScroll() {
     const { visible, y, height, offsetRows } = this.getView();
     if (visible) {
-      this.$scroll.innerText = `Offset Rows: ${offsetRows}`;
+      this.$text.innerText = `Offset Rows: ${offsetRows}`;
       this.$scroll.style.transform = `translateY(${y}px)`;
       this.$scroll.style.height = `${height}px`;
     }
@@ -66,5 +71,16 @@ export default class MdiScroll extends HTMLElement {
       this.calculateScroll();
     });
     this.calculateScroll();
+    // Debug
+    this.$small.addEventListener('click', () => {
+      this.style.height = '500px';
+      this.$scroll.style.height = `44px`;
+      this.calculateScroll();
+    });
+    this.$large.addEventListener('click', () => {
+      this.style.height = '2000px';
+      this.$scroll.style.height = `44px`;
+      this.calculateScroll();
+    });
   }
 }
