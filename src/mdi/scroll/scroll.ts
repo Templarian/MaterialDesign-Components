@@ -19,6 +19,7 @@ export default class MdiScroll extends HTMLElement {
   columns = 10;
   size = 44;
   visible = false;
+  offsetRows = 0;
 
   resizeObserver = new ResizeObserver(entries => {
     const { width } = entries[0].contentRect;
@@ -46,7 +47,6 @@ export default class MdiScroll extends HTMLElement {
   calculateScroll() {
     const { visible, y, height, offsetRows } = this.getView();
     if (visible) {
-      this.$text.innerText = `Offset Rows: ${offsetRows}`;
       this.$scroll.style.transform = `translateY(${y}px)`;
       this.$scroll.style.height = `${height}px`;
     }
@@ -58,6 +58,15 @@ export default class MdiScroll extends HTMLElement {
         this.leaveView();
       }
     }
+    if (this.offsetRows !== offsetRows) {
+      this.offsetRows = offsetRows;
+      this.updateRows();
+    }
+  }
+
+  updateRows() {
+    console.log('Update Rows', this.offsetRows);
+    this.$text.innerText = `Offset Rows: ${this.offsetRows}`;
   }
 
   enterView() {
