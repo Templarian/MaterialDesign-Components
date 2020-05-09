@@ -34,16 +34,19 @@ export default class MdiScroll extends HTMLElement {
       : top;
     const calcHeight = height < innerHeight
       ? height
-      : y + height - innerHeight > 0 ? innerHeight : y + height - innerHeight;
+      : y + height - innerHeight > 0
+        ? innerHeight
+        : y + height - innerHeight;
     return {
       visible: y < innerHeight && height + y > 0,
       y: calcY,
-      height: calcHeight
+      height: calcHeight < 0 ? innerHeight : calcHeight,
+      atEnd: calcHeight < 0
     }
   }
 
   calculateScroll() {
-    const { visible, y, height } = this.getView();
+    const { visible, y, height, atEnd } = this.getView();
     if (visible) {
       this.$scroll.style.transform = `translateY(${y}px)`;
       this.$scroll.style.height = `${height}px`;
@@ -62,7 +65,8 @@ export default class MdiScroll extends HTMLElement {
           detail: {
             offsetY: y,
             viewHeight: height,
-            height: this.height
+            height: this.height,
+            atEnd
           }
         }
       ));

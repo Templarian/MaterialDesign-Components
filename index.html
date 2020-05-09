@@ -104,6 +104,13 @@
       background-position: -.5em;
       border-color: rgba(27,31,35,.35);
     }
+    #mdiScrollList button {
+      background: transparent;
+      border: 1px dashed #DDD;
+    }
+    #mdiScrollList button:hover {
+      background: #CCC;
+    }
   </style>
 </head>
 
@@ -418,14 +425,11 @@
     <section>
       <h2>mdi-scroll</h2>
       <h3>Basic <small>Scroll</small></h3>
+      <p>Content <span id="scrollCount">0</span></p>
       <div class="example">
-        <button id="small">Small</button> <button id="large">Larger</button>
         <mdi-scroll>
           <div id="mdiScrollList" style="display:flex;flex-direction:column;"></div>
-
-          Content <span id="scrollCount">0</span>
         </mdi-scroll>
-        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
       </div>
     </section>
     <script src="dist/mdiScroll.js"></script>
@@ -437,7 +441,7 @@
         mdiScrollItems.push(`Test Item ${i}`);
       }
       var list = [];
-      function syncVirtual(virtualRows) {
+      function syncVirtual(virtualRows, atEnd) {
         for (var i = list.length; i < virtualRows; i++) {
           var ele = document.createElement('button');
           ele.innerText = 'Placeholder';
@@ -445,14 +449,18 @@
           mdiScrollList.appendChild(ele);
           list.push(ele);
         }
+        list.forEach((e, i) => e.style.display = i < virtualRows ? '' : 'none');
+        if (atEnd) {
+          list[list.length - 1].style.display = 'none';
+        }
       }
       var currentRow = 0;
       var currentViewHeight = 0;
       mdiScroll.addEventListener('calculate', (e) => {
-        var { offsetY, height, viewHeight } = e.detail;
+        var { offsetY, height, viewHeight, atEnd } = e.detail;
         var viewRows = Math.ceil(viewHeight / 44) + 1;
         var row = Math.floor(offsetY / 44);
-        syncVirtual(viewRows);
+        syncVirtual(viewRows, atEnd);
         if (currentRow !== row || currentViewHeight !== viewHeight) {
           document.getElementById('scrollCount').innerText = `${row}, ${viewRows}`;
           list.forEach((ele, index) => {
@@ -464,25 +472,10 @@
         mdiScrollList.style.transform = `translateY(${-1 * offsetY % 44}px)`;
       });
       mdiScroll.dispatchEvent(new CustomEvent('height', {
-          detail: {
-            height: 2000
-          }
-        }));
-      // Debug
-      document.getElementById('small').addEventListener('click', () => {
-        mdiScroll.dispatchEvent(new CustomEvent('height', {
-          detail: {
-            height: 400
-          }
-        }));
-      });
-      document.getElementById('large').addEventListener('click', () => {
-        mdiScroll.dispatchEvent(new CustomEvent('height', {
-          detail: {
-            height: 2000
-          }
-        }));
-      });
+        detail: {
+          height: mdiScrollItems.length * 44
+        }
+      }));
     </script>
 
     <mdi-database></mdi-database>
