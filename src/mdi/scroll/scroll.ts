@@ -88,6 +88,7 @@ export default class MdiScroll extends HTMLElement {
       const { height } = e.detail;
       this.style.height = `${height}px`;
       this.height = parseInt(height, 10);
+      this.y = -1;
       this.calculateScroll();
     });
     this.style.height = `${this.height}px`;
