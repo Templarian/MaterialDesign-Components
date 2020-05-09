@@ -13,13 +13,12 @@ declare const ResizeObserver;
 export default class MdiScroll extends HTMLElement {
   @Part() $scroll: HTMLDivElement;
   @Part() $text: HTMLDivElement;
-  @Part() $small: HTMLButtonElement;
-  @Part() $large: HTMLButtonElement;
 
+  height = 16;
   columns = 10;
   size = 44;
   visible = false;
-  offsetRows = 0;
+  y = -1;
 
   resizeObserver = new ResizeObserver(entries => {
     const { width } = entries[0].contentRect;
@@ -39,13 +38,12 @@ export default class MdiScroll extends HTMLElement {
     return {
       visible: y < innerHeight && height + y > 0,
       y: calcY,
-      height: calcHeight,
-      offsetRows: Math.floor(calcY / 44)
+      height: calcHeight
     }
   }
 
   calculateScroll() {
-    const { visible, y, height, offsetRows } = this.getView();
+    const { visible, y, height } = this.getView();
     if (visible) {
       this.$scroll.style.transform = `translateY(${y}px)`;
       this.$scroll.style.height = `${height}px`;
@@ -58,41 +56,40 @@ export default class MdiScroll extends HTMLElement {
         this.leaveView();
       }
     }
-    if (this.offsetRows !== offsetRows) {
-      this.offsetRows = offsetRows;
-      this.updateRows();
+    if (this.visible && this.y !== y) {
+      this.dispatchEvent(
+        new CustomEvent('calculate', {
+          detail: {
+            offsetY: y,
+            viewHeight: height,
+            height: this.height
+          }
+        }
+      ));
+      this.y = y;
     }
   }
 
-  updateRows() {
-    console.log('Update Rows', this.offsetRows);
-    this.$text.innerText = `Offset Rows: ${this.offsetRows}`;
-  }
-
   enterView() {
-    console.log('Enter View');
+    this.dispatchEvent(new CustomEvent('enter'));
   }
 
   leaveView() {
-    console.log('Leave View');
+    this.dispatchEvent(new CustomEvent('leave'));
   }
 
   connectedCallback() {
-    this.style.height = '2000px';
+    this.addEventListener('height', (e: any) => {
+      e.preventDefault();
+      const { height } = e.detail;
+      this.style.height = `${height}px`;
+      this.height = parseInt(height, 10);
+      this.calculateScroll();
+    });
+    this.style.height = `${this.height}px`;
     window.addEventListener('scroll', () => {
       this.calculateScroll();
     });
     this.calculateScroll();
-    // Debug
-    this.$small.addEventListener('click', () => {
-      this.style.height = '500px';
-      this.$scroll.style.height = `44px`;
-      this.calculateScroll();
-    });
-    this.$large.addEventListener('click', () => {
-      this.style.height = '2000px';
-      this.$scroll.style.height = `44px`;
-      this.calculateScroll();
-    });
   }
 }

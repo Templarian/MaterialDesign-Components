@@ -419,11 +419,55 @@
       <h2>mdi-scroll</h2>
       <h3>Basic <small>Scroll</small></h3>
       <div class="example">
-        <mdi-scroll></mdi-scroll>
+        <button id="small">Small</button> <button id="large">Larger</button>
+        <mdi-scroll>
+          <div id="mdiScrollList" style="display:flex;flex-direction:column;"></div>
+
+          Content <span id="scrollCount">0</span>
+        </mdi-scroll>
         <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
       </div>
     </section>
     <script src="dist/mdiScroll.js"></script>
+    <script>
+      var mdiScroll = document.getElementsByTagName('mdi-scroll')[0];
+      var mdiScrollList = document.getElementById('mdiScrollList');
+      var mdiScrollItems = [];
+      for(var i = 0; i < 500; i++) {
+        mdiScrollItems.push(`Test Item ${i}`);
+      }
+      var list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(x => {
+        var ele = document.createElement('button');
+        ele.innerText = 'Placeholder';
+        ele.style.height = '44px';
+        mdiScrollList.appendChild(ele);
+        return ele;
+      });
+      mdiScroll.addEventListener('calculate', (e) => {
+        var { offsetY, height, viewHeight } = e.detail;
+        var row = Math.floor(offsetY / 44);
+        document.getElementById('scrollCount').innerText = row;
+        list.forEach((ele, index) => {
+          ele.innerText = mdiScrollItems[index + row];
+        });
+        mdiScrollList.style.transform = `translateY(${-1 * offsetY % 44}px)`;
+      });
+      // Debug
+      document.getElementById('small').addEventListener('click', () => {
+        mdiScroll.dispatchEvent(new CustomEvent('height', {
+          detail: {
+            height: 400
+          }
+        }));
+      });
+      document.getElementById('large').addEventListener('click', () => {
+        mdiScroll.dispatchEvent(new CustomEvent('height', {
+          detail: {
+            height: 2000
+          }
+        }));
+      });
+    </script>
 
     <mdi-database></mdi-database>
     <script src="dist/mdiDatabase.js"></script>
