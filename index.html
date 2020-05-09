@@ -436,22 +436,38 @@
       for(var i = 0; i < 500; i++) {
         mdiScrollItems.push(`Test Item ${i}`);
       }
-      var list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(x => {
-        var ele = document.createElement('button');
-        ele.innerText = 'Placeholder';
-        ele.style.height = '44px';
-        mdiScrollList.appendChild(ele);
-        return ele;
-      });
+      var list = [];
+      function syncVirtual(virtualRows) {
+        for (var i = list.length; i < virtualRows; i++) {
+          var ele = document.createElement('button');
+          ele.innerText = 'Placeholder';
+          ele.style.height = '44px';
+          mdiScrollList.appendChild(ele);
+          list.push(ele);
+        }
+      }
+      var currentRow = 0;
+      var currentViewHeight = 0;
       mdiScroll.addEventListener('calculate', (e) => {
         var { offsetY, height, viewHeight } = e.detail;
+        var viewRows = Math.ceil(viewHeight / 44) + 1;
         var row = Math.floor(offsetY / 44);
-        document.getElementById('scrollCount').innerText = row;
-        list.forEach((ele, index) => {
-          ele.innerText = mdiScrollItems[index + row];
-        });
+        syncVirtual(viewRows);
+        if (currentRow !== row || currentViewHeight !== viewHeight) {
+          document.getElementById('scrollCount').innerText = `${row}, ${viewRows}`;
+          list.forEach((ele, index) => {
+            ele.innerText = mdiScrollItems[index + row];
+          });
+          currentRow = row;
+          currentViewHeight = viewHeight;
+        }
         mdiScrollList.style.transform = `translateY(${-1 * offsetY % 44}px)`;
       });
+      mdiScroll.dispatchEvent(new CustomEvent('height', {
+          detail: {
+            height: 2000
+          }
+        }));
       // Debug
       document.getElementById('small').addEventListener('click', () => {
         mdiScroll.dispatchEvent(new CustomEvent('height', {

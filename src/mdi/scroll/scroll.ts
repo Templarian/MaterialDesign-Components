@@ -90,6 +90,10 @@ export default class MdiScroll extends HTMLElement {
     window.addEventListener('scroll', () => {
       this.calculateScroll();
     });
+    window.addEventListener('resize', () => {
+      this.y = -1;
+      this.calculateScroll();
+    });
     this.calculateScroll();
   }
 }
