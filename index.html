@@ -425,8 +425,12 @@
     <section>
       <h2>mdi-scroll</h2>
       <h3>Basic <small>Scroll</small></h3>
-      <p>Content <span id="scrollCount">0</span> <button id="small">10 Itmes</button><button id="large">500 Itmes</button></p>
-      <div class="example">
+      <p>
+        Content <span id="scrollCount">0</span>
+        <button id="small">10 Items</button><button id="large">500 Items</button>
+        Overflow = <code id="overflow">visible</code>
+      </p>
+      <div class="example" id="overflowContainer">
         <mdi-scroll>
           <div id="mdiScrollList" style="display:flex;flex-direction:column;"></div>
         </mdi-scroll>
@@ -463,7 +467,7 @@
       document.getElementById('small').addEventListener('click', small);
       document.getElementById('large').addEventListener('click', large);
       var list = [];
-      function syncVirtual(virtualRows, atEnd) {
+      function syncVirtual(virtualRows) {
         for (var i = list.length; i < virtualRows; i++) {
           var ele = document.createElement('button');
           ele.innerText = 'Placeholder';
@@ -474,15 +478,12 @@
         list.forEach((e, i) => {
           e.style.display = i < virtualRows - 1 ? '' : 'none'
         });
-        if (atEnd) {
-          console.log('load more')
-        }
       }
       mdiScroll.addEventListener('calculate', (e) => {
-        var { offsetY, height, viewHeight, atEnd } = e.detail;
+        var { offsetY, height, viewHeight } = e.detail;
         var viewRows = Math.ceil(viewHeight / 44) + 1;
         var row = Math.floor(offsetY / 44);
-        syncVirtual(viewRows, atEnd);
+        syncVirtual(viewRows);
         if (currentRow !== row || currentViewHeight !== viewHeight) {
           document.getElementById('scrollCount').innerText = `${row}, ${viewRows}`;
           list.forEach((ele, index) => {
@@ -493,6 +494,21 @@
         }
         mdiScrollList.style.transform = `translateY(${-1 * offsetY % 44}px)`;
       });
+      function overflow(overflowText) {
+        var container = document.getElementById('overflowContainer');
+        var overflowSpan = document.getElementById('overflow');
+        if (overflowText === 'auto') {
+          container.style.overflow = 'auto';
+          container.style.height = '300px';
+          overflowSpan.innerText = 'auto';
+        } else {
+          container.style.overflow = 'visible';
+          container.style.height = '';
+          overflowSpan.innerText = 'visible';
+        }
+      }
+      overflow('auto');
+      // overflow('visible');
       small();
     </script>
 
