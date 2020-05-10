@@ -32,13 +32,7 @@ To create virtual items or scroll containers where only items in the viewport ar
 The slotted content will need to dispatch `height` event for the `mdi-scroll` to capture.
 
 ```typescript
-this.dispatchEvent(
-  new CustomEvent('height', {
-    detail: {
-      height: 2000
-    }
-  });
-)
+this.$scroll.height = 2000;
 ```
 
 During resizing/scrolling the `calculate` event will fire rapidly. The container will need to in a performant way render content handling the offset data.

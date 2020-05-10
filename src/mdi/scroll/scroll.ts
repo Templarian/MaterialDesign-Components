@@ -11,11 +11,14 @@ declare const ResizeObserver;
   template
 })
 export default class MdiScroll extends HTMLElement {
+
+  @Prop() height: string | number = 16;
+
   @Part() $scroll: HTMLDivElement;
   @Part() $text: HTMLDivElement;
 
   scrollElement;
-  height = 16;
+  currentHeight = -1;
   columns = 10;
   size = 44;
   visible = false;
@@ -114,24 +117,26 @@ export default class MdiScroll extends HTMLElement {
     return window;
   }
 
-  connectedCallback() {
-    this.addEventListener('height', (e: any) => {
-      e.preventDefault();
-      this.scrollElement = this.getParentElement();
-      this.scrollElement.addEventListener('scroll', () => {
-        this.calculateScroll();
-      });
-      window.addEventListener('resize', () => {
-        this.y = -1;
-        this.calculateScroll();
-      });
-      const { height } = e.detail;
-      this.style.height = `${height}px`;
-      this.height = parseInt(height, 10);
+  updateHeight() {
+    this.scrollElement = this.getParentElement();
+    this.scrollElement.addEventListener('scroll', () => {
+      this.calculateScroll();
+    });
+    window.addEventListener('resize', () => {
       this.y = -1;
       this.calculateScroll();
     });
-    // this.style.height = `${this.height}px`;
-    // this.calculateScroll();
+    this.style.height = `${this.currentHeight}px`;
+    this.y = -1;
+    this.calculateScroll();
+  }
+
+  render() {
+    const height = parseInt(this.height as string, 10);
+    console.log(height);
+    if (this.currentHeight !== height) {
+      this.currentHeight = height;
+      this.updateHeight();
+    }
   }
 }

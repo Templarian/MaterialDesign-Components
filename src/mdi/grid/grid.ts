@@ -3,6 +3,7 @@ import { createPopper } from '@popperjs/core';
 import { addInfoToast } from '../shared/toast';
 import { debounce, copyText } from './utils';
 import { getCopySvgInline } from './copy';
+import MdiScroll from 'mdi/scroll/scroll';
 
 import template from './grid.html';
 import style from './grid.css';
@@ -20,6 +21,7 @@ export default class MdiGrid extends HTMLElement {
   @Prop() width: string = 'auto';
   @Prop() height: string = 'auto';
 
+  @Part() $scroll: MdiScroll;
   @Part() $grid: HTMLDivElement;
 
   @Part() $contextMenu: HTMLDivElement;
@@ -186,6 +188,10 @@ export default class MdiGrid extends HTMLElement {
     this.$copyPreview.addEventListener('click', () => {
 
     });
+    this.$scroll.addEventListener('calculate', (e: any) => {
+      const { offsetY, height, viewHeight } = e.detail;
+      this.calculate(offsetY, height, viewHeight);
+    });
   }
 
   index = 0;
@@ -210,9 +216,7 @@ export default class MdiGrid extends HTMLElement {
     }
   }
 
-  render() {
-    const count = this.icons.length;
-    // Grid
+  syncVirtual(count) {
     for(let i = this.currentCount; i < count; i++) {
       this.currentCount = i + 1;
       const btn = document.createElement('button');
@@ -246,7 +250,50 @@ export default class MdiGrid extends HTMLElement {
     this.items.slice(0, count).forEach(([btn]) => {
       btn.style.display = 'block';
     });
+  }
+
+  currentRow = 0;
+  timeouts: any[] = [];
+  calculate(offsetY, height, viewHeight) {
+    const count = this.items.length;
+    const rows = Math.ceil(viewHeight / 44) + 1;
+    const row = Math.floor(offsetY / 44);
+    this.syncVirtual(rows * this.columns);
+    this.$grid.style.transform = `translateY(${-1 * offsetY % 44}px)`;
+    if (this.currentRow !== row) {
+      this.items.forEach(([btn, path], i) => {
+        const column = i % this.columns;
+        path.setAttribute('d', this.icons[column + i + (row * this.columns)].data);
+      });
+      /*while(this.timeouts.length) {
+        clearTimeout(this.timeouts.pop());
+      }
+      this.items.forEach(([btn]) => btn.classList.add('in'));
+      for (let i = 0; i < rows; i++) {
+        this.timeouts.push(
+          setTimeout(() => {
+            let _row = row;
+            let _i = i;
+            let _columns = this.columns;
+            let virtualStart = _i * _columns;
+            for (var c = 0; c < _columns; c++) {
+              const [button, path] = this.items[c + virtualStart];
+              path.setAttribute('d', this.icons[c + ((_i + _row) * _columns)].data);
+              button.classList.remove('in');
+            }
+            this.timeouts.shift();
+          }, i * 1000)
+        );
+      }*/
+      this.currentRow = row;
+    }
+    console.log(height)
+  }
+
+  render() {
+    const count = this.icons.length;
     const rows = Math.ceil(count / this.columns);
+    this.$scroll.height = rows * 44;
     this.$grid.style.gridTemplateRows = `repeat(${rows}, 2.75rem)`;
     this.items.forEach(([btn, path], i) => {
       if (this.icons[i]) {

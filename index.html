@@ -217,6 +217,7 @@
       <button onclick="iconGrid.basic(250)">Render 250</button>
       <button onclick="iconGrid.basic(5000)">Render 5000</button>
     </section>
+    <script src="dist/mdiScroll.js"></script>
     <script src="dist/mdiGrid.js"></script>
     <script>
       const ele = document.getElementsByTagName('mdi-grid')[0];
@@ -436,7 +437,6 @@
         </mdi-scroll>
       </div>
     </section>
-    <script src="dist/mdiScroll.js"></script>
     <script>
       var mdiScroll = document.getElementsByTagName('mdi-scroll')[0];
       var mdiScrollList = document.getElementById('mdiScrollList');
@@ -444,11 +444,7 @@
       var currentRow = 0;
       var currentViewHeight = 0;
       function dispatchHeight() {
-        mdiScroll.dispatchEvent(new CustomEvent('height', {
-          detail: {
-            height: mdiScrollItems.length * 44
-          }
-        }));
+        mdiScroll.height = mdiScrollItems.length * 44;
       }
       function small() {
         mdiScrollItems.splice(0, mdiScrollItems.length);
