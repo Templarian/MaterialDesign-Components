@@ -75,7 +75,7 @@ export default class MdiGrid extends HTMLElement {
   });
 
   connectedCallback() {
-    this.resizeObserver.observe(this.$grid);
+    this.resizeObserver.observe(this.$grids);
     this.addEventListener('mousemove', this.handleTooltip.bind(this));
     this.addEventListener('mouseleave', this.hideTooltip.bind(this));
     // Wire Up Context Menu
@@ -240,9 +240,34 @@ export default class MdiGrid extends HTMLElement {
       const path = document.createElementNS(this.svg, 'path') as SVGPathElement;
       svg.appendChild(path);
       btn.appendChild(svg);
-      this.$grid.appendChild(btn);
+      this.$grids.appendChild(btn);
       this.items.push([btn, path]);
     }
+    /*for(let i = this.currentCount; i < count; i++) {
+      this.currentCount = i + 1;
+      const btn = document.createElement('button');
+      btn.dataset.index = `${i}`;
+      btn.addEventListener('click', () => {
+        this.handleClick(this.icons[i]);
+      });
+      btn.addEventListener('keydown', (e: KeyboardEvent) => {
+        this.moveFocus(e, i);
+      });
+      btn.addEventListener('contextmenu', (e: any) => {
+        var rect = this.$grid.getBoundingClientRect();
+        const x = Math.floor(e.clientX - rect.left);
+        const y = Math.floor(e.clientY - rect.top);
+        this.showContextMenu(i, x, y);
+        e.preventDefault();
+      });
+      const svg = document.createElementNS(this.svg, 'svg');
+      svg.setAttribute('viewBox', '0 0 24 24');
+      const path = document.createElementNS(this.svg, 'path') as SVGPathElement;
+      svg.appendChild(path);
+      btn.appendChild(svg);
+      this.$grid.appendChild(btn);
+      this.items.push([btn, path]);
+    }*/
     this.items.forEach(([btn]) => {
       btn.style.display = count < this.currentCount ? 'none' : 'block';
     });
@@ -255,7 +280,8 @@ export default class MdiGrid extends HTMLElement {
     const rows = Math.ceil(viewHeight / 44) + 1;
     const row = Math.floor(offsetY / 44);
     this.syncVirtual(rows * this.columns);
-    this.$grid.style.transform = `translateY(${-1 * offsetY % 44}px)`;
+    //this.$grid.style.transform = `translateY(${-1 * offsetY % 44}px)`;
+    this.$grids.style.transform = `translateY(${-1 * offsetY % 44}px)`;
     if (this.currentRow !== row) {
       this.items.forEach(([btn, path], i) => {
         const column = i % this.columns;
@@ -283,14 +309,14 @@ export default class MdiGrid extends HTMLElement {
       }*/
       this.currentRow = row;
     }
-    console.log(height)
+    console.log('height', height);
   }
 
   render() {
     const count = this.icons.length;
     const rows = Math.ceil(count / this.columns);
     this.$scroll.height = rows * 44;
-    this.$grid.style.gridTemplateRows = `repeat(${rows}, 2.75rem)`;
+    // this.$grid.style.gridTemplateRows = `repeat(${rows}, 2.75rem)`;
     this.items.forEach(([btn, path], i) => {
       if (this.icons[i]) {
         btn.style.gridColumn = `${(i % this.columns + 1)}`;
@@ -302,11 +328,11 @@ export default class MdiGrid extends HTMLElement {
       }
     });
     if (this.height === 'auto') {
-      this.$grid.style.height = `${2.75 * rows}rem`;
-      this.$grid.style.overflow = 'visible';
+      this.$grids.style.height = `${2.75 * rows}rem`;
+      this.$grids.style.overflow = 'visible';
     } else {
-      this.$grid.style.height = this.height;
-      this.$grid.style.overflow = 'auto';
+      this.$grids.style.height = this.height;
+      this.$grids.style.overflow = 'auto';
     }
     // Context Menu
     this.$svgBlack.classList.toggle('active', this.cacheSvgColor === '#000000');
