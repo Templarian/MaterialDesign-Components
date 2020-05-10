@@ -208,14 +208,16 @@
     <section>
       <h2>mdi-grid</h2>
       <h3>Basic <small>Icon Grid</small></h3>
+      <p>
+        <button onclick="iconGrid.basic(1)">Render 1</button>
+        <button onclick="iconGrid.basic(10)">Render 10</button>
+        <button onclick="iconGrid.basic(50)">Render 50</button>
+        <button onclick="iconGrid.basic(250)">Render 250</button>
+        <button onclick="iconGrid.basic(-1)">Render 5000+</button>
+      </p>
       <div class="example">
         <mdi-grid id="iconGrid1"></mdi-grid>
       </div>
-      <button onclick="iconGrid.basic(1)">Render 1</button>
-      <button onclick="iconGrid.basic(10)">Render 10</button>
-      <button onclick="iconGrid.basic(50)">Render 50</button>
-      <button onclick="iconGrid.basic(250)">Render 250</button>
-      <button onclick="iconGrid.basic(5000)">Render 5000</button>
     </section>
     <script src="dist/mdiScroll.js"></script>
     <script src="dist/mdiGrid.js"></script>
@@ -521,6 +523,9 @@
         console.log('Icon Objects:', icons.length);
 
         window.getIcons = (count) => {
+          if (count === -1) {
+            return icons;
+          }
           return icons.slice(0, count);
         };
         // Init examples with icons
