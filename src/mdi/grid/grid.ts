@@ -18,6 +18,8 @@ declare const ResizeObserver;
 export default class MdiGrid extends HTMLElement {
   @Prop() icons: any = [];
   @Prop() size: number = 24;
+  @Prop() padding: number = 8;
+  @Prop() gap: number = 4
   @Prop() width: string = 'auto';
   @Prop() height: string = 'auto';
 
@@ -59,19 +61,18 @@ export default class MdiGrid extends HTMLElement {
   @Local('#000000') cacheSvgColor: string;
 
   currentCount = 0;
-  items: [HTMLButtonElement, SVGPathElement][] = [];
+  currentSize = 0;
+  currentPadding = 0;
+  currentGap = 0;
+  rowHeight = 0;
+  items: [HTMLButtonElement, SVGGElement, SVGPathElement][] = [];
   svg = 'http://www.w3.org/2000/svg';
   columns: number;
   debounceRender = debounce(() => this.render(), 300);
   color = 'svg';
 
-  resizeObserver = new ResizeObserver(entries => {
-    const { width } = entries[0].contentRect;
-    const columns = Math.floor(width / (this.size + 20));
-    if (this.columns !== columns) {
-      this.columns = columns;
-      this.debounceRender();
-    }
+  resizeObserver = new ResizeObserver(() => {
+    this.debounceRender();
   });
 
   connectedCallback() {
@@ -235,106 +236,99 @@ export default class MdiGrid extends HTMLElement {
         this.showContextMenu(i, x, y);
         e.preventDefault();
       });
-      const svg = document.createElementNS(this.svg, 'svg');
+      const svg = document.createElementNS(this.svg, 'svg') as SVGGElement;
       svg.setAttribute('viewBox', '0 0 24 24');
       const path = document.createElementNS(this.svg, 'path') as SVGPathElement;
       svg.appendChild(path);
       btn.appendChild(svg);
       this.$grid.appendChild(btn);
-      this.items.push([btn, path]);
+      this.items.push([btn, svg, path]);
     }
-    /*for(let i = this.currentCount; i < count; i++) {
-      this.currentCount = i + 1;
-      const btn = document.createElement('button');
-      btn.dataset.index = `${i}`;
-      btn.addEventListener('click', () => {
-        this.handleClick(this.icons[i]);
-      });
-      btn.addEventListener('keydown', (e: KeyboardEvent) => {
-        this.moveFocus(e, i);
-      });
-      btn.addEventListener('contextmenu', (e: any) => {
-        var rect = this.$grid.getBoundingClientRect();
-        const x = Math.floor(e.clientX - rect.left);
-        const y = Math.floor(e.clientY - rect.top);
-        this.showContextMenu(i, x, y);
-        e.preventDefault();
-      });
-      const svg = document.createElementNS(this.svg, 'svg');
-      svg.setAttribute('viewBox', '0 0 24 24');
-      const path = document.createElementNS(this.svg, 'path') as SVGPathElement;
-      svg.appendChild(path);
-      btn.appendChild(svg);
-      this.$grid.appendChild(btn);
-      this.items.push([btn, path]);
-    }*/
-    this.items.forEach(([btn]) => {
-      btn.style.display = count < this.currentCount ? 'none' : 'block';
+    const { size, padding, gap, width, height } = this.getIconMetrics();
+    let x = gap;
+    let y = gap;
+    this.items.forEach(([btn, svg], i) => {
+      btn.style.display = i < this.currentCount ? 'block' : 'none';
+      btn.style.padding = `${padding}px`;
+      btn.style.width = `${width}px`;
+      btn.style.height = `${height}px`;
+      btn.style.transform = `translate(${x}px, ${y}px)`;
+      svg.style.width = `${size}px`;
+      svg.style.height = `${size}px`;
+      x += width + gap;
+      if (i % this.columns === this.columns - 1) {
+        y += height + gap;
+        x = gap;
+      }
     });
   }
 
   currentRow = 0;
   timeouts: any[] = [];
+  cacheHeight = 0;
   calculate(offsetY, height, viewHeight) {
-    const count = this.items.length;
-    const rows = Math.ceil(viewHeight / 44) + 1;
-    const row = Math.floor(offsetY / 44);
-    this.syncVirtual(rows * this.columns);
-    this.$grid.style.transform = `translateY(${-1 * offsetY % 44}px)`;
+    const rowHeight = this.rowHeight;
+    const count = this.icons.length;
+    const rows = Math.ceil(viewHeight / rowHeight) + 1;
+    const row = Math.floor(offsetY / rowHeight);
+    this.$grid.style.transform = `translateY(${-1 * offsetY % rowHeight}px)`;
+    if (this.cacheHeight !== height) {
+      console.log('syncVirtual')
+      this.syncVirtual(rows * this.columns);
+      this.cacheHeight = height;
+    }
     if (this.currentRow !== row) {
-      this.items.forEach(([btn, path], i) => {
-        const column = i % this.columns;
-        const index = column + i + (row * this.columns);
-        if (index < this.icons.length) {
+      this.items.forEach(([btn, svg, path], i) => {
+        const index = i + (row * this.columns);
+        if (index < count) {
           path.setAttribute('d', this.icons[index].data);
+        } else {
+          btn.style.display = 'none';
         }
       });
-      /*while(this.timeouts.length) {
-        clearTimeout(this.timeouts.pop());
-      }
-      this.items.forEach(([btn]) => btn.classList.add('in'));
-      for (let i = 0; i < rows; i++) {
-        this.timeouts.push(
-          setTimeout(() => {
-            let _row = row;
-            let _i = i;
-            let _columns = this.columns;
-            let virtualStart = _i * _columns;
-            for (var c = 0; c < _columns; c++) {
-              const [button, path] = this.items[c + virtualStart];
-              path.setAttribute('d', this.icons[c + ((_i + _row) * _columns)].data);
-              button.classList.remove('in');
-            }
-            this.timeouts.shift();
-          }, i * 1000)
-        );
-      }*/
       this.currentRow = row;
     }
   }
 
+  getIconMetrics() {
+    const size = parseInt(this.size as any, 10);
+    const padding = parseInt(this.padding as any, 10);
+    const gap = parseInt(this.gap as any, 10);
+    return {
+      size,
+      padding,
+      gap,
+      width: size + (padding * 2),
+      height: size + (padding * 2),
+      rowHeight: size + (padding * 2) + gap
+    };
+  }
+
+  calculateColumns(width, rowHeight) {
+    let w = width - this.currentGap;
+    return Math.floor(w / rowHeight);
+  }
+
   render() {
+    // Calculate Icon Size
+    const { size, padding, gap, rowHeight } = this.getIconMetrics();
+    if (this.currentSize !== size || this.currentPadding !== padding || this.currentGap !== gap) {
+      this.currentSize = size;
+      this.currentPadding = padding;
+      this.currentGap = gap;
+      this.rowHeight = rowHeight;
+    }
+    // Calculate Columns
+    const { width } = this.$scroll.getBoundingClientRect();
+    const columns = this.calculateColumns(width, rowHeight);
+    if (this.columns !== columns) {
+      this.columns = columns;
+    }
+    // Virtual Grid
     const count = this.icons.length;
     const rows = Math.ceil(count / this.columns);
-    this.$scroll.height = rows * 44;
-    // this.$grid.style.gridTemplateRows = `repeat(${rows}, 2.75rem)`;
-    /*this.items.forEach(([btn, path], i) => {
-      if (this.icons[i]) {
-        btn.style.gridColumn = `${(i % this.columns + 1)}`;
-        btn.style.gridRow = `${Math.ceil((i + 1) / this.columns)}`;
-        path.setAttribute('d', this.icons[i].data);
-        this.icons[i].id = i;
-      } else {
-        path.setAttribute('d', '');
-      }
-    });*/
-    /*if (this.height === 'auto') {
-      this.$grid.style.height = `${2.75 * rows}rem`;
-      this.$grid.style.overflow = 'visible';
-    } else {
-      this.$grid.style.height = this.height;
-      this.$grid.style.overflow = 'auto';
-    }*/
+    this.currentRow = -1;
+    this.$scroll.height = gap + (rows * rowHeight);
     // Context Menu
     this.$svgBlack.classList.toggle('active', this.cacheSvgColor === '#000000');
     this.$svgWhite.classList.toggle('active', this.cacheSvgColor === '#FFFFFF');

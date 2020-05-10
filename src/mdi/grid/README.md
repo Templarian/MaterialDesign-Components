@@ -16,6 +16,8 @@ import '@mdi/web-components/mdiGrid.js';
 | ---------- | -------- | ----------- | ------ |
 | icons      | &#x2705; | Set icon data | `[]` |
 | size       | &#x2705; | Set icon size | `24` |
+| padding    | &#x2705; | Set icon padding | `8` |
+| gap        | &#x2705; | Set icon gap | `4` |
 | width      | &#x2705; | Set grid width | `'auto'` |
 | height     | &#x2705; | Set grid height | `'auto'` |
 

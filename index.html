@@ -215,6 +215,11 @@
         <button onclick="iconGrid.basic(250)">Render 250</button>
         <button onclick="iconGrid.basic(-1)">Render 5000+</button>
       </p>
+      <p>
+        <label>Size (<span id="mdiScrollSizeText">24</span>): <input id="mdiScrollSize" type="range" min="24" max="96" step="4" value="24" /></label>
+        <label>Padding (<span id="mdiScrollPaddingText">8</span>): <input id="mdiScrollPadding" type="range" min="0" max="24" step="2" value="8" /></label>
+        <label>Gap (<span id="mdiScrollGapText">4</span>): <input id="mdiScrollGap" type="range" min="0" max="16" step="2" value="4" /></label>
+      </p>
       <div class="example">
         <mdi-grid id="iconGrid1"></mdi-grid>
       </div>
@@ -226,6 +231,21 @@
       ele.addEventListener('select', (e) => {
         const icon = e.detail;
         alert(icon.name);
+      });
+      var mdiScrollSizeText = document.getElementById('mdiScrollSizeText');
+      document.getElementById('mdiScrollSize').addEventListener('change', (e) => {
+        ele.size = e.target.value;
+        mdiScrollSizeText.innerText = e.target.value;
+      });
+      var mdiScrollPaddingText = document.getElementById('mdiScrollPaddingText');
+      document.getElementById('mdiScrollPadding').addEventListener('change', (e) => {
+        ele.padding = e.target.value;
+        mdiScrollPaddingText.innerText = e.target.value;
+      });
+      var mdiScrollGapText = document.getElementById('mdiScrollGapText');
+      document.getElementById('mdiScrollGap').addEventListener('change', (e) => {
+        ele.gap = e.target.value;
+        mdiScrollGapText.innerText = e.target.value;
       });
       window.iconGrid = {
         basic: (count) => {
