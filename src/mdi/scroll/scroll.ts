@@ -1,4 +1,5 @@
 import { Component, Prop, Part, Local } from '@mdi/element';
+import { throttle } from 'lodash-es';
 
 import template from './scroll.html';
 import style from './scroll.css';
@@ -119,13 +120,23 @@ export default class MdiScroll extends HTMLElement {
 
   updateHeight() {
     this.scrollElement = this.getParentElement();
-    this.scrollElement.addEventListener('scroll', () => {
-      this.calculateScroll();
-    });
-    window.addEventListener('resize', () => {
-      this.y = -1;
-      this.calculateScroll();
-    });
+    this.scrollElement.addEventListener('scroll',
+      throttle(
+        () => {
+          this.calculateScroll();
+        },
+        100
+      )
+    );
+    window.addEventListener('resize',
+      throttle(
+        () => {
+          this.y = -1;
+          this.calculateScroll();
+        },
+        100
+      )
+    );
     this.style.height = `${this.currentHeight}px`;
     this.y = -1;
     this.calculateScroll();
