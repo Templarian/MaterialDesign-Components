@@ -75,7 +75,7 @@ export default class MdiGrid extends HTMLElement {
   });
 
   connectedCallback() {
-    this.resizeObserver.observe(this.$grids);
+    this.resizeObserver.observe(this.$grid);
     this.addEventListener('mousemove', this.handleTooltip.bind(this));
     this.addEventListener('mouseleave', this.hideTooltip.bind(this));
     // Wire Up Context Menu
@@ -240,7 +240,7 @@ export default class MdiGrid extends HTMLElement {
       const path = document.createElementNS(this.svg, 'path') as SVGPathElement;
       svg.appendChild(path);
       btn.appendChild(svg);
-      this.$grids.appendChild(btn);
+      this.$grid.appendChild(btn);
       this.items.push([btn, path]);
     }
     /*for(let i = this.currentCount; i < count; i++) {
@@ -280,12 +280,14 @@ export default class MdiGrid extends HTMLElement {
     const rows = Math.ceil(viewHeight / 44) + 1;
     const row = Math.floor(offsetY / 44);
     this.syncVirtual(rows * this.columns);
-    //this.$grid.style.transform = `translateY(${-1 * offsetY % 44}px)`;
-    this.$grids.style.transform = `translateY(${-1 * offsetY % 44}px)`;
+    this.$grid.style.transform = `translateY(${-1 * offsetY % 44}px)`;
     if (this.currentRow !== row) {
       this.items.forEach(([btn, path], i) => {
         const column = i % this.columns;
-        path.setAttribute('d', this.icons[column + i + (row * this.columns)].data);
+        const index = column + i + (row * this.columns);
+        if (index < this.icons.length) {
+          path.setAttribute('d', this.icons[index].data);
+        }
       });
       /*while(this.timeouts.length) {
         clearTimeout(this.timeouts.pop());
@@ -309,7 +311,6 @@ export default class MdiGrid extends HTMLElement {
       }*/
       this.currentRow = row;
     }
-    console.log('height', height);
   }
 
   render() {
@@ -317,7 +318,7 @@ export default class MdiGrid extends HTMLElement {
     const rows = Math.ceil(count / this.columns);
     this.$scroll.height = rows * 44;
     // this.$grid.style.gridTemplateRows = `repeat(${rows}, 2.75rem)`;
-    this.items.forEach(([btn, path], i) => {
+    /*this.items.forEach(([btn, path], i) => {
       if (this.icons[i]) {
         btn.style.gridColumn = `${(i % this.columns + 1)}`;
         btn.style.gridRow = `${Math.ceil((i + 1) / this.columns)}`;
@@ -326,14 +327,14 @@ export default class MdiGrid extends HTMLElement {
       } else {
         path.setAttribute('d', '');
       }
-    });
-    if (this.height === 'auto') {
-      this.$grids.style.height = `${2.75 * rows}rem`;
-      this.$grids.style.overflow = 'visible';
+    });*/
+    /*if (this.height === 'auto') {
+      this.$grid.style.height = `${2.75 * rows}rem`;
+      this.$grid.style.overflow = 'visible';
     } else {
-      this.$grids.style.height = this.height;
-      this.$grids.style.overflow = 'auto';
-    }
+      this.$grid.style.height = this.height;
+      this.$grid.style.overflow = 'auto';
+    }*/
     // Context Menu
     this.$svgBlack.classList.toggle('active', this.cacheSvgColor === '#000000');
     this.$svgWhite.classList.toggle('active', this.cacheSvgColor === '#FFFFFF');

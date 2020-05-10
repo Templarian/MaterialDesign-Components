@@ -133,7 +133,6 @@ export default class MdiScroll extends HTMLElement {
 
   render() {
     const height = parseInt(this.height as string, 10);
-    console.log(height);
     if (this.currentHeight !== height) {
       this.currentHeight = height;
       this.updateHeight();

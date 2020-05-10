@@ -6,37 +6,11 @@
   display: block;
 }
 
-[part~=grids] {
+[part~=grid] {
   display: flex;
   flex-wrap: wrap;
   align-content: start;
   justify-content: space-evenly;
-}
-
-[part~=grids] > button {
-  border: 0;
-  background: transparent;
-  padding: 0.625rem;
-  outline: none;
-  width: 2.75rem;
-  height: 2.75rem;
-}
-
-[part~=grids] > button > svg {
-  fill: #453C4F;
-  width: 1.5rem;
-  height: 1.5rem;
-}
-
-[part~=grid] {
-  display: none;
-  /*display: grid;*/
-  grid-template-columns: repeat(auto-fill, 2.75rem);
-  grid-template-rows: repeat(1, 2.75rem);
-  min-height: 2.75rem;
-  overflow: hidden;
-  justify-items: start;
-  align-items: flex-start;
 }
 
 [part~=grid] > button {
@@ -46,14 +20,12 @@
   outline: none;
   width: 2.75rem;
   height: 2.75rem;
-  transition: all 0.2s ease-in-out;
-  transform: scale(1);
-  opacity: 1;
 }
 
-[part~=grid] > button.in {
-  transform: scale(0.5);
-  opacity: 0;
+[part~=grid] > button > svg {
+  fill: #453C4F;
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 [part~=grid] > button:focus {
