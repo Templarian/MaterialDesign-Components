@@ -23,6 +23,7 @@ export default class MdiGrid extends HTMLElement {
 
   @Part() $scroll: MdiScroll;
   @Part() $grid: HTMLDivElement;
+  @Part() $grids: HTMLDivElement;
 
   @Part() $contextMenu: HTMLDivElement;
   @Part() $newTab: HTMLAnchorElement;
@@ -242,13 +243,8 @@ export default class MdiGrid extends HTMLElement {
       this.$grid.appendChild(btn);
       this.items.push([btn, path]);
     }
-    if (count < this.currentCount) {
-      this.items.forEach(([btn]) => {
-        btn.style.display = 'none';
-      });
-    }
-    this.items.slice(0, count).forEach(([btn]) => {
-      btn.style.display = 'block';
+    this.items.forEach(([btn]) => {
+      btn.style.display = count < this.currentCount ? 'none' : 'block';
     });
   }
 
