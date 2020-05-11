@@ -258,7 +258,6 @@ export default class MdiGrid extends HTMLElement {
       scrollWidth
     } = this.getIconMetrics();
     const extra = (scrollWidth - gap - (rowHeight * this.columns)) / (this.columns - 1);
-    console.log(extra)
     let x = gap;
     let y = gap;
     this.items.forEach(([btn, svg], i) => {
