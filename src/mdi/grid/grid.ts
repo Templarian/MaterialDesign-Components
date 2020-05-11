@@ -223,10 +223,12 @@ export default class MdiGrid extends HTMLElement {
       const btn = document.createElement('button');
       btn.dataset.index = `${i}`;
       btn.addEventListener('click', () => {
-        this.handleClick(this.icons[i]);
+        const index = i + (this.columns * this.currentRow);
+        this.handleClick(this.icons[index]);
       });
       btn.addEventListener('keydown', (e: KeyboardEvent) => {
-        this.moveFocus(e, i);
+        const index = i + (this.columns * this.currentRow);
+        this.moveFocus(e, index);
       });
       btn.addEventListener('contextmenu', (e: any) => {
         var rect = this.$grid.getBoundingClientRect();
@@ -452,8 +454,6 @@ export default class MdiGrid extends HTMLElement {
   showContextMenu(index: number, x: number, y: number) {
     const gridRect = this.$grid.getBoundingClientRect();
     const cmRect = this.$contextMenu.getBoundingClientRect();
-    const scrollY = window.scrollY;
-    const scrollX = window.scrollX;
     if (y + gridRect.top + cmRect.height + 4 > window.innerHeight
       && x + gridRect.left + cmRect.width + 24 > window.innerWidth) {
       y = y - cmRect.height;
