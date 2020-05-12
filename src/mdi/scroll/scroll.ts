@@ -24,11 +24,24 @@ export default class MdiScroll extends HTMLElement {
   size = 44;
   visible = false;
   y = -1;
+  width = 0;
 
-  resizeObserver = new ResizeObserver(entries => {
-    const { width } = entries[0].contentRect;
-    this.columns = Math.floor(width / (this.size + 20));
-  });
+  resizeObserver = new ResizeObserver(
+    throttle(
+      (entries) => {
+        const { width } = entries[0].contentRect;
+        this.columns = Math.floor(width / (this.size + 20));
+        this.y = -1;
+        this.width = width;
+        this.calculateScroll();
+      },
+      100
+    )
+  );
+
+  connectedCallback() {
+    this.resizeObserver.observe(this.$scroll);
+  }
 
   getInnerHeight() {
     let parentElement = this.parentElement;
@@ -90,6 +103,7 @@ export default class MdiScroll extends HTMLElement {
         new CustomEvent('calculate', {
           detail: {
             offsetY: y,
+            viewWidth: this.width,
             viewHeight: height,
             height: this.height
           }
@@ -123,15 +137,6 @@ export default class MdiScroll extends HTMLElement {
     this.scrollElement.addEventListener('scroll',
       throttle(
         () => {
-          this.calculateScroll();
-        },
-        100
-      )
-    );
-    window.addEventListener('resize',
-      throttle(
-        () => {
-          this.y = -1;
           this.calculateScroll();
         },
         100

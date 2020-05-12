@@ -190,8 +190,8 @@ export default class MdiGrid extends HTMLElement {
 
     });
     this.$scroll.addEventListener('calculate', (e: any) => {
-      const { offsetY, height, viewHeight } = e.detail;
-      this.calculate(offsetY, height, viewHeight);
+      const { offsetY, height, viewWidth, viewHeight } = e.detail;
+      this.calculate(offsetY, height, viewWidth, viewHeight);
     });
   }
 
@@ -218,6 +218,7 @@ export default class MdiGrid extends HTMLElement {
   }
 
   syncVirtual(count) {
+    console.log('syncVirtual')
     for(let i = this.currentCount; i < count; i++) {
       this.currentCount = i + 1;
       const btn = document.createElement('button');
@@ -280,15 +281,17 @@ export default class MdiGrid extends HTMLElement {
   currentRow = 0;
   timeouts: any[] = [];
   cacheHeight = 0;
-  calculate(offsetY, height, viewHeight) {
+  cacheViewWidth = 0;
+  calculate(offsetY, height, viewWidth, viewHeight) {
     const rowHeight = this.rowHeight;
     const count = this.icons.length;
     const rows = Math.ceil(viewHeight / rowHeight) + 1;
     const row = Math.floor(offsetY / rowHeight);
     this.$grid.style.transform = `translateY(${-1 * offsetY % rowHeight}px)`;
-    if (this.cacheHeight !== height) {
+    if (this.cacheHeight !== height || this.cacheViewWidth !== viewWidth) {
       this.syncVirtual(rows * this.columns);
       this.cacheHeight = height;
+      this.cacheViewWidth = viewWidth;
     }
     if (this.currentRow !== row) {
       this.items.forEach(([btn, svg, path], i) => {
