@@ -32,6 +32,7 @@ export default class MdiSearch extends HTMLElement {
   connectedCallback() {
     this.$input.addEventListener('input', this.handleInput.bind(this));
     this.$input.addEventListener('focus', this.handleFocus.bind(this));
+    this.$input.addEventListener('blur', this.handleBlur.bind(this));
   }
 
   handleInput(e) {
@@ -43,7 +44,12 @@ export default class MdiSearch extends HTMLElement {
 
   handleFocus() {
     this.isOpen = true;
-    this.$list.style.display = 'block';
+    this.$list.style.display = 'flex';
+  }
+
+  handleBlur() {
+    this.isOpen = false;
+    this.$list.style.display = 'none';
   }
 
   highlight(text: string) {
@@ -89,8 +95,11 @@ export default class MdiSearch extends HTMLElement {
       .filter((item) => item.name.match(termRegex))
       .forEach((item) => {
         var li = document.createElement('li');
+        var a = document.createElement('a');
+        a.href = item.url;
         var text = this.highlight(item.name);
-        li.appendChild(text);
+        a.appendChild(text);
+        li.appendChild(a);
         this.$list.appendChild(li);
       });
   }
