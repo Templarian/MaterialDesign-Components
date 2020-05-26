@@ -35,18 +35,21 @@ svg > path {
   fill: #555;
   transition: fill 0.3s ease-in-out;
 }
-ul {
+[part=menu] {
   display: none;
-  flex-direction: column;
   background: #FFF;
   grid-row: 2;
   grid-column: 1 / span 2;
+  z-index: 1;
+}
+ul {
   list-style: none;
+  display: flex;
+  flex-direction: column;
   padding: 0;
   margin: 0;
-  z-index: 1;
   border-radius: 0.25rem;
-  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.3);
 }
 ul > li {
   color: #222;
@@ -57,6 +60,9 @@ ul > li > a {
   background: #FFF;
   border-left: 1px solid #DDD;
   border-right: 1px solid #DDD;
+}
+ul > li > a:hover {
+  background: #f1f1f1;
 }
 ul > li:first-child > a {
   border-top: 1px solid #DDD;

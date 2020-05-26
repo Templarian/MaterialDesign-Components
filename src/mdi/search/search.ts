@@ -23,16 +23,20 @@ export default class MdiSearch extends HTMLElement {
   @Prop() path: string = noIcon;
   @Prop() items: Item[] = [];
 
+  @Part() $menu: HTMLDivElement;
   @Part() $input: HTMLInputElement;
   @Part() $list: HTMLUListElement;
 
   isOpen: boolean = false;
+  isOver: boolean = false;
   term: string = '';
 
   connectedCallback() {
     this.$input.addEventListener('input', this.handleInput.bind(this));
     this.$input.addEventListener('focus', this.handleFocus.bind(this));
     this.$input.addEventListener('blur', this.handleBlur.bind(this));
+    this.$list.addEventListener('mouseenter', this.handleListEnter.bind(this));
+    this.$list.addEventListener('mouseleave', this.handleListLeave.bind(this));
   }
 
   handleInput(e) {
@@ -44,12 +48,22 @@ export default class MdiSearch extends HTMLElement {
 
   handleFocus() {
     this.isOpen = true;
-    this.$list.style.display = 'flex';
+    this.$menu.style.display = 'block';
   }
 
   handleBlur() {
-    this.isOpen = false;
-    this.$list.style.display = 'none';
+    if (!this.isOver) {
+      this.isOpen = false;
+      this.$menu.style.display = 'none';
+    }
+  }
+
+  handleListEnter() {
+    this.isOver = true;
+  }
+
+  handleListLeave() {
+    this.isOver = false;
   }
 
   highlight(text: string) {
