@@ -587,7 +587,8 @@
           return icons.slice(0, count);
         };
         // Search
-
+        const search = document.getElementById('search');
+        search.icons = icons;
         // Init examples with icons
         document.getElementById('picker1').icons = getIcons(200);
         iconGrid.basic(10);

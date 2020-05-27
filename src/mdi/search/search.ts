@@ -1,6 +1,7 @@
 import { Component, Prop, Part } from '@mdi/element';
 import { debounce } from './utils';
 import { Icon } from 'mdi/shared/models/icon';
+import { iconFilter } from 'mdi/shared/iconFilter';
 
 import template from './search.html';
 import style from './search.css';
@@ -118,14 +119,14 @@ export default class MdiSearch extends HTMLElement {
         li.appendChild(a);
         this.$list.appendChild(li);
       });
-    const icons = this.icons.filter((icon) => icon.name!.match(termRegex))
+    const icons = iconFilter(this.icons, this.term, 5);
     if (icons.length) {
       var li = document.createElement('li');
       li.innerText = 'Icons';
       li.classList.add('section');
       this.$list.appendChild(li);
     }
-    icons .forEach((icon) => {
+    icons.forEach((icon) => {
         var li = document.createElement('li');
         var a = document.createElement('a');
         a.href = `/icon/${icon.name}`;
