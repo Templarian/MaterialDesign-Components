@@ -62,7 +62,7 @@ ul > li > a {
   border-right: 1px solid #DDD;
 }
 ul > li > a:hover {
-  background: #f1f1f1;
+  background: #DAF4FB;
 }
 ul > li:first-child > a {
   border-top: 1px solid #DDD;
@@ -78,4 +78,22 @@ ul > li:last-child > a {
 ul > li > a {
   text-decoration: none;
   color: #222;
+}
+ul > li > a strong {
+  color: #453C4F;
+}
+.section {
+  color: #FFF;
+  padding: 0.25rem 0.5rem;
+  font-weight: bold;
+  background: #453C4F;
+  border-radius: 0.25rem 0.25rem 0 0;
+  cursor: default;
+}
+.section + li a {
+  border-radius: 0;
+}
+
+li + .section {
+  border-radius: 0;
 }

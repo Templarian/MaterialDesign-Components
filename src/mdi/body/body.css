@@ -2,3 +2,11 @@
   display: block;
   background: linear-gradient(135deg, #ffffff 0%,#f6ede4 100%);
 }
+.top {
+  width: 100%;
+  vertical-align: top;
+}
+.bottom {
+  width: 100%;
+  vertical-align: bottom;
+}

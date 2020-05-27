@@ -1,5 +1,6 @@
 import { Component, Prop, Part } from '@mdi/element';
 import { debounce } from './utils';
+import { Icon } from 'mdi/shared/models/icon';
 
 import template from './search.html';
 import style from './search.css';
@@ -22,6 +23,7 @@ interface Item {
 export default class MdiSearch extends HTMLElement {
   @Prop() path: string = noIcon;
   @Prop() items: Item[] = [];
+  @Prop() icons: Icon[] = [];
 
   @Part() $menu: HTMLDivElement;
   @Part() $input: HTMLInputElement;
@@ -112,6 +114,22 @@ export default class MdiSearch extends HTMLElement {
         var a = document.createElement('a');
         a.href = item.url;
         var text = this.highlight(item.name);
+        a.appendChild(text);
+        li.appendChild(a);
+        this.$list.appendChild(li);
+      });
+    const icons = this.icons.filter((icon) => icon.name!.match(termRegex))
+    if (icons.length) {
+      var li = document.createElement('li');
+      li.innerText = 'Icons';
+      li.classList.add('section');
+      this.$list.appendChild(li);
+    }
+    icons .forEach((icon) => {
+        var li = document.createElement('li');
+        var a = document.createElement('a');
+        a.href = `/icon/${icon.name}`;
+        var text = this.highlight(icon.name || '');
         a.appendChild(text);
         li.appendChild(a);
         this.$list.appendChild(li);
