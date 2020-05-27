@@ -20,7 +20,15 @@ export function iconFilter(icons: Icon[], term: string, limit: number = 5): Icon
   const list = filter(
     icons,
     (icon) => {
-      return icon.name!.match(termRegex);
+      var match = icon.name!.match(termRegex) !== null;
+      if (!match) {
+        for(var i = 0, c = icon.aliases.length; i < c; i++) {
+          if (icon.aliases[i].name.match(termRegex) !== null) {
+            return true;
+          }
+        }
+      }
+      return match;
     },
     limit
   );

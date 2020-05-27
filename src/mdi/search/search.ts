@@ -136,6 +136,14 @@ export default class MdiSearch extends HTMLElement {
           li.appendChild(a);
           this.$list.appendChild(li);
         });
+      if (icons.length === 5) {
+        var li = document.createElement('li');
+        var a = document.createElement('a');
+        a.href = `/icons?search=${this.term}`;
+        a.innerText = `Show results for "${this.term}"`;
+        li.appendChild(a);
+        this.$list.appendChild(li);
+      }
     }
   }
 
