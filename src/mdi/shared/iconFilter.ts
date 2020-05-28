@@ -17,20 +17,33 @@ function *filter(array, condition, maxSize) {
 
 export function iconFilter(icons: Icon[], term: string, limit: number = 5): Icon[] {
   const termRegex = new RegExp(term, 'i');
-  const list = filter(
+  const iconsByName = filter(
     icons,
     (icon) => {
-      var match = icon.name!.match(termRegex) !== null;
-      if (!match) {
+      return icon.name!.match(termRegex) !== null;
+    },
+    limit
+  );
+  const list = Array.from(iconsByName);
+  const skip: string[] = list.map(icon => icon.id);
+  if (list.length < limit) {
+    var iconsByAliases = filter(
+      icons,
+      (icon) => {
+        if (skip.includes(icon.id)) {
+          return false;
+        }
         for(var i = 0, c = icon.aliases.length; i < c; i++) {
           if (icon.aliases[i].name.match(termRegex) !== null) {
             return true;
           }
         }
-      }
-      return match;
-    },
-    limit
-  );
-  return Array.from(list);
+        return false;
+      },
+      limit - list.length
+    );
+    const list2 = Array.from(iconsByAliases);
+    list2.forEach(icon => list.push(icon));
+  }
+  return list;
 }
