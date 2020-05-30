@@ -11,4 +11,12 @@ export class Tag {
     this.count = tag.count;
     return this;
   }
+
+  to() {
+    return {
+      name: this.name,
+      url: this.url,
+      count: this.count
+    }
+  }
 }

@@ -34,7 +34,12 @@ export function iconFilter(icons: Icon[], term: string, limit: number = 5): Icon
           return false;
         }
         for(var i = 0, c = icon.aliases.length; i < c; i++) {
+          if (icon.aliases[i].name == null) {
+            console.log(icon.name, icon.aliases);
+            return false;
+          }
           if (icon.aliases[i].name.match(termRegex) !== null) {
+            icon.aliases[i].match = true;
             return true;
           }
         }

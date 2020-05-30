@@ -62,4 +62,31 @@ export class Icon {
     }
     return this;
   }
+
+  to() {
+    const {
+      id,
+      name,
+      description,
+      data,
+      version,
+      fontIcon,
+      packageId,
+      baseIconId,
+      aliases,
+      tags
+    } = this;
+    return {
+      id,
+      name,
+      description,
+      data,
+      version,
+      fontIcon,
+      packageId,
+      baseIconId,
+      aliases: aliases.map(alias => alias.to()),
+      tags: tags.map(tag => tag.to())
+    }
+  }
 }

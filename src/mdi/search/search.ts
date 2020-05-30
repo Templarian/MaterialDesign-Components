@@ -128,14 +128,24 @@ export default class MdiSearch extends HTMLElement {
         this.$list.appendChild(li);
       }
       icons.forEach((icon) => {
-          var li = document.createElement('li');
-          var a = document.createElement('a');
-          a.href = `/icon/${icon.name}`;
-          var text = this.highlight(icon.name || '');
-          a.appendChild(text);
-          li.appendChild(a);
-          this.$list.appendChild(li);
-        });
+        var li = document.createElement('li');
+        var a = document.createElement('a');
+        a.href = `/icon/${icon.name}`;
+        var additional = icon.aliases.reduce<string[]>((arr, icon) => {
+          if (icon.match) {
+            arr.push(icon.name || '');
+          }
+          return arr;
+        }, []);
+        var aliasText = '';
+        if (additional.length) {
+          aliasText = ` (${additional.join(', ')})`;
+        }
+        const text = this.highlight(`${icon.name}${aliasText}`);
+        a.appendChild(text);
+        li.appendChild(a);
+        this.$list.appendChild(li);
+      });
       if (icons.length === 5) {
         var li = document.createElement('li');
         var a = document.createElement('a');

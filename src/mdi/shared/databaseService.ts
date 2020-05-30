@@ -155,8 +155,8 @@ export class DatabaseService {
               data: icon.data as string,
               version: icon.version as string,
               codepoint: icon.codepoint as string,
-              aliases: JSON.stringify(icon.aliases),
-              tags: JSON.stringify(icon.tags)
+              aliases: JSON.stringify(icon.aliases.map(alias => ({ name: alias.name }))),
+              tags: JSON.stringify(icon.tags.map(tag => ({ name: tag.name, url: tag.url})))
             })
           ));
         })
