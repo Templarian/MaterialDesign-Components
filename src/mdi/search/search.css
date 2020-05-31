@@ -49,7 +49,7 @@ ul {
   padding: 0;
   margin: 0;
   border-radius: 0.25rem;
-  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0.125rem 0.75rem rgba(0, 0, 0, 0.4);
 }
 ul > li {
   color: #222;
@@ -64,15 +64,15 @@ ul > li > a {
 ul > li > a:hover {
   background: #DAF4FB;
 }
-ul > li:first-child > a {
+ul > li.item:first-child > a {
   border-top: 1px solid #DDD;
   border-bottom: 1px solid #DDD;
   border-radius: 0.25rem 0.25rem 0 0;
 }
-ul > li:not(:first-child) > a {
+ul > li.item:not(:first-child) > a {
   border-bottom: 1px solid #DDD;
 }
-ul > li:last-child > a {
+ul > li.item:last-child > a {
   border-radius: 0 0 0.25rem 0.25rem;
 }
 ul > li > a {
@@ -96,4 +96,39 @@ ul > li > a strong {
 
 li + .section {
   border-radius: 0;
+}
+
+.type {
+  background-color: #453C4F;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  color: #fff;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  margin: 0.125rem 0 0.125rem 0.25rem;
+}
+
+.icon {
+  background-color: #453C4F;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+}
+.icon.first > a {
+  border-radius: 0.25rem 0.25rem 0 0;
+}
+.icon.last {
+  padding-bottom: 0.25rem;
+}
+.icon.last > a {
+  border-radius: 0 0 0.25rem 0.25rem;
+}
+
+.all {
+  background-color: #453C4F;
+  padding: 0 0.25rem 0.25rem 0.25rem;
+  border-radius: 0 0 0.25rem 0.25rem;
+}
+
+.all a {
+  border-radius: 0.25rem;
 }

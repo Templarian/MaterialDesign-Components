@@ -109,14 +109,20 @@ export default class MdiSearch extends HTMLElement {
   updateList() {
     this.clearList();
     const termRegex = new RegExp(this.term, 'i');
-    this.items
-      .filter((item) => item.name.match(termRegex))
-      .forEach((item) => {
+    const filtered = this.items.filter((item) => item.name.match(termRegex));
+    filtered.forEach((item, i) => {
         var li = document.createElement('li');
+        li.classList.add('item');
+        li.classList.toggle('first', i === 0);
+        li.classList.toggle('last', i === filtered.length - 1);
         var a = document.createElement('a');
         a.href = item.url;
         var text = this.highlight(item.name);
         a.appendChild(text);
+        var type = document.createElement('span');
+        type.innerText = item.type;
+        type.classList.add('type');
+        a.appendChild(type);
         li.appendChild(a);
         this.$list.appendChild(li);
       });
@@ -128,8 +134,11 @@ export default class MdiSearch extends HTMLElement {
         li.classList.add('section');
         this.$list.appendChild(li);
       }
-      icons.forEach((icon) => {
+      icons.forEach((icon, i) => {
         var li = document.createElement('li');
+        li.classList.add('icon');
+        li.classList.toggle('first', i === 0);
+        li.classList.toggle('last', i === icons.length - 1);
         var a = document.createElement('a');
         a.href = `/icon/${icon.name}`;
         var additional = icon.aliases.reduce<string[]>((arr, icon) => {
@@ -149,9 +158,14 @@ export default class MdiSearch extends HTMLElement {
       });
       if (icons.length === 5) {
         var li = document.createElement('li');
+        li.classList.add('all');
         var a = document.createElement('a');
         a.href = `/icons?search=${this.term}`;
-        a.innerText = `Show results for "${this.term}"`;
+        a.appendChild(document.createTextNode('All results for "'));
+        var strong = document.createElement('strong');
+        strong.innerText = this.term;
+        a.appendChild(strong)
+        a.appendChild(document.createTextNode('"'));
         li.appendChild(a);
         this.$list.appendChild(li);
       }
