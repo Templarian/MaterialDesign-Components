@@ -46,7 +46,7 @@ export default class MdiSearch extends HTMLElement {
   handleInput(e) {
     const target = e.target as HTMLInputElement;
     const { value } = target;
-    this.term = removeDiacritics(value);
+    this.term = removeDiacritics(value.toLowerCase());
     this.updateList();
   }
 
@@ -111,21 +111,21 @@ export default class MdiSearch extends HTMLElement {
     const termRegex = new RegExp(this.term, 'i');
     const filtered = this.items.filter((item) => item.name.match(termRegex));
     filtered.forEach((item, i) => {
-        var li = document.createElement('li');
-        li.classList.add('item');
-        li.classList.toggle('first', i === 0);
-        li.classList.toggle('last', i === filtered.length - 1);
-        var a = document.createElement('a');
-        a.href = item.url;
-        var text = this.highlight(item.name);
-        a.appendChild(text);
-        var type = document.createElement('span');
-        type.innerText = item.type;
-        type.classList.add('type');
-        a.appendChild(type);
-        li.appendChild(a);
-        this.$list.appendChild(li);
-      });
+      var li = document.createElement('li');
+      li.classList.add('item');
+      li.classList.toggle('first', i === 0);
+      li.classList.toggle('last', i === filtered.length - 1);
+      var a = document.createElement('a');
+      a.href = item.url;
+      var text = this.highlight(item.name);
+      a.appendChild(text);
+      var type = document.createElement('span');
+      type.innerText = item.type;
+      type.classList.add('type');
+      a.appendChild(type);
+      li.appendChild(a);
+      this.$list.appendChild(li);
+    });
     if (this.term !== '') {
       const icons = iconFilter(this.icons, this.term, 5);
       if (icons.length) {
