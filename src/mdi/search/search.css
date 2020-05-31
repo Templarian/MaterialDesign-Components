@@ -114,10 +114,13 @@ li + .section {
   padding-right: 0.25rem;
 }
 .icon.first > a {
-  border-radius: 0.25rem 0.25rem 0 0;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
 }
 .icon.last {
   padding-bottom: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
 }
 .icon.last > a {
   border-radius: 0 0 0.25rem 0.25rem;
