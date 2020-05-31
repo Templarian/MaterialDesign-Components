@@ -16,16 +16,30 @@ function *filter(array, condition, maxSize) {
 }
 
 export function iconFilter(icons: Icon[], term: string, limit: number = 5): Icon[] {
-  const termRegex = new RegExp(term, 'i');
   const iconsByName = filter(
     icons,
-    (icon) => {
-      return icon.name!.match(termRegex) !== null;
+    (icon: Icon) => {
+      return icon.name?.toLowerCase().indexOf(term) === 0;
     },
     limit
   );
   const list = Array.from(iconsByName);
-  const skip: string[] = list.map(icon => icon.id);
+  let skip: string[] = list.map(icon => icon.id);
+  if (list.length < limit) {
+    var more = filter(
+      icons,
+      (icon) => {
+        if (skip.includes(icon.id)) {
+          return false;
+        }
+        return icon.name?.toLowerCase().indexOf(term) !== -1;
+      },
+      limit - list.length
+    );
+    var more2 = Array.from(more);
+    more2.forEach(icon => list.push(icon));
+  }
+  skip = list.map(icon => icon.id);
   if (list.length < limit) {
     var iconsByAliases = filter(
       icons,
@@ -35,10 +49,10 @@ export function iconFilter(icons: Icon[], term: string, limit: number = 5): Icon
         }
         for(var i = 0, c = icon.aliases.length; i < c; i++) {
           if (icon.aliases[i].name == null) {
-            console.log(icon.name, icon.aliases);
+            console.error(`Invalid alias in ${icon.name}`);
             return false;
           }
-          if (icon.aliases[i].name.match(termRegex) !== null) {
+          if (icon.aliases[i].name.indexOf(term) !== -1) {
             icon.aliases[i].match = true;
             return true;
           }
