@@ -152,6 +152,13 @@ export default class MdiSearch extends HTMLElement {
           aliasText = ` (${additional.join(', ')})`;
         }
         const text = this.highlight(`${icon.name}${aliasText}`);
+        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        svg.setAttribute('viewBox', '0 0 24 24');
+        svg.setAttribute('fill', 'currentColor');
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', icon.data as string);
+        svg.appendChild(path);
+        a.appendChild(svg);
         a.appendChild(text);
         li.appendChild(a);
         this.$list.appendChild(li);
