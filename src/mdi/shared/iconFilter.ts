@@ -1,4 +1,5 @@
 import { Icon } from "./models/icon";
+import { removeDiacritics } from "./removeDiacritics";
 
 function *filter(array, condition, maxSize) {
   if (!maxSize || maxSize > array.length) {
@@ -15,7 +16,18 @@ function *filter(array, condition, maxSize) {
   }
 }
 
+function exactMatch(icons: Icon[], term: string) {
+  for(var i = 0, c = icons.length; i < c; i++) {
+    if (icons[i].name?.toLowerCase() === term) {
+      icons.unshift(icons.splice(i, 1)[0]);
+      return icons;
+    }
+  }
+  return icons;
+}
+
 export function iconFilter(icons: Icon[], term: string, limit: number = 5): Icon[] {
+  term = removeDiacritics(term.toLowerCase());
   const iconsByName = filter(
     icons,
     (icon: Icon) => {
@@ -64,5 +76,5 @@ export function iconFilter(icons: Icon[], term: string, limit: number = 5): Icon
     const list2 = Array.from(iconsByAliases);
     list2.forEach(icon => list.push(icon));
   }
-  return list;
+  return exactMatch(list, term);
 }

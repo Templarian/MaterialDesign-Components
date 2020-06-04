@@ -5,7 +5,6 @@ import { iconFilter } from 'mdi/shared/iconFilter';
 
 import template from './search.html';
 import style from './search.css';
-import { removeDiacritics } from 'mdi/shared/removeDiacritics';
 
 const noIcon = 'M0 0h24v24H0V0zm2 2v20h20V2H2z';
 
@@ -46,7 +45,7 @@ export default class MdiSearch extends HTMLElement {
   handleInput(e) {
     const target = e.target as HTMLInputElement;
     const { value } = target;
-    this.term = removeDiacritics(value.toLowerCase());
+    this.term = value;
     this.updateList();
   }
 
