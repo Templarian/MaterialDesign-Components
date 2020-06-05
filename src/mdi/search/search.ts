@@ -1,7 +1,7 @@
 import { Component, Prop, Part } from '@mdi/element';
 import { debounce } from './utils';
 import { Icon } from 'mdi/shared/models/icon';
-import { iconFilter } from 'mdi/shared/iconFilter';
+import { iconFilter, sanitizeTerm } from 'mdi/shared/iconFilter';
 
 import template from './search.html';
 import style from './search.css';
@@ -74,13 +74,14 @@ export default class MdiSearch extends HTMLElement {
   highlight(text: string) {
     var i = 0;
     var normalized = text;
-    var span = document.createElement('span');
+    const span = document.createElement('span');
+    const term = sanitizeTerm(this.term);
     if (this.term === '') {
       span.innerText = text;
       return span;
     }
     while (normalized) {
-      var index = normalized.toLowerCase().indexOf(this.term);
+      var index = normalized.toLowerCase().indexOf(term);
       if (index === -1) {
         const end = document.createElement('span');
         end.innerText = normalized.substr(0, normalized.length);
@@ -93,9 +94,9 @@ export default class MdiSearch extends HTMLElement {
           span.appendChild(start);
         }
         const strong = document.createElement('strong');
-        strong.innerText = normalized.substr(index, this.term.length);
+        strong.innerText = normalized.substr(index, term.length);
         span.appendChild(strong);
-        normalized = normalized.substr(index + this.term.length, normalized.length);
+        normalized = normalized.substr(index + term.length, normalized.length);
       }
     }
     return span;
@@ -183,7 +184,6 @@ export default class MdiSearch extends HTMLElement {
         empty = true;
       }
     }
-    console.log(empty)
     this.$empty.classList.toggle('hide', empty);
   }
 

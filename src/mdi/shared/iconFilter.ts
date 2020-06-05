@@ -26,8 +26,12 @@ function exactMatch(icons: Icon[], term: string) {
   return icons;
 }
 
+export function sanitizeTerm(term: string) {
+  return removeDiacritics(term.trim().toLowerCase()).replace(/(\w) (\w)/g, "$1-$2");
+}
+
 export function iconFilter(icons: Icon[], term: string, limit: number = 5): Icon[] {
-  term = removeDiacritics(term.toLowerCase());
+  term = sanitizeTerm(term);
   const iconsByName = filter(
     icons,
     (icon: Icon) => {

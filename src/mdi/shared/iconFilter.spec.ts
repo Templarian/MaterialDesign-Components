@@ -1,4 +1,4 @@
-import { iconFilter } from './iconFilter'
+import { iconFilter, sanitizeTerm } from './iconFilter'
 import { Icon } from './models/icon';
 
 const iconBar = { id: '1', name: 'bar', aliases: [] };
@@ -51,6 +51,11 @@ describe('mdi-icon', () => {
   it('should convert diacritics "fóo"', () => {
     const filteredIcons = iconFilter(icons, 'Fóo');
     expect(filteredIcons.length).toEqual(3);
+  });
+
+  it('should sanitizeTerm', () => {
+    const term = sanitizeTerm('foo bar');
+    expect(term).toEqual('foo-bar');
   });
 
 });
