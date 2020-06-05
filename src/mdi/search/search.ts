@@ -29,6 +29,7 @@ export default class MdiSearch extends HTMLElement {
   @Part() $menu: HTMLDivElement;
   @Part() $input: HTMLInputElement;
   @Part() $list: HTMLUListElement;
+  @Part() $empty: HTMLDivElement;
 
   isOpen: boolean = false;
   isOver: boolean = false;
@@ -50,6 +51,7 @@ export default class MdiSearch extends HTMLElement {
   }
 
   handleFocus() {
+    this.updateList();
     this.isOpen = true;
     this.$menu.style.display = 'block';
   }
@@ -107,6 +109,7 @@ export default class MdiSearch extends HTMLElement {
 
   updateList() {
     this.clearList();
+    let empty = false;
     const termRegex = new RegExp(this.term, 'i');
     const filtered = this.items.filter((item) => item.name.match(termRegex));
     filtered.forEach((item, i) => {
@@ -124,6 +127,7 @@ export default class MdiSearch extends HTMLElement {
       a.appendChild(type);
       li.appendChild(a);
       this.$list.appendChild(li);
+      empty = true;
     });
     if (this.term !== '') {
       const icons = iconFilter(this.icons, this.term, 5);
@@ -175,7 +179,12 @@ export default class MdiSearch extends HTMLElement {
         li.appendChild(a);
         this.$list.appendChild(li);
       }
+      if (icons.length > 0) {
+        empty = true;
+      }
     }
+    console.log(empty)
+    this.$empty.classList.toggle('hide', empty);
   }
 
   render() {
