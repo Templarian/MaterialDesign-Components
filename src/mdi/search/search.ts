@@ -228,8 +228,4 @@ export default class MdiSearch extends HTMLElement {
     }
     this.$empty.classList.toggle('hide', empty);
   }
-
-  render() {
-
-  }
 }
