@@ -6,8 +6,6 @@ import { iconFilter, sanitizeTerm } from 'mdi/shared/iconFilter';
 import template from './search.html';
 import style from './search.css';
 
-const noIcon = 'M0 0h24v24H0V0zm2 2v20h20V2H2z';
-
 interface Item {
   name: string,
   type: string,
@@ -22,7 +20,6 @@ interface Item {
   template
 })
 export default class MdiSearch extends HTMLElement {
-  @Prop() path: string = noIcon;
   @Prop() items: Item[] = [];
   @Prop() icons: Icon[] = [];
 
@@ -85,6 +82,7 @@ export default class MdiSearch extends HTMLElement {
   }
 
   setActive() {
+    console.log(this.anchors.length)
     if (this.keyIndex === -2) {
       this.keyIndex = this.anchors.length - 1;
     }
@@ -223,9 +221,11 @@ export default class MdiSearch extends HTMLElement {
       }
       if (icons.length > 0) {
         empty = true;
-        this.anchors.push(this.$reqIcon);
-        this.anchors.push(this.$reqDoc);
       }
+    }
+    if (!empty) {
+      this.anchors.push(this.$reqIcon);
+      this.anchors.push(this.$reqDoc);
     }
     this.$empty.classList.toggle('hide', empty);
   }

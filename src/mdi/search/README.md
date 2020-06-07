@@ -14,10 +14,30 @@ import '@mdi/web-components/mdiSearch.js';
 <mdi-search></mdi-search>
 ```
 
+| Attribute | Required | Description |
+| --------- | -------- | ----------- |
+| icons     | Required | Pass in icon array. |
+| items     | -        | Pass in other items. |
+
 | Events     | Tested   | Description |
 | ---------- | -------- | ----------- |
-| onselect   |          | Select specific item in list. |
-| onsearch   |          | Search with general items |
+| onsearch   |          | Called on enter key. |
+
+## Icons
+
+```json
+[
+  {
+    "id": "uuid1",
+    "name": "account",
+    "aliases": [
+      {
+        "name": "user"
+      }
+    ]
+  }
+]
+```
 
 ## Accessibility
 

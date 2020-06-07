@@ -161,7 +161,9 @@ li + .section {
   border-radius: 0.25rem;
   margin-top: 0.25rem;
 }
-[part~=empty] a:hover {
+[part~=empty] a:hover,
+[part~=empty] a:active,
+[part~=empty] a:focus {
   background: #DAF4FB;
 }
 [part~=empty] a svg {
