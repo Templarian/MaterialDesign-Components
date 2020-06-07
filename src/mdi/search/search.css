@@ -60,7 +60,9 @@ ul > li > a {
   border-left: 1px solid #DDD;
   border-right: 1px solid #DDD;
 }
-ul > li > a:hover {
+ul > li > a:hover,
+ul > li > a:active,
+ul > li > a:focus {
   background: #DAF4FB;
 }
 ul > li.item:first-child > a {

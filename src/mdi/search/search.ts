@@ -30,15 +30,20 @@ export default class MdiSearch extends HTMLElement {
   @Part() $input: HTMLInputElement;
   @Part() $list: HTMLUListElement;
   @Part() $empty: HTMLDivElement;
+  @Part() $reqIcon: HTMLAnchorElement;
+  @Part() $reqDoc: HTMLAnchorElement;
 
   isOpen: boolean = false;
   isOver: boolean = false;
   term: string = '';
+  keyIndex = -1;
+  anchors: HTMLAnchorElement[] = [];
 
   connectedCallback() {
     this.$input.addEventListener('input', this.handleInput.bind(this));
     this.$input.addEventListener('focus', this.handleFocus.bind(this));
     this.$input.addEventListener('blur', this.handleBlur.bind(this));
+    this.addEventListener('keydown', this.keydown.bind(this));
     this.$list.addEventListener('mouseenter', this.handleListEnter.bind(this));
     this.$list.addEventListener('mouseleave', this.handleListLeave.bind(this));
   }
@@ -60,6 +65,37 @@ export default class MdiSearch extends HTMLElement {
     if (!this.isOver) {
       this.isOpen = false;
       this.$menu.style.display = 'none';
+      this.keyIndex -= 1;
+    }
+  }
+
+  keydown(e: KeyboardEvent) {
+    if (e.which === 40) {
+      this.keyIndex += 1;
+      this.setActive();
+      e.preventDefault();
+      e.stopPropagation();
+    } else if (e.which === 38) {
+      this.keyIndex -= 1;
+      this.setActive();
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  }
+
+  setActive() {
+    if (this.keyIndex === -2) {
+      this.keyIndex = this.anchors.length - 1;
+    }
+    if (this.keyIndex === this.anchors.length) {
+      this.keyIndex = -1;
+    }
+    if (this.keyIndex === -1) {
+      this.$input.focus();
+      this.isOver = false;
+    } else {
+      this.isOver = true;
+      this.anchors[this.keyIndex].focus();
     }
   }
 
@@ -106,6 +142,7 @@ export default class MdiSearch extends HTMLElement {
     while(this.$list.firstChild){
       this.$list.removeChild(this.$list.firstChild);
     }
+    this.anchors = [];
   }
 
   updateList() {
@@ -128,6 +165,7 @@ export default class MdiSearch extends HTMLElement {
       a.appendChild(type);
       li.appendChild(a);
       this.$list.appendChild(li);
+      this.anchors.push(a);
       empty = true;
     });
     if (this.term !== '') {
@@ -165,6 +203,7 @@ export default class MdiSearch extends HTMLElement {
         a.appendChild(svg);
         a.appendChild(text);
         li.appendChild(a);
+        this.anchors.push(a);
         this.$list.appendChild(li);
       });
       if (icons.length === 5) {
@@ -178,10 +217,13 @@ export default class MdiSearch extends HTMLElement {
         a.appendChild(strong)
         a.appendChild(document.createTextNode('"'));
         li.appendChild(a);
+        this.anchors.push(a);
         this.$list.appendChild(li);
       }
       if (icons.length > 0) {
         empty = true;
+        this.anchors.push(this.$reqIcon);
+        this.anchors.push(this.$reqDoc);
       }
     }
     this.$empty.classList.toggle('hide', empty);
