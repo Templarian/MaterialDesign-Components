@@ -18,3 +18,8 @@ import '@mdi/web-components/mdiSearch.js';
 | ---------- | -------- | ----------- |
 | onselect   |          | Select specific item in list. |
 | onsearch   |          | Search with general items |
+
+## Accessibility
+
+- Keyboard Navigation with Up/Down
+- Focus States
