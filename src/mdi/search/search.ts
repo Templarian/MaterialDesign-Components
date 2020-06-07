@@ -56,6 +56,7 @@ export default class MdiSearch extends HTMLElement {
   }
 
   handleFocus() {
+    this.keyIndex = -1;
     this.updateList();
     this.isOpen = true;
     this.$menu.style.display = 'block';
