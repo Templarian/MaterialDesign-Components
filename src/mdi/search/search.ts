@@ -82,7 +82,6 @@ export default class MdiSearch extends HTMLElement {
   }
 
   setActive() {
-    console.log(this.anchors.length)
     if (this.keyIndex === -2) {
       this.keyIndex = this.anchors.length - 1;
     }
