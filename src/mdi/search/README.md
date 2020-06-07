@@ -23,7 +23,9 @@ import '@mdi/web-components/mdiSearch.js';
 | ---------- | -------- | ----------- |
 | onsearch   |          | Called on enter key. |
 
-## Icons
+## Schemas
+
+### Icons
 
 ```json
 [
@@ -35,6 +37,18 @@ import '@mdi/web-components/mdiSearch.js';
         "name": "user"
       }
     ]
+  }
+]
+```
+
+### Items
+
+```json
+[
+  {
+    "name": "Web Component",
+    "url": "/getting-started/web-component",
+    "type": "Documentation"
   }
 ]
 ```
