@@ -11,7 +11,7 @@ import * as path from 'path';
 const DIST_COMPONENTS = true;
 const BROWSER = 'iife';
 const PROD = !process.env.ROLLUP_WATCH;
-const CONFIG = {
+const TSCONFIG = {
   typescript: require('typescript'),
   tsconfigOverride: {
     compilerOptions: {
@@ -43,7 +43,7 @@ namespaces.forEach((namespace) => {
         entries.push({
           plugins: [
             resolve(),
-            typescript(CONFIG),
+            typescript(TSCONFIG),
             string({
               include: '**/*.html'
             }),
@@ -68,7 +68,7 @@ namespaces.forEach((namespace) => {
 
 const plugins = [
   resolve(),
-  typescript(CONFIG),
+  typescript(TSCONFIG),
   string({
     include: '**/*.html'
   }),
