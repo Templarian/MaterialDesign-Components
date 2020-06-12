@@ -18,8 +18,8 @@ input {
   outline: none;
   width: calc(100% - 1rem);
 }
-input:focus + svg path {
-  fill: #ccc;
+.active input + svg path {
+  fill: #453C4F;
 }
 svg {
   grid-row: 1;

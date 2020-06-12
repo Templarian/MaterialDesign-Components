@@ -1,9 +1,14 @@
 import typescript from 'rollup-plugin-typescript2';
 import resolve from '@rollup/plugin-node-resolve';
+import multi from '@rollup/plugin-multi-entry';
+import copy from 'rollup-plugin-copy'
 import { string } from "rollup-plugin-string";
+import serve from 'rollup-plugin-serve'
 import * as fs from 'fs';
 import * as path from 'path';
 
+// This will generate individual JS files
+const DIST_COMPONENTS = true;
 const BROWSER = 'iife';
 const CONFIG = {
   typescript: require('typescript'),
@@ -14,6 +19,9 @@ const CONFIG = {
   }
 };
 
+// Append to the inputs any outside your project
+// ['./node_modules/foo/src/foo/bar.ts']
+const inputs = [];
 const entries = [];
 
 const srcDir = path.join(__dirname, 'src');
@@ -28,30 +36,63 @@ namespaces.forEach((namespace) => {
     const file = path.join(componentDir, `${component}.ts`);
     if (fs.existsSync(file)) {
       const name = `${namespace}${component[0].toUpperCase()}${component.substr(1)}`;
-      entries.push({
-        plugins: [
-          resolve(),
-          typescript(CONFIG),
-          string({
-            include: '**/*.html'
-          }),
-          string({
-            include: '**/*.css'
-          })
-        ],
-        input: `./src/${namespace}/${component}/${component}.ts`,
-        output: {
-          name: `${name}`,
-          file: `./dist/${name}.js`,
-          format: BROWSER,
-          sourcemap: true
-        }
-      });
+      const input = `./src/${namespace}/${component}/${component}.ts`;
+      inputs.push(input);
+      if (DIST_COMPONENTS) {
+        entries.push({
+          plugins: [
+            resolve(),
+            typescript(CONFIG),
+            string({
+              include: '**/*.html'
+            }),
+            string({
+              include: '**/*.css'
+            })
+          ],
+          input,
+          output: {
+            name: `${name}`,
+            file: `./dist/${name}.js`,
+            format: BROWSER,
+            sourcemap: true
+          }
+        });
+      }
     } else {
       console.error(`Unable to find ${file}!`);
     }
   });
 });
 
-
-export default [...entries];
+export default [
+  ...entries,
+  {
+    input: inputs,
+    output: {
+      file: './dist/main.js'
+    },
+    plugins: [
+      resolve(),
+      typescript(CONFIG),
+      string({
+        include: '**/*.html'
+      }),
+      string({
+        include: '**/*.css'
+      }),
+      multi(),
+      copy({
+        targets: [
+          { src: 'src/index.html', dest: 'dist' },
+          { src: 'api/*', dest: 'dist/api' }
+        ]
+      }),
+      serve({
+        open: true,
+        contentBase: 'dist',
+        port: 3000
+      })
+    ]
+  }
+];

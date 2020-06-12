@@ -150,7 +150,7 @@
   right: 2rem;
 }</pre>
     </section>
-    <script src="dist/mdiAnnoy.js"></script>
+    <script src="mdiAnnoy.js"></script>
 
     <section>
       <h2>mdi-body</h2>
@@ -161,7 +161,7 @@
         </mdi-body>
       </div>
     </section>
-    <script src="dist/mdiBody.js"></script>
+    <script src="mdiBody.js"></script>
 
     <section>
       <h2>mdi-button</h2>
@@ -177,7 +177,7 @@
       <button onclick="mdiButton.setVariant('base')">base</button>
       <button onclick="mdiButton.setVariant('base-inverse')">base-inverse</button>
     </section>
-    <script src="dist/mdiButton.js"></script>
+    <script src="mdiButton.js"></script>
     <script>
       window.mdiButton = {
         setVariant: function(variant) {
@@ -196,7 +196,7 @@
         <code>Selected: <span id="colorSelected"></span></code>
       </div>
     </section>
-    <script src="dist/mdiColor.js"></script>
+    <script src="mdiColor.js"></script>
     <script>
       document.getElementById('color1').addEventListener('select', (e) => {
         const { rgb, hex } = e.detail;
@@ -224,8 +224,8 @@
         <mdi-grid id="iconGrid1"></mdi-grid>
       </div>
     </section>
-    <script src="dist/mdiScroll.js"></script>
-    <script src="dist/mdiGrid.js"></script>
+    <script src="mdiScroll.js"></script>
+    <script src="mdiGrid.js"></script>
     <script>
       const ele = document.getElementsByTagName('mdi-grid')[0];
       ele.addEventListener('select', (e) => {
@@ -277,7 +277,7 @@
         <mdi-icon id="i2" path="M12,4C14.21,4 16,5.79 16,8C16,10.21 14.21,12 12,12C9.79,12 8,10.21 8,8C8,5.79 9.79,4 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z"></mdi-icon>
       </div>
     </section>
-    <script src="dist/mdiIcon.js"></script>
+    <script src="mdiIcon.js"></script>
     <script>
       window.mdiIcon = {
         setIcon: (id, val) => {
@@ -295,7 +295,7 @@
         <code>Selected: <span id="inputHexRgbValue1"></span></code>
       </div>
     </section>
-    <script src="dist/mdiInputHexRgb.js"></script>
+    <script src="mdiInputHexRgb.js"></script>
     <script>
       document.getElementById('inputHexRgb1').addEventListener('change', (e) => {
         const hex = e.target.value;
@@ -312,7 +312,7 @@
         <code>Selected: <span id="inputRangeValue1"></span></code>
       </div>
     </section>
-    <script src="dist/mdiColor.js"></script>
+    <script src="mdiColor.js"></script>
     <script>
       document.getElementById('inputRange1').addEventListener('change', (e) => {
         const value = e.target.value;
@@ -331,7 +331,7 @@
         </mdi-nav>
       </div>
     </section>
-    <script src="dist/mdiHeader.js"></script>
+    <script src="mdiHeader.js"></script>
 
     <section>
       <h2>mdi-markdown</h2>
@@ -340,7 +340,7 @@
         <mdi-markdown text="# Hello"></mdi-markdown>
       </div>
     </section>
-    <script src="dist/mdiMarkdown.js"></script>
+    <script src="mdiMarkdown.js"></script>
 
     <section>
       <h2>mdi-nav</h2>
@@ -351,7 +351,7 @@
           name="Material Design Icons"></mdi-nav>
       </div>
     </section>
-    <script src="dist/mdiNav.js"></script>
+    <script src="mdiNav.js"></script>
 
     <section>
       <h2>mdi-picker <code>extends MdiButton</code></h2>
@@ -360,7 +360,7 @@
         <mdi-picker id="picker1">Example Picker</mdi-picker>
       </div>
     </section>
-    <script src="dist/mdiPicker.js"></script>
+    <script src="mdiPicker.js"></script>
     <script>
       // Code is down below to share icon data
     </script>
@@ -372,7 +372,7 @@
         <mdi-search id="search"></mdi-search>
       </div>
     </section>
-    <script src="dist/mdiSearch.js"></script>
+    <script src="mdiSearch.js"></script>
     <script>
       var search = document.getElementById('search');
       search.items = [
@@ -380,6 +380,7 @@
         { type: 'Documentation', name: 'Angular', url: '/getting-started/angular' },
         { type: 'Documentation', name: 'AngularJS', url: '/getting-started/angularjs' },
         { type: 'Documentation', name: 'Bootstrap', url: '/getting-started/bootstrap' },
+        { type: 'Documentation', name: 'How to Play Football', url: '/getting-started/football' },
         { type: 'Documentation', name: 'Foo Angular Foo Angular', url: '/getting-started/bootstraps' }
       ];
       search.icons = [
@@ -404,8 +405,8 @@
         <p>Note: This just triggers the show to make styling easier.</p>
       </div>
     </section>
-    <script src="dist/mdiToast.js"></script>
-    <script src="dist/mdiToasts.js"></script>
+    <script src="mdiToast.js"></script>
+    <script src="mdiToasts.js"></script>
     <script>
       function uuid() {
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -546,7 +547,7 @@
     </script>
 
     <mdi-database></mdi-database>
-    <script src="dist/mdiDatabase.js"></script>
+    <script src="mdiDatabase.js"></script>
     <script>
       // Worker
       // Build a worker from an anonymous function body
@@ -596,5 +597,6 @@
       database.font = fontId;
     </script>
   </main>
+  <!--<script src="main.js"></script>-->
 </body>
 </html>

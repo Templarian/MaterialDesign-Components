@@ -23,6 +23,7 @@ export default class MdiSearch extends HTMLElement {
   @Prop() items: Item[] = [];
   @Prop() icons: Icon[] = [];
 
+  @Part() $grid: HTMLDivElement;
   @Part() $menu: HTMLDivElement;
   @Part() $input: HTMLInputElement;
   @Part() $list: HTMLUListElement;
@@ -57,12 +58,14 @@ export default class MdiSearch extends HTMLElement {
     this.updateList();
     this.isOpen = true;
     this.$menu.style.display = 'block';
+    this.$grid.classList.add('active');
   }
 
   handleBlur() {
     if (!this.isOver) {
       this.isOpen = false;
       this.$menu.style.display = 'none';
+      this.$grid.classList.remove('active');
       this.keyIndex -= 1;
     }
   }
