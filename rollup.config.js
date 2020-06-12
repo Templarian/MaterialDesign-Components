@@ -3,13 +3,14 @@ import resolve from '@rollup/plugin-node-resolve';
 import multi from '@rollup/plugin-multi-entry';
 import copy from 'rollup-plugin-copy'
 import { string } from "rollup-plugin-string";
-import serve from 'rollup-plugin-serve'
+import serve from 'rollup-plugin-serve';
 import * as fs from 'fs';
 import * as path from 'path';
 
 // This will generate individual JS files
 const DIST_COMPONENTS = true;
 const BROWSER = 'iife';
+const PROD = !process.env.ROLLUP_WATCH;
 const CONFIG = {
   typescript: require('typescript'),
   tsconfigOverride: {
@@ -65,6 +66,33 @@ namespaces.forEach((namespace) => {
   });
 });
 
+const plugins = [
+  resolve(),
+  typescript(CONFIG),
+  string({
+    include: '**/*.html'
+  }),
+  string({
+    include: '**/*.css'
+  }),
+  multi(),
+  copy({
+    targets: [
+      { src: 'src/index.html', dest: 'dist' },
+      { src: 'api/*', dest: 'dist/api' }
+    ]
+  })
+];
+if (!PROD) {
+  plugins.push(
+    serve({
+      open: true,
+      contentBase: 'dist',
+      port: 3000
+    })
+  );
+};
+
 export default [
   ...entries,
   {
@@ -72,27 +100,6 @@ export default [
     output: {
       file: './dist/main.js'
     },
-    plugins: [
-      resolve(),
-      typescript(CONFIG),
-      string({
-        include: '**/*.html'
-      }),
-      string({
-        include: '**/*.css'
-      }),
-      multi(),
-      copy({
-        targets: [
-          { src: 'src/index.html', dest: 'dist' },
-          { src: 'api/*', dest: 'dist/api' }
-        ]
-      }),
-      serve({
-        open: true,
-        contentBase: 'dist',
-        port: 3000
-      })
-    ]
+    plugins
   }
 ];
