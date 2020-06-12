@@ -78,7 +78,7 @@ const plugins = [
   multi(),
   copy({
     targets: [
-      { src: 'src/index.html', dest: 'dist' },
+      { src: 'src/*.html', dest: 'dist' },
       { src: 'api/*', dest: 'dist/api' }
     ]
   })
