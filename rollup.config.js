@@ -88,7 +88,7 @@ if (!PROD) {
     serve({
       open: true,
       contentBase: 'dist',
-      port: 3000
+      port: 3001
     })
   );
 };
