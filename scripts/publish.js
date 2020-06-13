@@ -3,10 +3,12 @@ const {
   write,
   exists,
   remove,
+  removeFolder,
   folder,
   copyFileSync,
   copyFolderSync,
-  copyFolderContentsSync
+  copyFolderContentsSync,
+  eachComponent
 } = require('./utils');
 
 // publish/
@@ -38,7 +40,16 @@ remove('publish/index.html');
 // Copy dist
 copyFolderSync('dist', 'publish');
 // Remove "dist/api" and "index.html"
-removeFolder('publish/api');
+removeFolder('publish/dist/api');
 remove('publish/dist/index.html');
+// Inject index.ts into every component
+eachComponent('publish', ({ cls, namespace, component }) => {
+  write(`publish/${namespace}/${component}/index.ts`, [
+    `import ${cls} from './${component}';`,
+    ``,
+    `export default ${cls};`
+  ].join('\n'));
+});
+console.log(`Done injecting "index.ts" into each component`);
 // Final Message
 console.log(`Done run "cd publish" and "npm publish".`);

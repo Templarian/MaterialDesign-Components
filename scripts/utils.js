@@ -17,19 +17,21 @@ exports.remove = (file) => {
   return fs.unlinkSync(file);
 };
 
-exports.removeFolder = (path) => {
-  if (fs.existsSync(path)) {
-    fs.readdirSync(path).forEach((file) => {
-      const curPath = Path.join(path, file);
+function removeFolder(p) {
+  if (fs.existsSync(p)) {
+    fs.readdirSync(p).forEach((file) => {
+      const curPath = path.join(p, file);
       if (fs.lstatSync(curPath).isDirectory()) { // recurse
-        deleteFolderRecursive(curPath);
+        removeFolder(curPath);
       } else { // delete file
         fs.unlinkSync(curPath);
       }
     });
-    fs.rmdirSync(path);
+    fs.rmdirSync(p);
   }
 }
+
+exports.removeFolder = removeFolder;
 
 exports.folder = (targetFolder) => {
   if (!fs.existsSync(targetFolder)) {
@@ -102,3 +104,34 @@ function copyFolderContentsSync(source, target) {
 };
 
 exports.copyFolderContentsSync = copyFolderContentsSync;
+
+exports.eachComponent = (srcDir, callback) => {
+  const namespaces = fs.readdirSync(srcDir)
+    .filter((f) => f.match(/^[a-z]+$/) !== null);
+  namespaces.forEach((namespace) => {
+    if (namespace === '@types' || namespace === 'dist') {
+      return;
+    }
+    const namespaceDir = path.join(srcDir, namespace);
+    const components = fs.readdirSync(namespaceDir)
+      .filter((f) => f.match(/^[a-zA-Z0-9]+$/) !== null);
+    components.forEach((component) => {
+      const componentDir = path.join(namespaceDir, component);
+      const file = path.join(componentDir, `${component}.ts`);
+      if (fs.existsSync(file)) {
+        const componentU = `${component[0].toUpperCase()}${component.substr(1)}`;
+        const namespaceU = `${namespace[0].toUpperCase()}${namespace.substr(1)}`;
+        const name = `${namespace}${componentU}`;
+        const cls = `${namespaceU}${componentU}`;
+        const input = `./src/${namespace}/${component}/${component}.ts`;
+        callback({
+          cls,
+          name,
+          component,
+          namespace,
+          input
+        });
+      }
+    });
+  });
+};
