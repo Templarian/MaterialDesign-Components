@@ -1,6 +1,6 @@
 :host {
+  display: block;
   align-self: center;
-  width: 10rem;
 }
 
 div {
@@ -107,6 +107,7 @@ li + .section {
   padding-left: 0.25rem;
   padding-right: 0.25rem;
   margin: 0.125rem 0 0.125rem 0.25rem;
+  align-self: end;
 }
 
 .icon {

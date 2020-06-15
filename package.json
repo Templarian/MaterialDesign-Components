@@ -1,12 +1,12 @@
 {
   "private": true,
   "name": "@mdi/components",
-  "version": "0.1.2",
+  "version": "0.1.6",
   "license": "MIT",
   "author": "Austin Andrews",
   "scripts": {
     "start": "rollup -c -w",
-    "build": "rollup -c",
+    "build": "rollup -c && node scripts/publish.js",
     "test": "jest --no-cache"
   },
   "repository": {

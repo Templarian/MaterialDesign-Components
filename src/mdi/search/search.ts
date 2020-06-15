@@ -1,7 +1,7 @@
 import { Component, Prop, Part } from '@mdi/element';
 import { debounce } from './utils';
-import { Icon } from 'mdi/shared/models/icon';
-import { iconFilter, sanitizeTerm } from 'mdi/shared/iconFilter';
+import { Icon } from './../shared/models/icon';
+import { iconFilter, sanitizeTerm } from './../shared/iconFilter';
 
 import template from './search.html';
 import style from './search.css';
@@ -9,8 +9,8 @@ import style from './search.css';
 interface Item {
   name: string,
   type: string,
-  aliases: string[],
-  icon: string,
+  aliases?: string[],
+  icon?: string,
   url: string
 }
 

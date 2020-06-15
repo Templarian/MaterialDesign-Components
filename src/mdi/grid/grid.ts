@@ -3,7 +3,7 @@ import { createPopper } from '@popperjs/core';
 import { addInfoToast } from '../shared/toast';
 import { debounce, copyText } from './utils';
 import { getCopySvgInline } from './copy';
-import MdiScroll from 'mdi/scroll/scroll';
+import MdiScroll from './../scroll/scroll';
 
 import template from './grid.html';
 import style from './grid.css';
