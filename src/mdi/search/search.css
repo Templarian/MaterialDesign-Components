@@ -17,6 +17,7 @@ input {
   font-size: 1rem;
   outline: none;
   width: calc(100% - 1rem);
+  border: .0625rem solid var(--mdi-search-border-color);
 }
 .active input + svg path {
   fill: #453C4F;

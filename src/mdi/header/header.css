@@ -4,14 +4,14 @@ header {
   grid-template-rows: 1fr;
   grid-row: 1;
   grid-column: 1 / span 2;
-  background: #414F56;
-  color: #FFF;
+  background: #fff;
+  color: var(--mdi-header-color);
   height: 3rem;
 }
 header > a {
   grid-column: 1;
   display: inline-flex;
-  color: #FFF;
+  color: var(--mdi-header-color);
   text-decoration: none;
   align-items: center;
 }
@@ -23,7 +23,7 @@ header > a > svg {
 }
 header > a > span {
   display: inline-flex;
-  color: #FFF;
+  color: var(--mdi-header-color);
   font-size: 1.5rem;
   margin: 0;
   font-weight: normal;
@@ -33,4 +33,5 @@ header > div {
   display: flex;
   grid-column: 2;
   justify-self: right;
+  margin-right: 1rem;
 }
