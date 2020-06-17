@@ -1,20 +1,7 @@
 import { Icon } from "./models/icon";
 import { removeDiacritics } from "./removeDiacritics";
+import { filter } from "./filter";
 
-function *filter(array, condition, maxSize) {
-  if (!maxSize || maxSize > array.length) {
-    maxSize = array.length;
-  }
-  let count = 0;
-  let i = 0;
-  while ( count< maxSize && i < array.length ) {
-    if (condition(array[i])) {
-      yield array[i];
-      count++;
-    }
-    i++;
-  }
-}
 
 function exactMatch(icons: Icon[], term: string) {
   for(var i = 0, c = icons.length; i < c; i++) {

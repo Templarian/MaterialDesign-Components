@@ -340,10 +340,31 @@
       <h2>mdi-markdown</h2>
       <h3>Basic <small>Markdown</small></h3>
       <div class="example">
-        <mdi-markdown text="# Hello"></mdi-markdown>
+        <mdi-markdown id="markdown"></mdi-markdown>
       </div>
     </section>
     <script src="mdiMarkdown.js"></script>
+    <script>
+      var markdown = document.getElementById('markdown');
+      markdown.text = [
+        '# Header 1',
+        '## Header 2',
+        '### Header 3',
+        '#### Header 4',
+        '',
+        'Paragraph',
+        '',
+        '> Blockquote',
+        '',
+        '```javascript',
+        'function foo() {',
+        '    // Code',
+        '}',
+        '```',
+        '',
+        'Done'
+      ].join('\n');
+    </script>
 
     <section>
       <h2>mdi-nav</h2>

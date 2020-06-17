@@ -17,7 +17,9 @@
     "@mdi/element": "0.0.8",
     "@popperjs/core": "^2.3.3",
     "dexie": "^3.0.0-rc.6",
-    "lodash-es": "^4.17.15"
+    "lodash-es": "^4.17.15",
+    "prismjs": "^1.20.0",
+    "remarkable": "^2.0.1"
   },
   "devDependencies": {
     "@rollup/plugin-multi-entry": "^3.0.1",
