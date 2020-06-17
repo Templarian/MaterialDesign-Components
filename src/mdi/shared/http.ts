@@ -38,6 +38,27 @@ export async function get<T>(
   return Promise.reject();
 }
 
+export async function asset(
+  request: string,
+  options: { [key: string]: Params } = {}
+): Promise<string> {
+
+  const { params = {} } = options;
+  const keys = Object.keys(params);
+  const p = `?${keys.map(k => `${k}=${params[k]}`).join('&')}`;
+  const response: HttpResponse<string> = await fetch(`${request}${p === '?' ? '' : p}`);
+
+  try {
+    return response.text();
+  } catch (ex) {}
+
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+  return Promise.reject();
+}
+
 export const http = {
-  get
+  get,
+  asset
 };

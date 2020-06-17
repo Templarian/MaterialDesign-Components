@@ -1,7 +1,7 @@
 import { Component, Prop, Part } from '@mdi/element';
-import { debounce } from './utils';
 import { Icon } from './../shared/models/icon';
 import { iconFilter, sanitizeTerm } from './../shared/iconFilter';
+import { filter } from './../shared/filter';
 
 import template from './search.html';
 import style from './search.css';
@@ -150,7 +150,15 @@ export default class MdiSearch extends HTMLElement {
     this.clearList();
     let empty = false;
     const termRegex = new RegExp(this.term, 'i');
-    const filtered = this.items.filter((item) => item.name.match(termRegex));
+    const filtered = Array.from(
+      filter(
+        this.items,
+        (item: any) => {
+          return item.name.match(termRegex)
+        },
+        5
+      )
+    );
     filtered.forEach((item, i) => {
       var li = document.createElement('li');
       li.classList.add('item');
