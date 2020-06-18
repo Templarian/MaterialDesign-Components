@@ -1,5 +1,6 @@
 import { Component, Prop, Part } from '@mdi/element';
 import { Remarkable } from 'remarkable';
+import { MarkdownReplace } from './markdownReplace';
 
 import 'prismjs';
 import 'prismjs/components/prism-markup-templating';
@@ -26,19 +27,32 @@ import style from './markdown.css';
 })
 export default class MdiMarkdown extends HTMLElement {
   @Prop() text = '';
+  @Prop() replace: MarkdownReplace[] = [];
 
   @Part() $content: HTMLDivElement;
 
   render(changes) {
     if (changes.text) {
-      const md = new Remarkable();
-      this.$content.innerHTML = md.render(this.text);
+      const md = new Remarkable({
+        html: true
+      });
+      let html = md.render(this.text);
+      this.replace.forEach(o => {
+        html = html.replace(o.find, o.replace);
+      });
+      this.$content.innerHTML = html;
       const blocks = this.$content.querySelectorAll('code[class*="language-"]');
       for (let i = 0; i < blocks.length; i++) {
         const block = blocks[i] as HTMLElement;
         const language = block.classList.value.replace('language-', '');
         block.innerHTML = Prism.highlight(block.innerText, Prism.languages[language], language);
       }
+      // Additional Rendering
+      this.replace.forEach(o => {
+        if (o.render) {
+          o.render(this.$content);
+        }
+      });
     }
   }
 }
