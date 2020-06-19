@@ -77,6 +77,36 @@ table code {
   transform: translateY(-1px);
 }
 
+p > svg.icon,
+blockquote > svg.icon,
+p > a.icon > svg.icon,
+blockquote > a.icon > svg.icon  {
+  width: 1.5rem;
+  height: 1.5rem;
+  vertical-align: middle;
+}
+
+p > a.button {
+  display: inline-flex;
+  padding: 0.25rem 0.5rem;
+  background: linear-gradient(to bottom, #775b75 0%,#453C4F 100%);
+  border-radius: 0.25rem;
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+p > a.button:hover {
+  background: linear-gradient(to bottom, #7952b3 0%,#6c47a3 100%);
+}
+
+p > a.button > svg.icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-left: -0.25rem;
+  margin-right: 0.25rem;
+}
+
 /* PrismJS 1.15.0
 /**
  * prism.js Visual Studio Code Theme

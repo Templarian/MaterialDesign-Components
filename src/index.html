@@ -208,6 +208,23 @@
       });
     </script>
 
+<section>
+  <h2>mdi-dropdown</h2>
+  <h3>Basic <small>Dropdown</small></h3>
+  <div class="example">
+    <mdi-dropdown>
+      <button>Click Me</button>
+      <div slot="popover">
+        Render anything inside...
+      </div>
+    </mdi-color>
+  </div>
+</section>
+<script src="mdiDropdown.js"></script>
+<script>
+
+</script>
+
     <section>
       <h2>mdi-grid</h2>
       <h3>Basic <small>Icon Grid</small></h3>
@@ -345,12 +362,32 @@
     </section>
     <script src="mdiMarkdown.js"></script>
     <script>
+      var mdiVanish = 'M16,13V11H21V13H16M14.83,7.76L17.66,4.93L19.07,6.34L16.24,9.17L14.83,7.76M11,16H13V21H11V16M11,3H13V8H11V3M4.93,17.66L7.76,14.83L9.17,16.24L6.34,19.07L4.93,17.66M4.93,6.34L6.34,4.93L9.17,7.76L7.76,9.17L4.93,6.34M8,13H3V11H8V13M19.07,17.66L17.66,19.07L14.83,16.24L16.24,14.83L19.07,17.66Z';
+      var mdiAlert = 'M13,14H11V10H13M13,18H11V16H13M1,21H23L12,2L1,21Z';
+      var icons = {
+        'account': 'M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z'
+      };
       var markdown = document.getElementById('markdown');
+      markdown.replace = [{
+        find: new RegExp('(\\\\mdi|mdi|icon):([a-z0-9-]+):?([#a-z0-9-]+)?', 'g'),
+        replace: (m, type, icon, color) => {
+          if (type == '\\mdi') { return `mdi:${icon}`; }
+          if (icon == 'not' || icon == 'before') { return m; }
+          const c = color ? ` style="fill:${color}"` : '';
+          if (type === 'mdi') {
+            return `<a href="icon/${icon}"><svg class="icon" data-type="link" viewBox="0 0 24 24"><path data-icon="${icon}" fill="currentColor" d="${mdiVanish}"${c} /></svg></a>`;
+          } else {
+            return `<svg class="icon" data-type="icon" viewBox="0 0 24 24"><path data-icon="${icon}" fill="currentColor" d="${mdiVanish}"${c} /></svg>`;
+          }
+        }
+      }];
       markdown.text = [
         '# Header 1',
         '## Header 2',
         '### Header 3',
         '#### Header 4',
+        '',
+        `<a href="" class="button">icon:account Button</a>`,
         '',
         'Paragraph',
         '',
@@ -371,6 +408,13 @@
         '',
         'Done, but `code` blocks would be useful.'
       ].join('\n');
+      markdown.modify(($content) => {
+        var paths = $content.querySelectorAll('[data-icon]');
+        for (var i = 0; i < paths.length; i++) {
+          var path = paths[i];
+          path.setAttribute('d', icons[path.dataset.icon] || mdiAlert)
+        }
+      });
     </script>
 
     <section>

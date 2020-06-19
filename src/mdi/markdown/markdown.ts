@@ -31,6 +31,10 @@ export default class MdiMarkdown extends HTMLElement {
 
   @Part() $content: HTMLDivElement;
 
+  modify(callback) {
+    callback(this.$content);
+  }
+
   render(changes) {
     if (changes.text) {
       const md = new Remarkable({
