@@ -19,7 +19,7 @@ export default class MdiDropdown extends HTMLElement {
   isVisible = false;
   connectedCallback() {
     this.$main.addEventListener('slotchange', (e) => {
-      var nodes = this.$main.assignedNodes();
+      var nodes = this.$main.assignedElements();
       for(var i = 0; i < nodes.length; i++) {
         var node = nodes[i];
         this.wireUpPopover(node);

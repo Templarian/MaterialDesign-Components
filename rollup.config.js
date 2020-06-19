@@ -94,12 +94,12 @@ if (!PROD) {
 };
 
 export default [
-  ...entries,
+  ...entries/*,
   {
     input: inputs,
     output: {
       file: './dist/main.js'
     },
     plugins
-  }
+  }*/
 ];
