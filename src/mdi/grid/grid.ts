@@ -1,5 +1,5 @@
 import { Component, Prop, Part, Local } from '@mdi/element';
-import { createPopper } from '@popperjs/core';
+// import { createPopper } from '@popperjs/core';
 import { addInfoToast } from '../shared/toast';
 import { debounce, copyText } from './utils';
 import { getCopySvgInline } from './copy';
@@ -95,9 +95,9 @@ export default class MdiGrid extends HTMLElement {
       this.$colorPicker.value = this.cacheSvgColor;
       this.$colorHexRgb.value = this.cacheSvgColor;
       const self = this;
-      createPopper(this.$svgColor, this.$color, {
+      /*createPopper(this.$svgColor, this.$color, {
         placement: 'bottom-start'
-      });
+      });*/
       this.$color.style.visibility = 'visible';
       let outside = true;
       function handleMouseDown(e) {
@@ -128,9 +128,9 @@ export default class MdiGrid extends HTMLElement {
       this.$colorPicker.value = this.cachePngColor;
       this.$colorHexRgb.value = this.cachePngColor;
       const self = this;
-      createPopper(this.$pngColor, this.$color, {
+      /*createPopper(this.$pngColor, this.$color, {
         placement: 'bottom-start'
-      });
+      });*/
       this.$color.style.visibility = 'visible';
       let outside = true;
       function handleMouseDown(e) {

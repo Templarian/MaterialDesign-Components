@@ -47,9 +47,10 @@ export default class MdiDropdown extends HTMLElement {
       ]
     });
     this.$popover.style.visibility = 'hidden';
-    node.addEventListener('click', () => {
+    node.addEventListener('click', (e) => {
       this.$popover.style.visibility = this.isVisible ? 'hidden' : 'visible';
       this.isVisible = !this.isVisible;
+      e.preventDefault();
     });
   }
 
