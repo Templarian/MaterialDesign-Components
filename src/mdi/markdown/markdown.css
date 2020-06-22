@@ -63,7 +63,12 @@ p {
   font-size: 1.125rem;
 }
 
+a {
+  color: #278eca;
+}
+
 p code,
+ul code,
 table code {
   display: inline-block;
   background: rgba(0, 0, 0, 0.05);
@@ -73,6 +78,12 @@ table code {
   border: 1px solid rgba(69, 60, 79, 0.2);
 }
 
+p code a,
+ul code a,
+table code a {
+  text-decoration: underline;
+}
+
 table code {
   transform: translateY(-1px);
 }
@@ -80,7 +91,11 @@ table code {
 p > svg.icon,
 blockquote > svg.icon,
 p > a.icon > svg.icon,
-blockquote > a.icon > svg.icon  {
+blockquote > a.icon > svg.icon,
+th > svg.icon,
+th > a.icon > svg.icon,
+td > svg.icon,
+td > a.icon > svg.icon {
   width: 1.5rem;
   height: 1.5rem;
   vertical-align: middle;
@@ -103,7 +118,7 @@ p > a.button:hover {
 p > a.button > svg.icon {
   width: 1.5rem;
   height: 1.5rem;
-  margin-left: -0.25rem;
+  margin-left: -0.125rem;
   margin-right: 0.25rem;
 }
 

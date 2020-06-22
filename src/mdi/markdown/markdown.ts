@@ -14,6 +14,7 @@ import 'prismjs/components/prism-sass';
 import 'prismjs/components/prism-scss';
 import 'prismjs/components/prism-yaml';
 import 'prismjs/components/prism-php';
+import 'prismjs/components/prism-bash';
 
 declare var Prism: any;
 
