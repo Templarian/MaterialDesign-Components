@@ -1,0 +1,170 @@
+
+[part~=contextMenu] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #737E9E;
+  border-radius: 0.25rem;
+  width: 12rem;
+  display: flex;
+  flex-direction: column;
+  padding: 0.25rem 0;
+  visibility: hidden;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
+}
+
+[part~=contextMenu] > div.section {
+  color: #FFF;
+  font-size: 0.875rem;
+  padding: 0.25rem 0.5rem;
+  cursor: default;
+  font-weight: bold;
+}
+
+[part~=contextMenu] > div.section:not(:first-child) {
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  margin-top: 0.5rem;
+}
+
+[part~=contextMenu] > div.group {
+  margin: 0 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.25rem;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+}
+[part~=contextMenu] > div.row > div.group {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.25rem;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  overflow: hidden;
+}
+
+[part~=contextMenu] > div.row > div.group:first-child {
+  margin-left: 0.5rem;
+  margin-right: 0.25rem;
+}
+
+[part~=contextMenu] > div.row > div.group:last-child {
+  margin-right: 0.5rem;
+}
+
+[part~=contextMenu] > div.group > button,
+[part~=contextMenu] > div.row > div.group > button {
+  display: flex;
+  flex: 1;
+  padding: 0.25rem;
+  justify-content: center;
+  border: 0;
+  margin: 0;
+  background: transparent;
+  color: #FFF;
+  font-size: 1rem;
+  line-height: 1.25rem;
+  align-items: center;
+  outline: none;
+}
+
+[part~=contextMenu] > button,
+[part~=contextMenu] > a {
+  display: flex;
+  border: 0;
+  margin: 0;
+  padding: 0.125rem 0.5rem;
+  background: transparent;
+  text-align: left;
+  color: #FFF;
+  font-size: 1rem;
+  text-decoration: none;
+  cursor: default;
+  outline: none;
+}
+
+[part~=contextMenu] > div.group > button.active,
+[part~=contextMenu] > div.row > div.group > button.active {
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3) inset;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+[part~=contextMenu] > div.group > button.active:hover,
+[part~=contextMenu] > div.row > div.group > button.active:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+[part~=contextMenu] > div.group > button:not(:first-child),
+[part~=contextMenu] > div.row > div.group > button:not(:first-child) {
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[part~=contextMenu] > div.row > div.group > button > svg,
+[part~=contextMenu] > div.group > button > svg,
+[part~=contextMenu] > div.row > button > svg,
+[part~=contextMenu] > button > svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  align-self: center;
+}
+
+[part~=contextMenu] > div.row > div.group > button:hover,
+[part~=contextMenu] > div.group > button:hover,
+[part~=contextMenu] > button:hover,
+[part~=contextMenu] > a:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+[part~=contextMenu] > div.row > div.group > button:active,
+[part~=contextMenu] > div.group > button:active {
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.3) inset;
+  background: rgba(0, 0, 0, 0.2);
+}
+[part~=contextMenu] > button:active,
+[part~=contextMenu] > a:active {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) inset;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.row {
+  display: flex;
+}
+
+.divider {
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  margin-top: 0.5rem;
+  height: 0.4375rem;
+}
+
+.black {
+  display: inline-flex;
+  border-radius: 50%;
+  width: 1rem;
+  height: 1rem;
+  background: #000;
+}
+
+.white {
+  display: inline-flex;
+  border-radius: 50%;
+  width: 1rem;
+  height: 1rem;
+  background: #FFF;
+}
+
+.download svg {
+  margin-bottom: -0.125rem;
+  margin-left: 0.25rem;
+}
+
+[part~=color] {
+  position: absolute;
+  padding: 0.25rem;
+  background: #737E9E;
+  border-radius: 0.25rem;
+  box-shadow: 0 1px 16px rgba(0, 0, 0, 0.6);
+}
+
+[part~=colorHexRgb] {
+  margin-bottom: 0.25rem;
+}

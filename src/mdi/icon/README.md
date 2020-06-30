@@ -3,7 +3,8 @@
 The `mdi-icon` component allows a standard way to render [MaterialDesignIcons.com](https://materialdesignicons.com) icons.
 
 ```typescript
-import '@mdi/web-components/mdiIcon.js';
+import '@mdi/web-components/mdi/icon';
+import MdiIcon from '@mdi/web-components/mdi/icon';
 ```
 
 ```html

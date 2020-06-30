@@ -1,0 +1,36 @@
+:host {
+  pointer-events: none;
+}
+
+[part~=tooltip] {
+  position: relative;
+}
+
+[part~=tooltipText] {
+  position: absolute;
+  background: #737E9E;
+  border-radius: 0.25rem;
+  color: #FFF;
+  padding: 0.15rem 0.5rem 0.3rem 0.5rem;
+  white-space: nowrap;
+  left: 0;
+  top: 0;
+}
+
+[part~=tooltipArrow] {
+  left: 16px;
+  top: -7px;
+}
+
+[part~=tooltipArrow],
+[part~=tooltipArrow]::before {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+}
+
+[part~=tooltipArrow]::before {
+  content: '';
+  transform: rotate(45deg);
+  background: #737E9E;
+}

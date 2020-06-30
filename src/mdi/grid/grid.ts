@@ -1,14 +1,28 @@
 import { Component, Prop, Part, Local } from '@mdi/element';
 // import { createPopper } from '@popperjs/core';
 import { addInfoToast } from '../shared/toast';
-import { debounce, copyText } from './utils';
-import { getCopySvgInline } from './copy';
+import { debounce, } from './../shared/debounce';
+import { getCopySvgInline, copyText } from './../shared/copy';
 import MdiScroll from './../scroll/scroll';
 
 import template from './grid.html';
 import style from './grid.css';
 
 declare const ResizeObserver;
+
+interface MouseMeta {
+  gridX: number,
+  gridY: number,
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+  column: number,
+  row: number,
+  index: number,
+  gap: number,
+  extra: number
+}
 
 @Component({
   selector: 'mdi-grid',
@@ -25,39 +39,6 @@ export default class MdiGrid extends HTMLElement {
 
   @Part() $scroll: MdiScroll;
   @Part() $grid: HTMLDivElement;
-
-  @Part() $contextMenu: HTMLDivElement;
-  @Part() $newTab: HTMLAnchorElement;
-  @Part() $copyIconName: HTMLButtonElement;
-  @Part() $pngBlack: HTMLButtonElement;
-  @Part() $pngWhite: HTMLButtonElement;
-  @Part() $pngColor: HTMLButtonElement;
-  @Part() $png24: HTMLButtonElement;
-  @Part() $png36: HTMLButtonElement;
-  @Part() $png48: HTMLButtonElement;
-  @Part() $png96: HTMLButtonElement;
-  @Part() $pngDownload: HTMLButtonElement;
-  @Part() $svgBlack: HTMLButtonElement;
-  @Part() $svgWhite: HTMLButtonElement;
-  @Part() $svgColor: HTMLButtonElement;
-  @Part() $svgDownload: HTMLButtonElement;
-  @Part() $copySvgInline: HTMLButtonElement;
-  @Part() $copySvgFile: HTMLButtonElement;
-  @Part() $copySvgPath: HTMLButtonElement;
-  @Part() $copyUnicode: HTMLButtonElement;
-  @Part() $copyCodepoint: HTMLButtonElement;
-  @Part() $copyPreview: HTMLButtonElement;
-
-  @Part() $tooltip: HTMLDivElement;
-  @Part() $tooltipText: HTMLSpanElement;
-  @Part() $tooltipArrow: HTMLDivElement;
-  @Part() $color: any;
-  @Part() $colorPicker: any;
-  @Part() $colorHexRgb: any;
-
-  @Local('#000000') cachePngColor: string;
-  @Local('24') cachePngSize: string;
-  @Local('#000000') cacheSvgColor: string;
 
   currentCount = 0;
   currentSize = 0;
@@ -77,149 +58,113 @@ export default class MdiGrid extends HTMLElement {
   connectedCallback() {
     this.resizeObserver.observe(this.$grid);
     this.addEventListener('mousemove', this.handleTooltip.bind(this));
-    this.addEventListener('mouseleave', this.hideTooltip.bind(this));
-    // Wire Up Context Menu
-    this.$copyIconName.addEventListener('click', this.handleCopyIconName.bind(this));
-    this.$svgBlack.addEventListener('click', () => {
-      this.cacheSvgColor = '#000000';
-      this.render();
+    this.addEventListener('mouseleave', (e: any) => {
+      this.handleTooltip(e, true);
     });
-    this.$svgWhite.addEventListener('click', () => {
-      this.cacheSvgColor = '#FFFFFF';
-      this.render();
-    });
-    let preventSvgColor = false;
-    this.$svgColor.addEventListener('click', () => {
-      if (preventSvgColor) { preventSvgColor = false; return; }
-      this.color = 'svg';
-      this.$colorPicker.value = this.cacheSvgColor;
-      this.$colorHexRgb.value = this.cacheSvgColor;
-      const self = this;
-      /*createPopper(this.$svgColor, this.$color, {
-        placement: 'bottom-start'
-      });*/
-      this.$color.style.visibility = 'visible';
-      let outside = true;
-      function handleMouseDown(e) {
-        if (outside) {
-          self.$color.style.visibility = 'hidden';
-          document.removeEventListener('mousedown', handleMouseDown);
-          preventSvgColor = true;
-          self.render();
-          setTimeout(() => preventSvgColor = false, 500);
-        }
-      }
-      this.$color.addEventListener('mouseenter', () => outside = false);
-      this.$color.addEventListener('mouseleave', () => outside = true);
-      document.addEventListener('mousedown', handleMouseDown);
-    });
-    this.$pngBlack.addEventListener('click', () => {
-      this.cachePngColor = '#000000';
-      this.render();
-    });
-    this.$pngWhite.addEventListener('click', () => {
-      this.cachePngColor = '#FFFFFF';
-      this.render();
-    });
-    let preventPngColor = false;
-    this.$pngColor.addEventListener('click', () => {
-      if (preventPngColor) { preventPngColor = false; return; }
-      this.color = 'png';
-      this.$colorPicker.value = this.cachePngColor;
-      this.$colorHexRgb.value = this.cachePngColor;
-      const self = this;
-      /*createPopper(this.$pngColor, this.$color, {
-        placement: 'bottom-start'
-      });*/
-      this.$color.style.visibility = 'visible';
-      let outside = true;
-      function handleMouseDown(e) {
-        if (outside) {
-          self.$color.style.visibility = 'hidden';
-          document.removeEventListener('mousedown', handleMouseDown);
-          preventPngColor = true;
-          self.render();
-          setTimeout(() => preventPngColor = false, 500);
-        }
-      }
-      this.$color.addEventListener('mouseenter', () => outside = false);
-      this.$color.addEventListener('mouseleave', () => outside = true);
-      document.addEventListener('mousedown', handleMouseDown);
-    });
-    this.$png24.addEventListener('click', () => {
-      this.cachePngSize = '24';
-      this.render();
-    });
-    this.$png36.addEventListener('click', () => {
-      this.cachePngSize = '36';
-      this.render();
-    });
-    this.$png48.addEventListener('click', () => {
-      this.cachePngSize = '48';
-      this.render();
-    });
-    this.$png96.addEventListener('click', () => {
-      this.cachePngSize = '96';
-      this.render();
-    });
-    this.$svgDownload.addEventListener('click', () => {
-      alert(`SVG ${this.cacheSvgColor}`);
-    });
-    this.$pngDownload.addEventListener('click', () => {
-      alert(`SVG ${this.cachePngSize} ${this.cachePngColor}`);
-    });
-    this.$copySvgInline.addEventListener('click', () => {
-      const icon = this.icons[this.currentIndex];
-      copyText(getCopySvgInline(icon));
-      this.hideContextMenu();
-      addInfoToast(`Copied inline SVG "${icon.name}" to clipboard.`);
-    });
-    this.$copySvgFile.addEventListener('click', () => {
 
-    });
-    this.$copySvgPath.addEventListener('click', () => {
-
-    });
-    this.$copyUnicode.addEventListener('click', () => {
-
-    });
-    this.$copyCodepoint.addEventListener('click', () => {
-
-    });
-    this.$copyPreview.addEventListener('click', () => {
-
-    });
     this.$scroll.addEventListener('calculate', (e: any) => {
       const { offsetY, height, viewWidth, viewHeight } = e.detail;
       this.calculate(offsetY, height, viewWidth, viewHeight);
     });
   }
 
+  /**
+   * Simplify all the mouse to usable data.
+   *
+   * @param e MouseEvent
+   */
+  getMetaFromMouse(e: MouseEvent) {
+    const {
+      width,
+      height,
+      gap,
+      extra
+    } = this.getIconMetrics();
+    var rect = (e.target as any).getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const andGap = width + gap + extra;
+    const column = this.getColumnFromX(x, width, gap, extra);
+    const row = this.getRowFromY(y, height, gap, extra);
+    const index = column !== -1 && row !== -1 ? column + (row * this.columns) : -1;
+    const gridX = (column * width) + ((column + 1) * (gap + extra));
+    const gridY = (row * height) + ((row + 1) * gap);
+    return {
+      gridX,
+      gridY,
+      x: gridX + rect.left,
+      y: gridY + rect.top,
+      width,
+      height,
+      column,
+      row,
+      gap,
+      extra,
+      index,
+      icon: this.icons[index]
+    };
+  }
+
+  getColumnFromX(x: number, width: number, gap: number, extra: number) {
+    x = Math.round(x);
+    if (x < gap) {
+      return -1;
+    }
+    if (x <= width + gap) {
+      return 0;
+    }
+    const column = Math.floor((x - width - gap) / (width + gap + extra)) + 1;
+    const space = x - (column * (width + gap + extra));
+    if (space < (gap + extra)) {
+      return -1;
+    }
+    return column;
+  }
+
+  getRowFromY(y: number, height: number, gap: number, extra: number) {
+    if (y < gap) {
+      return -1;
+    }
+    if (y <= height + gap) {
+      return 0;
+    }
+    const row = Math.floor((y - height - gap) / (height + gap)) + 1;
+    const space = y - (row * (height + gap));
+    if (space < gap) {
+      return -1;
+    }
+    return row;
+  }
+
   index = 0;
-  handleTooltip(e: any) {
-    var rect = e.target.getBoundingClientRect();
-    const x = Math.floor(e.clientX - rect.left);
-    const y = Math.floor(e.clientY - rect.top);
-    const tileX = Math.floor(x / 44);
-    const tileY = Math.floor(y / 44);
-    const index = tileX + (tileY * this.columns);
-    if (this.index !== index) {
-      if (this.icons[index]) {
-        if (tileX > this.columns - 1) {
-          this.hideTooltip();
+  handleTooltip(e: MouseEvent, close?: boolean) {
+    const mouseMeta = this.getMetaFromMouse(e);
+    const {
+      column,
+      row,
+      index
+    } = mouseMeta;
+    if (close || index === -1) {
+      this.hideTooltip(this.icons[index], mouseMeta);
+    } else {
+      if (this.index !== index) {
+        if (this.icons[index]) {
+          if (column > this.columns - 1) {
+            this.hideTooltip(this.icons[this.index], mouseMeta);
+          } else {
+            this.showTooltip(this.icons[index], mouseMeta);
+            this.index = index;
+          }
         } else {
-          this.showTooltip(this.icons[index], index);
+          this.hideTooltip(this.icons[this.index], mouseMeta);
         }
-        this.index = index;
-      } else {
-        this.hideTooltip();
       }
     }
   }
 
   syncVirtual(count) {
-    console.log('syncVirtual')
-    for(let i = this.currentCount; i < count; i++) {
+    console.log('syncVirtual');
+    for (let i = this.currentCount; i < count; i++) {
       this.currentCount = i + 1;
       const btn = document.createElement('button');
       btn.dataset.index = `${i}`;
@@ -246,7 +191,7 @@ export default class MdiGrid extends HTMLElement {
       this.$grid.appendChild(btn);
       this.items.push([btn, svg, path]);
     }
-    for(let i = this.currentCount; i > count; i--) {
+    for (let i = this.currentCount; i > count; i--) {
       const ele = this.items.pop() as any;
       this.$grid.removeChild(ele[0]);
       this.currentCount--;
@@ -258,9 +203,9 @@ export default class MdiGrid extends HTMLElement {
       width,
       height,
       rowHeight,
-      scrollWidth
+      scrollWidth,
+      extra
     } = this.getIconMetrics();
-    const extra = (scrollWidth - gap - (rowHeight * this.columns)) / (this.columns - 1);
     let x = gap;
     let y = gap;
     this.items.forEach(([btn, svg], i) => {
@@ -314,13 +259,17 @@ export default class MdiGrid extends HTMLElement {
     const {
       width: scrollWidth
     } = this.$scroll.getBoundingClientRect();
+    const sizePadding = size + (padding * 2);
+    const rowHeight = sizePadding + gap;
+    const extra = (scrollWidth - gap - (rowHeight * this.columns)) / (this.columns - 1);
     return {
       size,
       padding,
       gap,
-      width: size + (padding * 2),
-      height: size + (padding * 2),
-      rowHeight: size + (padding * 2) + gap,
+      width: sizePadding,
+      height: sizePadding,
+      rowHeight,
+      extra,
       scrollWidth
     };
   }
@@ -349,65 +298,12 @@ export default class MdiGrid extends HTMLElement {
     const rows = Math.ceil(count / this.columns);
     this.currentRow = -1;
     this.$scroll.height = gap + (rows * rowHeight);
-    // Context Menu
-    this.$svgBlack.classList.toggle('active', this.cacheSvgColor === '#000000');
-    this.$svgWhite.classList.toggle('active', this.cacheSvgColor === '#FFFFFF');
-    this.$svgColor.classList.toggle('active', this.cacheSvgColor !== '#000000' && this.cacheSvgColor !== '#FFFFFF');
-    this.$pngBlack.classList.toggle('active', this.cachePngColor === '#000000');
-    this.$pngWhite.classList.toggle('active', this.cachePngColor === '#FFFFFF');
-    this.$pngColor.classList.toggle('active', this.cachePngColor !== '#000000' && this.cachePngColor !== '#FFFFFF');
-    this.$png24.classList.toggle('active', this.cachePngSize === '24');
-    this.$png36.classList.toggle('active', this.cachePngSize === '36');
-    this.$png48.classList.toggle('active', this.cachePngSize === '48');
-    this.$png96.classList.toggle('active', this.cachePngSize === '96');
-    this.$colorPicker.addEventListener('select', this.handleColorSelect.bind(this));
-    this.$colorHexRgb.addEventListener('change', this.handleHexRgbChange.bind(this));
-    this.syncEyedropper();
-  }
-
-  handleColorSelect(e) {
-    switch(this.color) {
-      case 'svg':
-        this.cacheSvgColor = e.detail.hex;
-        break;
-      case 'png':
-        this.cachePngColor = e.detail.hex;
-        break;
-    }
-    this.$colorHexRgb.value = e.detail.hex;
-    this.syncEyedropper();
-  }
-
-  handleHexRgbChange(e) {
-    switch(this.color) {
-      case 'svg':
-        this.cacheSvgColor = e.detail.hex;
-        break;
-      case 'png':
-        this.cachePngColor = e.detail.hex;
-        break;
-    }
-    this.$colorPicker.value = e.detail.hex;
-    this.syncEyedropper();
-  }
-
-  syncEyedropper() {
-    if (this.cachePngColor !== '#000000' && this.cachePngColor !== '#FFFFFF') {
-      this.$pngColor.style.color = this.cachePngColor;
-    } else {
-      this.$pngColor.style.color = 'transparent';
-    }
-    if (this.cacheSvgColor !== '#000000' && this.cacheSvgColor !== '#FFFFFF') {
-      this.$svgColor.style.color = this.cacheSvgColor;
-    } else {
-      this.$svgColor.style.color = 'transparent';
-    }
   }
 
   moveFocus(e: KeyboardEvent, index: number) {
     console.log(e.which, index);
     let newIndex;
-    switch(e.which) {
+    switch (e.which) {
       case 37:
         newIndex = index - 1;
         if (newIndex >= 0) {
@@ -455,74 +351,28 @@ export default class MdiGrid extends HTMLElement {
   currentIndex = 0;
 
   showContextMenu(index: number, x: number, y: number) {
-    const gridRect = this.$grid.getBoundingClientRect();
-    const cmRect = this.$contextMenu.getBoundingClientRect();
-    if (y + gridRect.top + cmRect.height + 4 > window.innerHeight
-      && x + gridRect.left + cmRect.width + 24 > window.innerWidth) {
-      y = y - cmRect.height;
-      x -= x + gridRect.left + cmRect.width + 24 - window.innerWidth;
-     } else if (y + gridRect.top + cmRect.height + 4 > window.innerHeight) {
-      y -= y + gridRect.top + cmRect.height + 4 - window.innerHeight;
-    } else if (x + gridRect.left + cmRect.width + 24 > window.innerWidth) {
-      x -= x + gridRect.left + cmRect.width + 24 - window.innerWidth;
-    }
-    this.currentIndex = index;
-    var icon = this.icons[index];
-    this.$newTab.href = `icons/${icon.name}`;
-    this.$contextMenu.style.left = `${x}px`;
-    this.$contextMenu.style.top = `${y}px`;
-    this.$contextMenu.style.visibility = 'visible';
-    this.hideTooltip();
-    this.canOpenTooltip = false;
-    const self = this;
-    this.$contextMenu.addEventListener('mouseenter', () => {
-      this.preventClose = true;
-    });
-    this.$contextMenu.addEventListener('mouseleave', () => {
-      this.preventClose = false;
-    });
-    function handleMouseDown(e) {
-      if (!self.preventClose) {
-        self.hideContextMenu();
-        document.removeEventListener('mousedown', handleMouseDown);
-      }
-    }
-    this.preventClose = false;
-    document.addEventListener('mousedown', handleMouseDown);
-    this.$color.style.visibility = 'hidden';
+    this.dispatchEvent(new CustomEvent('openmenu'));
   }
 
   hideContextMenu() {
-    this.$contextMenu.style.visibility = 'hidden';
-    this.$color.style.visibility = 'hidden';
+    this.dispatchEvent(new CustomEvent('closemenu'));
     this.canOpenTooltip = true;
   }
 
-  handleCopyIconName() {
-    const icon = this.icons[this.currentIndex];
-    copyText(icon.name);
-    addInfoToast(`Copied "${icon.name}" to clipboard.`);
-    this.hideContextMenu();
-  }
-
-  showTooltip(icon: any, index: number) {
+  showTooltip(icon: any, mouseMeta: MouseMeta) {
     if (!this.canOpenTooltip) { return; }
-    this.$tooltipText.innerText = icon.name;
-    const { x, y } = this.getPositionFromIndex(index);
-    const half = Math.ceil(this.columns / 2);
-    let offsetX = 0;
-    if (x >= half) {
-      const { width } = this.$tooltip.getBoundingClientRect();
-      offsetX -= width - 44;
-    }
-    //this.$tooltip.style.transform = `translate(${x * 44 + offsetX}px, ${(y * 44 + 5)}px`;
-    //this.$tooltipArrow.style.transform = `translate(${16 + (-1 * offsetX)}px, 0)`;
-    //this.$tooltip.classList.add('visible');
+    this.dispatchEvent(new CustomEvent('entericon', {
+      detail: mouseMeta
+    }));
+    // this.$tooltip.style.transform = `translate(${x * 44 + offsetX}px, ${(y * 44 + 5)}px`;
+    // this.$tooltipArrow.style.transform = `translate(${16 + (-1 * offsetX)}px, 0)`;
+    // this.$tooltip.classList.add('visible');
   }
 
-  hideTooltip() {
-    this.$tooltip.classList.remove('visible');
-    this.index = -1;
+  hideTooltip(icon: any, mouseMeta: MouseMeta) {
+    this.dispatchEvent(new CustomEvent('leaveicon', {
+      detail: mouseMeta
+    }));
   }
 
   getPositionFromIndex(index: number) {

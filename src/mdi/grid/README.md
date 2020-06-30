@@ -1,35 +1,71 @@
 # `<mdi-grid>`
 
-The `mdi-grid` component allows a standard way to render a grid of icons.
+The `mdi-grid` component allows a standard way to render a configurable grid of icons.
 
-> A vast majority of code within this component handles the context menu for power users.
+> Note: Context menus and tooltips can be triggered with events described below. These are outside of the component so they can be rendered elsewhere in the DOM.
 
 ```typescript
 import '@mdi/web-components/mdiGrid.js';
+import MdiGrid from '@mdi/web-components/mdiGrid.js';
 ```
 
 ```html
-<mdi-icon></mdi-icon>
+<mdi-grid></mdi-grid>
 ```
+
+## Attributes
 
 | Attributes | Tested   | Description | Default |
 | ---------- | -------- | ----------- | ------ |
-| icons      | &#x2705; | Set icon data | `[]` |
-| size       | &#x2705; | Set icon size | `24` |
-| padding    | &#x2705; | Set icon padding | `8` |
-| gap        | &#x2705; | Set icon gap | `4` |
-| width      | &#x2705; | Set grid width | `'auto'` |
-| height     | &#x2705; | Set grid height | `'auto'` |
+| icons      |          | Set icon data | `[]` |
+| size       |          | Set icon size | `24` |
+| padding    |          | Set icon padding | `8` |
+| gap        |          | Set icon gap | `4` |
+| width      |          | Set grid width | `'auto'` |
+| height     |          | Set grid height | `'auto'` |
 
-| Events     | Tested   | Description |
-| ---------- | -------- | ----------- |
-| select     | &#x2705; | Fired on icon selections |
+### `icons`
 
 The minimal data set must contain the `name` and `data` field.
 
 ```json
 [{
+  "id": "uuid",
   "name": "account",
   "data": "..."
 }]
+```
+
+## Events
+
+| Events     | Tested   | Description |
+| ---------- | -------- | ----------- |
+| select     |          | Fired on icon selections |
+| openmenu   |          | Right click on icon |
+| closemenu  |          | Right click on icon |
+| entericon  |          | Keyboard / Mouse on icon |
+| leaveicon  |          | Keyboard / Mouse off icon |
+
+### All Events
+
+The `x` and `y` properties are the calculated `top` and `left` in pixels relative to the grid. The `width` and `height` include the `padding`.
+
+```javascript
+interface MouseMeta {
+  gridX: number,
+  gridY: number,
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+  column: number,
+  row: number,
+  index: number,
+  gap: number,
+  extra: number
+}
+
+e = {
+  detail: MouseMeta
+}
 ```

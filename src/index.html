@@ -246,15 +246,43 @@
       </p>
       <div class="example">
         <mdi-grid id="iconGrid1"></mdi-grid>
+        <mdi-tooltip id="iconGrid1Tooltip"></mdi-tooltip>
       </div>
     </section>
     <script src="mdiScroll.js"></script>
     <script src="mdiGrid.js"></script>
+    <script src="mdiTooltip.js"></script>
     <script>
-      const ele = document.getElementsByTagName('mdi-grid')[0];
+      var ele = document.getElementsByTagName('mdi-grid')[0];
+      var tooltip = document.getElementById('iconGrid1Tooltip');
       ele.addEventListener('select', (e) => {
-        const icon = e.detail;
+        var icon = e.detail;
         alert(icon.name);
+      });
+      ele.addEventListener('entericon', (e) => {
+        var icon = e.detail.icon;
+        console.log('enter', e.detail);
+        var rect = ele.getBoundingClientRect();
+        tooltip.style.position = 'fixed';
+        tooltip.style.left = `${e.detail.x}px`;
+        tooltip.style.top = `${e.detail.y}px`;
+        tooltip.width = e.detail.width;
+        tooltip.height = e.detail.height;
+        tooltip.text = icon.name;
+        tooltip.style.display = 'block';
+      });
+      ele.addEventListener('leaveicon', (e) => {
+        var icon = e.detail;
+        tooltip.style.display = 'none';
+        console.log('leave', e.detail);
+      });
+      ele.addEventListener('openmenu', (e) => {
+        var icon = e.detail;
+        console.log(e.detail);
+      });
+      ele.addEventListener('closemenu', (e) => {
+        var icon = e.detail;
+        console.log(e.detail);
       });
       var mdiScrollSizeText = document.getElementById('mdiScrollSizeText');
       document.getElementById('mdiScrollSize').addEventListener('change', (e) => {

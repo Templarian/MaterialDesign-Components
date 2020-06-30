@@ -12,3 +12,14 @@ export function getCopySvgFile(icon: any) {
   ].join('');
 }
 
+export const copyText = (text: string) => {
+  var copyFrom = document.createElement('textarea');
+  copyFrom.setAttribute("style", "position:fixed;opacity:0;top:100px;left:100px;");
+  copyFrom.value = text;
+  document.body.appendChild(copyFrom);
+  copyFrom.select();
+  document.execCommand('copy');
+  setTimeout(function () {
+      document.body.removeChild(copyFrom);
+  }, 1500);
+}

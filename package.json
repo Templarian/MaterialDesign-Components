@@ -14,7 +14,7 @@
     "url": "git+https://github.com/Templarian/MaterialDesign-Web-Component.git"
   },
   "dependencies": {
-    "@mdi/element": "0.0.8",
+    "@mdi/element": "0.0.9",
     "@popperjs/core": "^2.4.2",
     "dexie": "^3.0.0-rc.6",
     "lodash-es": "^4.17.15",
