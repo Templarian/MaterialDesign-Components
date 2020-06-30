@@ -6,7 +6,7 @@
   "author": "Austin Andrews",
   "scripts": {
     "start": "cross-env NODE_OPTIONS=--max_old_space_size=4096 rollup -c -w",
-    "build": "rollup -c && node scripts/publish.js",
+    "build": "cross-env NODE_OPTIONS=--max_old_space_size=4096 rollup -c && node scripts/publish.js",
     "test": "jest --no-cache"
   },
   "repository": {
@@ -16,7 +16,7 @@
   "dependencies": {
     "@mdi/element": "0.0.9",
     "@popperjs/core": "^2.4.2",
-    "dexie": "^3.0.0-rc.6",
+    "dexie": "^3.0.1",
     "lodash-es": "^4.17.15",
     "prismjs": "^1.20.0",
     "remarkable": "^2.0.1"
