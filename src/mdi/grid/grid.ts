@@ -151,11 +151,13 @@ export default class MdiGrid extends HTMLElement {
       column,
       index
     } = mouseMeta;
-    if (this.index !== -1 && this.index !== -2) {
-      this.items[this.index][0].classList.toggle('hover', false);
+    var prevGridIndex = this.index - (this.currentRow * this.columns);
+    if (prevGridIndex >= 0) {
+      this.items[prevGridIndex][0].classList.toggle('hover', false);
     }
-    if (index !== -1) {
-      this.items[index][0].classList.toggle('hover', true);
+    var gridIndex = index - (this.currentRow * this.columns);
+    if (gridIndex >= 0) {
+      this.items[gridIndex][0].classList.toggle('hover', true);
     }
     if (this.index !== index) {
       if (index === -1 || this.index === -2) {
