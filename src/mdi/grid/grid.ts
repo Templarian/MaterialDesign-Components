@@ -149,9 +149,14 @@ export default class MdiGrid extends HTMLElement {
     const mouseMeta = this.getMetaFromMouse(e);
     const {
       column,
-      row,
       index
     } = mouseMeta;
+    if (this.index !== -1 && this.index !== -2) {
+      this.items[this.index][0].classList.toggle('hover', false);
+    }
+    if (index !== -1) {
+      this.items[index][0].classList.toggle('hover', true);
+    }
     if (this.index !== index) {
       if (index === -1 || this.index === -2) {
         mouseMeta.index = this.index;
@@ -172,8 +177,11 @@ export default class MdiGrid extends HTMLElement {
     }
   }
 
+  updateHover() {
+    this.items[this.index][0].classList.toggle('hover', false);
+  }
+
   syncVirtual(count) {
-    console.log('syncVirtual');
     for (let i = this.currentCount; i < count; i++) {
       this.currentCount = i + 1;
       const btn = document.createElement('button');

@@ -24,10 +24,11 @@
   border-radius: 0.25rem;
 }
 
-[part~=grid] > button:hover {
+[part~=grid] > button.hover {
   background: rgba(0, 0, 0, 0.1);
 }
 
+[part~=grid] > button:focus,
 [part~=grid] > button:active {
   background: rgba(0, 0, 0, 0.15);
   box-shadow: 0 0.0125rem 0.25rem rgba(0, 0, 0, 0.2) inset;
