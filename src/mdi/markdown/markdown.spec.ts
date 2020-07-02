@@ -1,6 +1,7 @@
 import { selectComponent } from '@mdi/element';
+
 import './markdown';
-import MdiMarkdown from '.';
+import MdiMarkdown from './markdown';
 
 const MDI_MARKDOWN = 'mdi-markdown';
 

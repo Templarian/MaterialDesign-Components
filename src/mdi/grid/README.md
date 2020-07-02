@@ -50,6 +50,10 @@ The minimal data set must contain the `name` and `data` field.
 
 The `x` and `y` properties are the calculated `top` and `left` in pixels relative to the grid. The `width` and `height` include the `padding`.
 
+The `gridX` and `gridY` are relative to the grid container.
+
+The `gap + extra` will give the remaining space between icons. Note: The left of the first icon is always just the `gap`.
+
 ```javascript
 interface MouseMeta {
   gridX: number,
