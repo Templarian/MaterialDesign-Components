@@ -32,14 +32,14 @@ describe('mdi-icon', () => {
   });
 
   it('should default path value', () => {
-    var component = selectComponent<MdiIcon>(MDI_ICON);
-    var { $path } = component;
+    const component = selectComponent<MdiIcon>(MDI_ICON);
+    const { $path } = component;
     expect($path.getAttribute('d')).toEqual(DEFAULT_ICON);
   });
 
   it('path should be set', async () => {
-    var component = selectComponent<MdiIcon>(MDI_ICON);
-    var { $path } = component;
+    const component = selectComponent<MdiIcon>(MDI_ICON);
+    const { $path } = component;
     await component.setAttribute('path', ICON);
     expect($path.getAttribute('d')).toEqual(ICON);
   });

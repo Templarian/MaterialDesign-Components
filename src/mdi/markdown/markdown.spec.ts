@@ -31,17 +31,17 @@ describe('mdi-markdown', () => {
   });
 
   it('should be empty', () => {
-    var component = selectComponent<MdiMarkdown>(MDI_MARKDOWN);
-    var {
+    const component = selectComponent<MdiMarkdown>(MDI_MARKDOWN);
+    const {
       $content
     } = component;
     expect($content.innerHTML).toEqual('');
   });
 
   it('should markdown text input', async () => {
-    var component = selectComponent<MdiMarkdown>(MDI_MARKDOWN);
+    const component = selectComponent<MdiMarkdown>(MDI_MARKDOWN);
     component.text = '# Hello';
-    var {
+    const {
       $content
     } = component;
     const result = $content.innerHTML.trim(); // '<h1>Hello</h1> '
@@ -49,7 +49,7 @@ describe('mdi-markdown', () => {
   });
 
   it('should transform markdown text input', async () => {
-    var component = selectComponent<MdiMarkdown>(MDI_MARKDOWN);
+    const component = selectComponent<MdiMarkdown>(MDI_MARKDOWN);
     component.replace = [{
       find: new RegExp('<h1>([^<]*)</h1>', 'g'),
       replace: (m, header) => {
@@ -57,7 +57,7 @@ describe('mdi-markdown', () => {
       }
     }]
     component.text = '# Hello';
-    var {
+    const {
       $content
     } = component;
     const result = $content.innerHTML.trim(); // '<h1 class="header">Hello</h1> '
