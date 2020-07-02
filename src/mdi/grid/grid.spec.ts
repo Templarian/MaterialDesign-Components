@@ -47,5 +47,21 @@ describe('mdi-grid', () => {
     expect($grid.innerHTML).toEqual('');
   });
 
+  // ToDo: test mdi-scroll first
+  /*
+  it('should contain 1 icons', async () => {
+    const component = selectComponent<MdiGrid>(MDI_GRID);
+    const {
+      $grid
+    } = component;
+    component.icons = [{
+      id: 'uuid',
+      name: 'foo',
+      data: 'M3,3V21H21V3'
+    }];
+    console.log(component.shadowRoot?.innerHTML);
+    expect($grid.innerHTML).toEqual('');
+  });
+  */
 
 });

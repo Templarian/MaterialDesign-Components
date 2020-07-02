@@ -73,3 +73,10 @@ e = {
   detail: MouseMeta
 }
 ```
+
+## Accessibility
+
+ToDo...
+
+- Arrow key navigation
+- Should typing filter grid?
