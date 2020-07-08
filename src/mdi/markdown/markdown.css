@@ -1,4 +1,5 @@
 :host {
+  display: block;
   color: #453C4F;
 }
 
@@ -14,6 +15,7 @@ pre {
   border-radius: 0.25rem;
   color: #EEE;
   font-size: 0.875rem;
+  overflow: auto;
 }
 
 table {
@@ -61,6 +63,12 @@ table tr td:nth-child(even) {
 
 p {
   font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+img {
+  border: 0.25rem solid var(--site-color);
+  border-radius: 0.25rem;
 }
 
 a {
@@ -76,6 +84,7 @@ table code {
   border-radius: 0.125rem;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
   border: 1px solid rgba(69, 60, 79, 0.2);
+  line-height: 1.125rem;
 }
 
 p code a,

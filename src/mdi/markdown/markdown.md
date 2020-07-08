@@ -29,10 +29,11 @@ Only the languages listed below have been imported to reduce file size:
 - `html`, `xml`
 - `css`, `sass`, `scss`
 - `javascript` / `typescript` / `jsx` / `tsx`
+- `json`
 - `java`
 - `yaml`
 - `php`
-- `php`
+- `bash`
 
 ### `replace`
 

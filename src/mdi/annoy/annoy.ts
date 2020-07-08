@@ -36,5 +36,13 @@ export default class MdiAnnoy extends HTMLElement {
     this.$close.addEventListener('click', () => {
       this.$list.style.display = 'none';
     });
+
+    window.addEventListener('scroll', (event) => {
+      var d = document.documentElement;
+      var offset = d.scrollTop + window.innerHeight;
+      var height = d.offsetHeight;
+
+      this.$list.classList.toggle('footer', offset >= height - (4 * 16));
+    });
   }
 }

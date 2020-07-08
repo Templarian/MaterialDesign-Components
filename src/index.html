@@ -16,7 +16,7 @@
     }
     body {
       display: grid;
-      grid-template-columns: auto auto;
+      grid-template-columns: 12rem calc(100% - 12rem);
       grid-template-rows: 3rem auto;
       height: 100%;
       margin: 0;
@@ -429,6 +429,11 @@
         '```javascript',
         'function foo() {',
         '    // Code',
+        '}',
+        '```',
+        '```typescript',
+        'function foo() {',
+        '    // Really long item with overlap. test test test test test test test test test test test test test test test test test test',
         '}',
         '```',
         '',
