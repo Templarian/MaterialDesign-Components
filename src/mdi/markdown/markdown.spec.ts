@@ -64,4 +64,18 @@ describe('mdi-markdown', () => {
     expect(result).toEqual('<h1 class="header">Hello</h1>');
   });
 
+  it('should markdown code block', async () => {
+    const component = selectComponent<MdiMarkdown>(MDI_MARKDOWN);
+    component.text = [
+      '```',
+      'Hello',
+      '```'
+    ].join('\n');
+    const {
+      $content
+    } = component;
+    const result = $content.innerHTML.trim();
+    expect(result).toEqual('<pre><code>Hello\n</code></pre>');
+  });
+
 });

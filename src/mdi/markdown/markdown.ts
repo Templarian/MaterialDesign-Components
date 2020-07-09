@@ -9,6 +9,7 @@ import 'prismjs/components/prism-groovy';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-json';
 import 'prismjs/components/prism-jsx';
+import 'prismjs/components/prism-tsx';
 import 'prismjs/components/prism-java';
 import 'prismjs/components/prism-markup';
 import 'prismjs/components/prism-typescript';
@@ -17,6 +18,24 @@ import 'prismjs/components/prism-scss';
 import 'prismjs/components/prism-yaml';
 import 'prismjs/components/prism-php';
 import 'prismjs/components/prism-bash';
+
+const supported = [
+  'css',
+  'sass',
+  'scss',
+  'groovy',
+  'typescript',
+  'javascript',
+  'jsx',
+  'tsx',
+  'java',
+  'html',
+  'xml',
+  'php',
+  'bash',
+  'json',
+  'yaml'
+];
 
 declare var Prism: any;
 
@@ -52,7 +71,11 @@ export default class MdiMarkdown extends HTMLElement {
       for (let i = 0; i < blocks.length; i++) {
         const block = blocks[i] as HTMLElement;
         const language = block.classList.value.replace('language-', '');
-        block.innerHTML = Prism.highlight(block.innerText, Prism.languages[language], language);
+        if (supported.includes(language)) {
+          block.innerHTML = Prism.highlight(block.innerText, Prism.languages[language], language);
+        } else if (language !== '' && language !== 'text') {
+          console.error(`Markdown contains a codeblock with "${language}" which is not loaded.`);
+        }
       }
       // Additional Rendering
       this.replace.forEach(o => {
