@@ -315,12 +315,10 @@ export default class MdiGrid extends HTMLElement {
       this.columns = columns;
     }
     // Virtual Grid
-    if (changes.icons) {
-      const count = this.icons.length;
-      const rows = Math.ceil(count / this.columns);
-      this.currentRow = -1;
-      this.$scroll.height = gap + (rows * rowHeight);
-    }
+    const count = this.icons.length;
+    const rows = Math.ceil(count / this.columns);
+    this.currentRow = -1;
+    this.$scroll.height = gap + (rows * rowHeight);
   }
 
   moveFocus(e: KeyboardEvent, index: number) {
