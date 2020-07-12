@@ -3,6 +3,34 @@
   color: #453C4F;
 }
 
+h1 {
+  font-size: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+h2 {
+  font-size: 1.75rem;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+h2 + p {
+  margin-top: 0.75rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+h4 {
+  font-size: 1.25rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
 blockquote {
   border-left: 4px solid #453C4F;
   padding: 0.25rem 0.5rem;
@@ -19,11 +47,11 @@ blockquote p:last-child {
 
 pre {
   background: #222;
-  padding: 0.5rem;
+  padding: 0.75rem;
   border-radius: 0.25rem;
   color: #EEE;
-  font-size: 0.875rem;
   overflow: auto;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1) inset;
 }
 
 table {
@@ -76,7 +104,7 @@ p {
 }
 
 img {
-  border: 0.25rem solid var(--site-color);
+  border: 0.25rem solid var(--mdi-markdown-img-border-color, #453C4F);
   border-radius: 0.25rem;
 }
 
@@ -92,6 +120,10 @@ ul {
 
 ul ul {
   padding-left: 1.25rem;
+}
+
+dl dd {
+  margin-left: 2rem;
 }
 
 p code,
@@ -132,15 +164,22 @@ td > a.icon > svg.icon {
 p > a.button {
   display: inline-flex;
   padding: 0.25rem 0.5rem;
-  background: linear-gradient(to bottom, #775b75 0%,#453C4F 100%);
+  background: transparent;
   border-radius: 0.25rem;
   color: #fff;
   text-decoration: none;
   font-size: 1rem;
+  color: var(--mdi-markdown-button-color, #453C4F);
+  border: 1px solid var(--mdi-markdown-button-color, #453C4F);
 }
 
 p > a.button:hover {
-  background: linear-gradient(to bottom, #7952b3 0%,#6c47a3 100%);
+  background: var(--mdi-markdown-button-hover-background, #453C4F);
+  color: var(--mdi-markdown-button-hover-color, #fff);
+}
+
+p > a.button:active {
+  box-shadow: 0 1px 0.25rem rgba(0, 0, 0, 0.4) inset;
 }
 
 p > a.button > svg.icon {
@@ -182,7 +221,6 @@ pre[class*="language-"] {
 
 /* Code blocks */
 pre[class*="language-"] {
-  padding: 1em;
   margin: .5em 0;
   overflow: auto;
 }
@@ -308,4 +346,78 @@ pre[class*="language-"] {
 }
 .language-jsx .language-javascript .script-punctuation + .token.punctuation + .token.punctuation ~ .token.punctuation + .token.punctuation {
   color: #3F9CD6;
+}
+
+/* Fancy Language Labels */
+
+pre {
+  position: relative;
+  font-size: 0.875rem;
+}
+
+pre code:not([class]) {
+  font-size: 0.875rem;
+}
+
+pre.language-text::before {
+  content: 'Text';
+}
+pre.language-html::before {
+  content: 'HTML';
+}
+pre.language-typescript::before {
+  content: 'TypeScript';
+}
+pre.language-javascript::before {
+  content: 'JavaScript';
+}
+pre.language-jsx::before {
+  content: 'JavaScript / JSX';
+}
+pre.language-tsx::before {
+  content: 'TypeScript / TSX';
+}
+pre.language-xml::before {
+  content: 'XML';
+}
+pre.language-css::before {
+  content: 'CSS';
+}
+pre.language-scss::before {
+  content: 'SCSS';
+}
+pre.language-php::before {
+  content: 'PHP';
+}
+pre.language-yaml::before {
+  content: 'YAML';
+}
+pre.language-groovy::before {
+  content: 'Groovy';
+}
+
+pre.language-text::before,
+pre.language-html::before,
+pre.language-typescript::before,
+pre.language-javascript::before,
+pre.language-tsx::before,
+pre.language-jsx::before,
+pre.language-xml::before,
+pre.language-css::before,
+pre.language-scss::before,
+pre.language-php::before,
+pre.language-yaml::before,
+pre.language-groovy::before {
+  display: var(--mdi-markdown-language-display, 'block');
+  font-size: 12px;
+  border-radius: 0 0 0 4px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #453C4F;
+  background: #FFF;
+  padding: 2px 4px 2px 6px;
+  pointer-events: none;
+  border-bottom: 1px solid #000;
+  border-left: 1px solid #000;
 }

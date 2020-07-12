@@ -413,6 +413,12 @@
             return `<svg class="icon" data-type="icon" viewBox="0 0 24 24"><path data-icon="${icon}" fill="currentColor" d="${mdiVanish}"${c} /></svg>`;
           }
         }
+      }, {
+        find: new RegExp('<blockquote>([\\\s\\\S]*?)<\\\/blockquote>', 'g'),
+        replace: (m) => {
+          console.log('block', m);
+          return m;
+        }
       }];
       markdown.text = [
         '# Header 1',
@@ -442,6 +448,22 @@
         '',
         '> Blockquote',
         '',
+        '',
+        '> **Warning:** Blockquote',
+        '',
+        '',
+        '> **Note:** Blockquote',
+        '',
+        '',
+        '> **Alert:** Blockquote',
+        '',
+        '>',
+        '',
+        '> ',
+        '',
+        '> ',
+        '>',
+        '',
         '```javascript',
         'function foo() {',
         '    // Code',
@@ -451,6 +473,10 @@
         'function foo() {',
         '    // Really long item with overlap. test test test test test test test test test test test test test test test test test test',
         '}',
+        '```',
+        '',
+        '```',
+        'Nothing',
         '```',
         '',
         '| Header 1             | Header 2 |',

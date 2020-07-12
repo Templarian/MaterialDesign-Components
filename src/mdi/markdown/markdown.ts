@@ -70,12 +70,21 @@ export default class MdiMarkdown extends HTMLElement {
       const blocks = this.$content.querySelectorAll('code[class*="language-"]');
       for (let i = 0; i < blocks.length; i++) {
         const block = blocks[i] as HTMLElement;
+        const pre = block.parentNode as HTMLPreElement;
+        pre.classList.add(block.classList.value);
         const language = block.classList.value.replace('language-', '');
         if (supported.includes(language)) {
           block.innerHTML = Prism.highlight(block.innerText, Prism.languages[language], language);
         } else if (language !== '' && language !== 'text') {
           console.error(`Markdown contains a codeblock with "${language}" which is not loaded.`);
         }
+        pre.addEventListener('scroll', () => {
+          if (pre.scrollLeft === 0) {
+            pre.style.removeProperty('--mdi-markdown-language-display');
+          } else {
+            pre.style.setProperty('--mdi-markdown-language-display', `none`);
+          }
+        });
       }
       // Additional Rendering
       this.replace.forEach(o => {
