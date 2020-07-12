@@ -416,7 +416,14 @@
       }, {
         find: new RegExp('<blockquote>([\\\s\\\S]*?)<\\\/blockquote>', 'g'),
         replace: (m) => {
-          console.log('block', m);
+          const matchLabel = m.match(/<blockquote>\r?\n?<p><strong>([\w ]+):</);
+          console.log(m, matchLabel)
+          if (matchLabel) {
+            const label = matchLabel[1];
+            const classLabel = matchLabel[1].trim().toLowerCase().replace(/[ _]/g, '-');
+            m = m.replace(new RegExp(`<strong>${label}:</strong> ?`), '');
+            m = m.replace(/^<blockquote/, `<blockquote class="${classLabel}"`);
+          }
           return m;
         }
       }];
@@ -457,9 +464,9 @@
         '',
         '> **Alert:** Blockquote',
         '',
-        '>',
+        '> **Attention:** Blockquote',
         '',
-        '> ',
+        '> **Success:** Blockquote',
         '',
         '> ',
         '>',

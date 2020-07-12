@@ -45,6 +45,59 @@ blockquote p:last-child {
   margin-bottom: 0;
 }
 
+blockquote.note {
+  background: #FFFF88;
+  color: rgba(0, 0, 0, 0.8);
+  border-color: rgba(0, 0, 0, 0.3);
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 0.25rem;
+}
+
+blockquote.warning {
+  background: #fff3cd;
+  color: #856404;
+  border-color: #856404;
+  border-top: 1px solid #ffeeba;
+  border-right: 1px solid #ffeeba;
+  border-bottom: 1px solid #ffeeba;
+  border-radius: 0.25rem;
+}
+
+blockquote.good,
+blockquote.success {
+  background: #d4edda;
+  color: #155724;
+  border-color: #155724;
+  border-top: 1px solid #c3e6cb;
+  border-right: 1px solid #c3e6cb;
+  border-bottom: 1px solid #c3e6cb;
+  border-radius: 0.25rem;
+}
+
+blockquote.bad,
+blockquote.danger,
+blockquote.alert {
+  background: #f8d7da;
+  color: #721c24;
+  border-color: #721c24;
+  border-top: 1px solid #f5c6cb;
+  border-right: 1px solid #f5c6cb;
+  border-bottom: 1px solid #f5c6cb;
+  border-radius: 0.25rem;
+}
+
+blockquote.attention {
+  background: #cfe2ff;
+  color: #073984;
+  border-color: #073984;
+  border-top: 1px solid #bbd6fe;
+  border-right: 1px solid #bbd6fe;
+  border-bottom: 1px solid #bbd6fe;
+  border-radius: 0.25rem;
+}
+
 pre {
   background: #222;
   padding: 0.75rem;
