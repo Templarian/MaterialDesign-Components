@@ -143,7 +143,6 @@ export default class MdiMarkdown extends HTMLElement {
   async render(changes) {
     if (changes.file && this.file) {
       this.text = await http.asset(this.file);
-      this.render({ text: true });
     }
     if (changes.text) {
       const md = new Remarkable({

@@ -556,7 +556,7 @@ div.yaml + pre.language-yaml {
   fill: #d7b558;
   margin-left: -0.5rem;
   margin-right: -0.1rem;
-  margin-bottom: 0.1rem;
+  margin-bottom: -0.1rem;
 }
 .yaml-preview .yaml-example {
   color: #666;
