@@ -1,5 +1,6 @@
 import typescript from 'rollup-plugin-typescript2';
 import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
 import multi from '@rollup/plugin-multi-entry';
 import copy from 'rollup-plugin-copy'
 import { string } from "rollup-plugin-string";
@@ -42,6 +43,7 @@ namespaces.forEach((namespace) => {
       if (DIST_COMPONENTS) {
         entries.push({
           plugins: [
+            commonjs(),
             resolve(),
             typescript(TSCONFIG),
             string({
@@ -67,6 +69,7 @@ namespaces.forEach((namespace) => {
 });
 
 const plugins = [
+  commonjs(),
   resolve(),
   typescript(TSCONFIG),
   string({

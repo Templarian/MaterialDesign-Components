@@ -417,7 +417,6 @@
         find: new RegExp('<blockquote>([\\\s\\\S]*?)<\\\/blockquote>', 'g'),
         replace: (m) => {
           const matchLabel = m.match(/<blockquote>\r?\n?<p><strong>([\w ]+):</);
-          console.log(m, matchLabel)
           if (matchLabel) {
             const label = matchLabel[1];
             const classLabel = matchLabel[1].trim().toLowerCase().replace(/[ _]/g, '-');
@@ -484,6 +483,18 @@
         '',
         '```',
         'Nothing',
+        '```',
+        '',
+        '```yaml',
+        'type: object',
+        'properties:',
+        '  id:',
+        '    type: string',
+        '    format: uuid',
+        '  name:',
+        '    type: string',
+        '    pattern: /$[a-z0-9-]+^/',
+        '    example: user',
         '```',
         '',
         '| Header 1             | Header 2 |',

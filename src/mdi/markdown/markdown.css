@@ -88,6 +88,7 @@ blockquote.alert {
   border-radius: 0.25rem;
 }
 
+blockquote.information,
 blockquote.attention {
   background: #cfe2ff;
   color: #073984;

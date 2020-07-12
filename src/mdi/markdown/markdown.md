@@ -11,14 +11,20 @@ import MdiMarkdown, {
 
 ```html
 <mdi-markdown text="# Hello World"></mdi-markdown>
+<mdi-markdown file="/content/file.md"></mdi-markdown>
 ```
 
 ## Attributes
 
 | Attributes | Tested   | Description |
 | ---------- | -------- | ----------- |
-| text       | &#x2705; | Set path data |
+| file       | &#x2705; | File location to load markdown file |
+| text       | &#x2705; | Text to render as markdown |
 | replace    | &#x2705; | Apply transforms |
+
+### `file`
+
+The `file` will load the markdown data and place it into the text value. This shorthand sometimes preferred.
 
 ### `text`
 
@@ -45,20 +51,43 @@ An example that uses `find`, `replace`, and `render` is handling anchors in the 
 const mdiLinkVariant = 'M...Z';
 
 component.replace = [{
-    find: new RegExp('<(h[2-6])>([^<]+)</h[2-6]>', 'g'),
-    replace: (m1, m2, m3) => {
-      let id = m3.toLowerCase().replace(/ /g, '-').replace(/\//, '');
-      return `<${m2} data-id="${id}">
-                ${m3}
-                <a href="${this.url}#${id}" style="display:inline-block;vertical-align:middle;">
-                  <svg viewBox="0 0 24 24" style="width:18px;height:18px;">
-                    <path d="${mdiLinkVariant}" fill="#999" />
-                  </svg>
-                </a>
-              </${m2}>`;
-    },
-    render: (template) {
-      // On page load if match scroll to
-    }
-  }]
-  ```
+  find: new RegExp('<(h[2-6])>([^<]+)</h[2-6]>', 'g'),
+  replace: (m1, m2, m3) => {
+    let id = m3.toLowerCase().replace(/ /g, '-').replace(/\//, '');
+    return `<${m2} data-id="${id}">
+              ${m3}
+              <a href="${this.url}#${id}" style="display:inline-block;vertical-align:middle;">
+                <svg viewBox="0 0 24 24" style="width:18px;height:18px;">
+                  <path d="${mdiLinkVariant}" fill="#999" />
+                </svg>
+              </a>
+            </${m2}>`;
+  },
+  render: (template) {
+    // On page load if match scroll to
+  }
+}]
+```
+
+## Events
+
+| Event | Tested   | Description |
+| ---------- | -------- | ----------- |
+| load       | -        | Everything is rendered. |
+| error      | -        | Error processing something. |
+
+## Methods
+
+| Method     | Tested   | Description |
+| ---------- | -------- | ----------- |
+| modify(callback) | -        | Triggers after |
+
+### `modify(callback)`
+
+To wire up custom logic on the rendered html. The `callback` triggers right before the `load` event. Any updates to `text` (or `file`) will trigger the `callback`.
+
+```javascript
+markdown.modify(($content) => {
+  // $content is the rendered markdown html
+});
+```
