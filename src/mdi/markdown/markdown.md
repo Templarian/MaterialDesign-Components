@@ -1,6 +1,17 @@
 # `<mdi-markdown>`
 
-The `mdi-markdown` component allows a standard way to render markdown files and apply customizations.
+The `mdi-markdown` component allows a standard way to render markdown files and apply customizations. Built in customizations include:
+
+- `import: /path/to/file.md` - Import files
+- `yaml` - JSON Previewer for all yaml code blocks
+  - `$ref: '#/api/model/user'` import complex models.
+- Tabsets - Organize complex pages into tabs
+- `> **Note:** Blockquote` - Special styling.
+  - `note` - Sticky Note
+  - `warning` - Pastel Orange
+  - `alert`, `error`, `danger` - Pastel Red
+  - `good`, `success` - Pastel Green
+  - `information`, `attention` - Pastel Blue
 
 ```typescript
 import '@mdi/web-components/mdi/markdown';
@@ -90,4 +101,25 @@ To wire up custom logic on the rendered html. The `callback` triggers right befo
 markdown.modify(($content) => {
   // $content is the rendered markdown html
 });
+```
+
+## Custom Tabsets
+
+The `tabs` syntax is really ugly, but needed something that would work with the existing markdown.
+
+```
+tabs:
+tab:unique-id-1 Tab Title 1
+tab:unique-id-2 Tab Title 2
+tabContent:unique-id-1
+
+Anything...
+
+/tabContent
+tabContent:unique-id-1
+
+Another tab's `content`.
+
+/tabContent
+/tabs
 ```
