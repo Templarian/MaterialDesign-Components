@@ -39,6 +39,39 @@ const supported = [
   'yaml'
 ];
 
+function yamlToggle(e) {
+  const button = e.target;
+  const parent = button.parentNode;
+  const ul = parent.querySelector('ul');
+  if (ul.className === 'yaml-hide') {
+    ul.className = '';
+    button.innerText = '-';
+  } else {
+    ul.className = 'yaml-hide';
+    button.innerText = '+';
+  }
+}
+
+function yamlTab(e, tab) {
+  const button = e.target;
+  const parent = button.parentNode;
+  const buttons = parent.querySelectorAll('button');
+  buttons.forEach(b => b.className = '');
+  button.className = 'active';
+  const jsonTab = button.parentNode.nextElementSibling;
+  const yamlTab = button.parentNode.parentNode.nextElementSibling;
+  switch (tab) {
+    case 'json':
+      jsonTab.className = 'yaml-preview yaml-show';
+      yamlTab.className = 'language-yaml yaml-hide';
+      break;
+    case 'yaml':
+      jsonTab.className = 'yaml-preview yaml-hide';
+      yamlTab.className = 'language-yaml yaml-show';
+      break;
+  }
+}
+
 declare var Prism: any;
 
 import template from './markdown.html';
@@ -58,6 +91,7 @@ export default class MdiMarkdown extends HTMLElement {
 
   modifiers = [
     ($content) => {
+      // Wire up code blocks
       const blocks = $content.querySelectorAll('code[class*="language-"]');
       for (let i = 0; i < blocks.length; i++) {
         const block = blocks[i] as HTMLElement;
@@ -75,6 +109,28 @@ export default class MdiMarkdown extends HTMLElement {
           } else {
             pre.style.setProperty('--mdi-markdown-language-display', `none`);
           }
+        });
+      }
+    },
+    ($content) => {
+      // Wire up yaml block preview
+      const yamlToggles = $content.querySelectorAll('[data-id="yamlToggle"]');
+      for (let i = 0; i < yamlToggles.length; i++) {
+        yamlToggles[i].addEventListener('click', (e) => {
+          yamlToggle(e);
+        });
+      }
+      const yamlTabJsons = $content.querySelectorAll('[data-id="yamlTabJson"]');
+      for (let i = 0; i < yamlTabJsons.length; i++) {
+        yamlTabJsons[i].addEventListener('click', (e) => {
+          yamlTab(e, 'json');
+        });
+        yamlTabJsons[i].click();
+      }
+      const yamlTabYamls = $content.querySelectorAll('[data-id="yamlTabYaml"]');
+      for (let i = 0; i < yamlTabYamls.length; i++) {
+        yamlTabYamls[i].addEventListener('click', (e) => {
+          yamlTab(e, 'yaml');
         });
       }
     }
@@ -195,12 +251,11 @@ export default class MdiMarkdown extends HTMLElement {
     try {
       const json = YAML.load(content);
       if (json.type) {
-        // console.log(json);
         const html = [] as any[];
         html.push('<div class="yaml">');
         html.push('<div class="yaml-toolbar">');
-        html.push(`<button onclick="yamlTab(event, 'json')" class="yaml-click">JSON Preview</button>`);
-        html.push(`<button onclick="yamlTab(event, 'yaml')" class="">YAML</button>`);
+        html.push(`<button data-id="yamlTabJson" class="yaml-click">JSON Preview</button>`);
+        html.push(`<button data-id="yamlTabYaml" class="">YAML</button>`);
         html.push('</div>');
         html.push('<div class="yaml-preview">');
         html.push('<ul>');
@@ -234,18 +289,18 @@ export default class MdiMarkdown extends HTMLElement {
       switch (partial.type) {
         case 'object':
           const oName = part === '' ? '' : `<code class="yaml-key">${part}</code>: `;
-          html.push(`<li><button onclick="yamlToggle(event)">+</button><code>${oName}{</code><ul class="d-none">`);
+          html.push(`<li><button data-id="yamlToggle">+</button><code>${oName}{</code><ul class="d-none">`);
           for (let part of Object.keys(partial.properties)) {
             this.processYamlRecursive(html, partial.properties[part], part);
           }
           html.push('</ul><code class="yaml-end">}</code></li>');
-        break;
+          break;
         case 'array':
           const aName = part === '' ? '' : `<code class="yaml-key">${part}</code>: `;
-          html.push(`<li><button onclick="yamlToggle(event)">+</button><code>${aName}[</code><ul class="d-none">`);
+          html.push(`<li><button data-id="yamlToggle">+</button><code>${aName}[</code><ul class="d-none">`);
           this.processYamlRecursive(html, partial.items);
           html.push('</ul><code class="yaml-end">]</code></li>');
-        break;
+          break;
         case 'string':
         case 'integer':
         case 'number':

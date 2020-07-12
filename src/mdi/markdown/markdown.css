@@ -166,23 +166,25 @@ a {
   color: #278eca;
 }
 
-ul {
+[part=content] > ul {
   list-style: square;
   padding-left: 2rem;
   line-height: 1.75rem;
 }
 
-ul ul {
+[part=content] > ul > li > ul {
+  list-style: square;
   padding-left: 1.25rem;
+  line-height: 1.75rem;
 }
 
 dl dd {
   margin-left: 2rem;
 }
 
-p code,
-ul code,
-table code {
+[part=content] > p code,
+[part=content] > ul code,
+[part=content] > table code {
   display: inline-block;
   background: rgba(0, 0, 0, 0.05);
   padding: 0.125rem 0.25rem;
@@ -192,9 +194,9 @@ table code {
   line-height: 1.125rem;
 }
 
-p code a,
-ul code a,
-table code a {
+[part=content] > p code a,
+[part=content] > ul code a,
+[part=content] > table code a {
   text-decoration: underline;
 }
 
@@ -474,4 +476,138 @@ pre.language-groovy::before {
   pointer-events: none;
   border-bottom: 1px solid #000;
   border-left: 1px solid #000;
+}
+
+/* YAML */
+div.yaml + pre.language-yaml {
+  margin-top: 0;
+}
+.yaml-preview {
+  position: relative;
+  background: #1e1e1e;
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.25rem;
+  margin-bottom: 1rem;
+}
+.yaml-preview code {
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  padding: 0;
+}
+.yaml-preview ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+.yaml-preview ul li button {
+  position: relative;
+  top: 1px;
+  background: #fff;
+  color: #444;
+  border: none;
+  border-radius: 2px;
+  padding: 0;
+  width: 1rem;
+  line-height: 1rem;
+  font-weight: bold;
+  margin-left: -1rem;
+  margin-right: 0.75rem;
+  cursor: pointer;
+}
+.yaml-preview ul li button:focus {
+  outline: none;
+}
+.yaml-preview ul li button:hover {
+  color: #000;
+  background: #f1f1f1;
+}
+.yaml-preview ul li ul {
+  padding-left: 1rem;
+}
+.yaml-preview ul li ul > li {
+  border-left: 1px solid rgba(255, 255, 255, 0.05);
+  padding-left: 0.5rem;
+}
+.yaml-preview ul > li {
+  border-left: 1px solid transparent;
+  padding-left: 0.5rem;
+}
+.yaml-preview .yaml-end {
+  padding-left: 0.75rem;
+}
+.yaml-preview .yaml-prop {
+  padding-left: 0.75rem;
+}
+.yaml-preview .yaml-type {
+  color: #9cdcfe;
+}
+.yaml-preview .yaml-error {
+  color: #e91e63;
+}
+.yaml-preview .yaml-key {
+  color: #c586c0;
+}
+.yaml-preview .yaml-auth {
+  width: 1rem;
+  height: 1rem;
+  fill: #d7b558;
+  margin-left: -0.5rem;
+  margin-right: -0.1rem;
+  margin-bottom: 0.1rem;
+}
+.yaml-preview .yaml-example {
+  color: #666;
+}
+.yaml-preview::before {
+  content: 'JSON Preview';
+  font-size: 12px;
+  border-radius: 0 4px 0 4px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #453C4F;
+  background: #fff;
+  padding: 2px 4px 2px 6px;
+  pointer-events: none;
+  border-bottom: 1px solid #000;
+  border-left: 1px solid #000;
+}
+.yaml-toolbar button {
+  margin-right: 0.25rem;
+  padding: 0.25rem 0.75rem 0.25rem 0.75rem;
+  background: #eee;
+  border: 1px solid #ddd;
+  color: #444;
+  border-radius: 0.25rem 0.25rem 0 0;
+  cursor: pointer;
+}
+.yaml-toolbar button:focus {
+  outline: none;
+}
+.yaml-toolbar button:hover {
+  border-color: #bbb;
+}
+.yaml-toolbar button.active {
+  margin-right: 0.25rem;
+  padding: 0.25rem 0.75rem 0.25rem 0.75rem;
+  background: #1e1e1e;
+  border: 1px solid #1e1e1e;
+  color: #fff;
+  border-radius: 0.25rem 0.25rem 0 0;
+  position: relative;
+  z-index: 1;
+  cursor: default;
+}
+.yaml-toolbar button.active:focus {
+  outline: none;
+}
+.yaml-show {
+  margin-top: 0;
+  border-top-left-radius: 0 !important;
+}
+.yaml-hide {
+  display: none;
 }
