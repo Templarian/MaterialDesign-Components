@@ -108,18 +108,16 @@ markdown.modify(($content) => {
 The `tabs` syntax is really ugly, but needed something that would work with the existing markdown.
 
 ```
-tabs:
-tab:unique-id-1 Tab Title 1
-tab:unique-id-2 Tab Title 2
-tabContent:unique-id-1
+tabs
+tab Tab Title 1
 
 Anything...
 
-/tabContent
-tabContent:unique-id-1
+/tab
+tab Tab Title 2
 
 Another tab's `content`.
 
-/tabContent
+/tab
 /tabs
 ```

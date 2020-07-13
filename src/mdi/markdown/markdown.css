@@ -611,3 +611,54 @@ div.yaml + pre.language-yaml {
 .yaml-hide {
   display: none;
 }
+
+/* Tabs */
+
+.tabs .tabset {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  border-bottom: 1px solid var(--mdi-markdown-tab-border, #453C4F);
+  align-items: flex-end;
+}
+
+.tabs .tab-label {
+  padding: 0.4rem 0.75rem;
+  font-size: 1.125rem;
+  font-weight: bold;
+}
+
+.tabs .tab-title {
+  margin-right: 0.25rem;
+  position: relative;
+}
+
+.tabs .tab-title a {
+  display: flex;
+  border: 1px solid transparent;
+  border-radius: 0.25rem 0.25rem 0 0;
+  padding: 0.5rem 0.75rem;
+  text-decoration: none;
+  color: var(--mdi-markdown-tab-border, #453C4F);
+}
+
+.tabs .tab-title:not(.active) a:hover {
+  border-color: rgba(69, 60, 79, 0.5);
+  border-bottom: 1px solid transparent;
+  padding-bottom: calc(0.5rem + 1px);
+  margin-bottom: -1px;
+}
+
+.tabs .tab-title.active a {
+  border-color: var(--mdi-markdown-tab-border, #453C4F);
+  border-bottom: #fff;
+  padding-bottom: calc(0.5rem + 1px);
+  margin-bottom: -1px;
+  font-weight: bold;
+  background: #fff;
+  cursor: default;
+}
+
+.tab-hide {
+  display: none;
+}

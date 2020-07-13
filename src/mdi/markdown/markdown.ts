@@ -133,6 +133,13 @@ export default class MdiMarkdown extends HTMLElement {
           yamlTab(e, 'yaml');
         });
       }
+    },
+    ($content) => {
+      const allTabs = $content.querySelectorAll('.tabs');
+      for (let i = 0; i < allTabs.length; i++) {
+        const tab = allTabs[i];
+
+      }
     }
   ] as Function[];
 
@@ -182,24 +189,62 @@ export default class MdiMarkdown extends HTMLElement {
       /```yaml\r?\n([\s\S]*?)\r?\n```/g,
       (m, content) => this.processYaml(m, content)
     );
-    // Tabs
+    markdown = this.tabs(markdown);
+    return markdown;
+  }
+
+  /**
+   * Rewrite tabs...
+   *
+   * @param markdown
+   */
+  tabs(markdown: string) {
+    var tabset = '';
+    return markdown.replace(/tabs ?([^\n]+)?\n([\s\S]+?)\n\/tabs/g, (m, label, tabs) => {
+      var i = 0;
+      tabset += label ? `<li class="tab-label">${label}</li>` : '';
+      var tabs = tabs.replace(/tab ([^\n]+)\n([\s\S]+?)\n\/tab/g, (m, title, content) => {
+        tabset += [
+          i === 0 ? '<li class="tab-title active">' : '<li class="tab-title">',
+          '<a data-toggle="tab" href="#${m1}" role="tab" aria-selected="true">',
+          title,
+          '</a>',
+          '</li>'
+        ].join('\n');
+        i++;
+        return [
+          '<div class="tab-content">',
+          content,
+          '</div>'
+        ].join('\n');
+      });
+      return [
+        '<div class="tabs">',
+        '<ul class="tabset">',
+        tabset,
+        `</ul>`,
+        tabs,
+        '</div>'
+      ].join('\n');
+    });
+    /*
     markdown = markdown.replace(/tabs:(.*)/g, (m, m1) => {
-      const tab = `<div class="card mb-3">
-        <div class="card-header">
-          <ul class="nav nav-tabs card-header-tabs">`;
-      const title = m1 === '' ? '' : `<li class="nav-item-title">${m1}</li>`;
+      const tab = `<div class="tabs">
+        <div class="tabset-container">
+          <ul class="tabset">`;
+      const title = m1 === '' ? '' : `<li class="tab-title">${m1}</li>`;
       return `${tab}${title}`;
     });
     markdown = markdown.replace(/tab:[^ ]+ .+(\r?\ntab:[^ ]+ .+)+/g, (m) => {
-      return `${m}\n</ul></div><div class="card-body tab-content">`;
+      return `${m}\n</ul></div><div class="tab-content">`;
     });
     markdown = markdown.replace(/tab:([^ ]+) (.+)/g, (m, m1, m2) => {
-      return `<li class="nav-item active">
-        <a id="${m1}-tab" class="nav-link" data-toggle="tab" href="#${m1}" role="tab" aria-controls="home"  aria-selected="true">${m2}</a>
+      return `<li class="tab-title active">
+        <a id="${m1}-tab" class="nav-link" data-toggle="tab" href="#${m1}" role="tab" aria-controls="home" aria-selected="true">${m2}</a>
       </li>`;
     });
     markdown = markdown.replace(/tabContent:(.+)/g, (m, m1) => {
-      return `<div class="tab-pane fade" id="${m1}" role="tabpanel" aria-labelledby="${m1}-tab">`;
+      return `<div class="tab-pane tab-hide" id="${m1}" role="tabpanel" aria-labelledby="${m1}-tab">`;
     });
     markdown = markdown.replace(/\/tabContent/g, (m) => {
       return `</div>`;
@@ -207,7 +252,7 @@ export default class MdiMarkdown extends HTMLElement {
     markdown = markdown.replace(/\/tabs/g, (m) => {
       return `</div></div>`;
     });
-    return markdown;
+    return markdown;*/
   }
 
   async processImports(markdown) {
