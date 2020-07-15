@@ -138,7 +138,26 @@ export default class MdiMarkdown extends HTMLElement {
       const allTabs = $content.querySelectorAll('.tabs');
       for (let i = 0; i < allTabs.length; i++) {
         const tab = allTabs[i];
-
+        const tabItems: any[] = [];
+        const tabContentItems: any[] = [];
+        const tabs = tab.querySelectorAll('.tab-title a');
+        const tabContents = tab.querySelectorAll('.tab-content');
+        for (let j = 0; j < tabs.length; j++) {
+          tabItems.push(tabs[j]);
+          tabContentItems.push(tabContents[j]);
+        }
+        tabItems.forEach((tabItem, ei) => {
+          tabItem.addEventListener('click', (e) => {
+            tabItems.forEach((tabItem2, index) => {
+              const tabLi = tabItem2.parentNode;
+              tabLi.classList.toggle('active', ei === index);
+            });
+            tabContentItems.forEach((tabContent, index) => {
+              tabContent.classList.toggle('tab-hide', ei !== index);
+            });
+            e.preventDefault();
+          });
+        });
       }
     }
   ] as Function[];
@@ -168,6 +187,14 @@ export default class MdiMarkdown extends HTMLElement {
           o.render(this.$content);
         }
       });
+      // Dispatch load
+      this.dispatchEvent(
+        new CustomEvent('load', {
+          detail: {
+            $content: this.$content
+          }
+        })
+      );
     }
   }
 
@@ -180,6 +207,8 @@ export default class MdiMarkdown extends HTMLElement {
     // Import - 2 deep
     markdown = await this.processImports(markdown);
     markdown = await this.processImports(markdown);
+    // Remove line returns
+    markdown = markdown.replace(/\r/g, '');
     // Process Refs - 3 deep
     markdown = await this.processRefs(markdown);
     markdown = await this.processRefs(markdown);
@@ -202,57 +231,35 @@ export default class MdiMarkdown extends HTMLElement {
     var tabset = '';
     return markdown.replace(/tabs ?([^\n]+)?\n([\s\S]+?)\n\/tabs/g, (m, label, tabs) => {
       var i = 0;
-      tabset += label ? `<li class="tab-label">${label}</li>` : '';
-      var tabs = tabs.replace(/tab ([^\n]+)\n([\s\S]+?)\n\/tab/g, (m, title, content) => {
+      tabset = label ? `<li class="tab-label">${label}</li>` : '';
+      var t = tabs.replace(/tab ([^\n]+)\n([\s\S]+?)\n\/tab/g, (m, title, content) => {
+        title = title.replace(/^(icon:\w[\w-]*)? ? (.+?) ?(icon:\w.*)?$/, (m, m1, m2, m3) => {
+          return `${m1 || ''}<span>${m2 || ''}</span>${m3 || ''}`;
+        });
         tabset += [
           i === 0 ? '<li class="tab-title active">' : '<li class="tab-title">',
-          '<a data-toggle="tab" href="#${m1}" role="tab" aria-selected="true">',
+          '<a href="#" role="tab" aria-selected="true">',
           title,
           '</a>',
           '</li>'
         ].join('\n');
-        i++;
-        return [
-          '<div class="tab-content">',
+        const tabContent = [
+          i === 0 ? '<div class="tab-content">' : '<div class="tab-content tab-hide">',
           content,
           '</div>'
         ].join('\n');
+        i++;
+        return tabContent;
       });
       return [
         '<div class="tabs">',
         '<ul class="tabset">',
         tabset,
         `</ul>`,
-        tabs,
+        t,
         '</div>'
       ].join('\n');
     });
-    /*
-    markdown = markdown.replace(/tabs:(.*)/g, (m, m1) => {
-      const tab = `<div class="tabs">
-        <div class="tabset-container">
-          <ul class="tabset">`;
-      const title = m1 === '' ? '' : `<li class="tab-title">${m1}</li>`;
-      return `${tab}${title}`;
-    });
-    markdown = markdown.replace(/tab:[^ ]+ .+(\r?\ntab:[^ ]+ .+)+/g, (m) => {
-      return `${m}\n</ul></div><div class="tab-content">`;
-    });
-    markdown = markdown.replace(/tab:([^ ]+) (.+)/g, (m, m1, m2) => {
-      return `<li class="tab-title active">
-        <a id="${m1}-tab" class="nav-link" data-toggle="tab" href="#${m1}" role="tab" aria-controls="home" aria-selected="true">${m2}</a>
-      </li>`;
-    });
-    markdown = markdown.replace(/tabContent:(.+)/g, (m, m1) => {
-      return `<div class="tab-pane tab-hide" id="${m1}" role="tabpanel" aria-labelledby="${m1}-tab">`;
-    });
-    markdown = markdown.replace(/\/tabContent/g, (m) => {
-      return `</div>`;
-    });
-    markdown = markdown.replace(/\/tabs/g, (m) => {
-      return `</div></div>`;
-    });
-    return markdown;*/
   }
 
   async processImports(markdown) {
