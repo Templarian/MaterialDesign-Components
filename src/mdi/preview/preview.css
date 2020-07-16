@@ -1,0 +1,17 @@
+:host {
+  display: inline-flex;
+  color: var(--mdi-icon-color, #222);
+}
+
+[part=svg] {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+[part="grid"] {
+  background-image:
+    repeating-linear-gradient(#ccc 0 2px, transparent 2px 100%),
+    repeating-linear-gradient(90deg, #ccc 0 2px, transparent 2px 100%);
+  background-size: var(--mdi-preview-size, 4px) var(--mdi-preview-size, 4px);
+  background-position: calc(var(--mdi-preview-size, 4px) - 1px) calc(var(--mdi-preview-size, 4px) - 1px);
+}

@@ -697,7 +697,7 @@ div.yaml + pre.language-yaml {
 
 .tabs .tab-title:not(.active):first-child:hover::before {
   position: absolute;
-  bottom: -0.25rem;
+  top: calc(2.5rem - 1px);
   content: ' ';
   border-top: 1px solid  var(--mdi-markdown-tab-border, #453C4F);
   border-left: 1px solid  var(--mdi-markdown-tab-border, #453C4F);
@@ -726,11 +726,11 @@ div.yaml + pre.language-yaml {
   background: #fff;
 }
 
-.tabs .tab-content pre:nth-child(1) {
+.tabs .tab-content > *:nth-child(1) {
   margin-top: 1rem;
 }
 
-.tabs .tab-content pre:nth-last-child(1) {
+.tabs .tab-content > *:nth-last-child(1) {
   margin-bottom: 1rem;
 }
 

@@ -245,7 +245,7 @@ export default class MdiMarkdown extends HTMLElement {
         ].join('\n');
         const tabContent = [
           i === 0 ? '<div class="tab-content">' : '<div class="tab-content tab-hide">',
-          content,
+          `\n${content.trim()}\n`,
           '</div>'
         ].join('\n');
         i++;
