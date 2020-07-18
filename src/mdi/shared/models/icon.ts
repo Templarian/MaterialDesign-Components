@@ -2,6 +2,7 @@ import { Alias } from "./alias";
 import { User } from "./user";
 import { Tag } from "./tag";
 import { Style } from "./style";
+import { FontIcon } from "./fontIcon";
 
 export class Icon {
 
@@ -19,6 +20,7 @@ export class Icon {
   public published: boolean = true;
   public deprecated: boolean = false;
   public codepoint: string | null = null;
+  public fontIcons: FontIcon[] = [];
   public fontIcon: any = null;
 
   constructor(name?: string, data?: string) {
@@ -59,6 +61,9 @@ export class Icon {
     }
     if (icon.codepoint) {
       this.codepoint = icon.codepoint;
+    }
+    if (icon.fontIcons) {
+      this.fontIcons = icon.fontIcons.map(t => new FontIcon().from(t));
     }
     return this;
   }

@@ -166,13 +166,15 @@ a {
   color: #278eca;
 }
 
-[part=content] > ul {
+[part=content] > ul,
+.tab-content > ul {
   list-style: square;
   padding-left: 2rem;
   line-height: 1.75rem;
 }
 
-[part=content] > ul > li > ul {
+[part=content] > ul > li > ul,
+.tab-content > ul > li > ul {
   list-style: square;
   padding-left: 1.25rem;
   line-height: 1.75rem;
@@ -184,7 +186,10 @@ dl dd {
 
 [part=content] > p code,
 [part=content] > ul code,
-[part=content] > table code {
+[part=content] > table code,
+.tab-content > p code,
+.tab-content > ul code,
+.tab-content > table code{
   display: inline-block;
   background: rgba(0, 0, 0, 0.05);
   padding: 0.125rem 0.25rem;
@@ -196,7 +201,10 @@ dl dd {
 
 [part=content] > p code a,
 [part=content] > ul code a,
-[part=content] > table code a {
+[part=content] > table code a,
+.tab-content > p code a,
+.tab-content > ul code a,
+.tab-content > table code a {
   text-decoration: underline;
 }
 

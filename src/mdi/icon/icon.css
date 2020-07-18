@@ -1,9 +1,9 @@
 :host {
   display: inline-flex;
-  color: var(--mdi-icon-color, #222);
+  color: var(--mdi-icon-color, #453C4F);
 }
 
 :host [part~=svg] {
-  width: 1.5rem;
-  height: 1.5rem;
+  width: var(--mdi-icon-width, 1.5rem);
+  height: var(--mdi-icon-height, 1.5rem);
 }

@@ -1,6 +1,6 @@
-# `<mdi-icon>`
+# `<mdi-preview>`
 
-The `mdi-icon` component allows a standard way to render [MaterialDesignIcons.com](https://materialdesignicons.com) icons.
+The `mdi-preview` component allows a standard way to render a grid behind an icon.
 
 ```typescript
 import '@mdi/web-components/mdi/preview';

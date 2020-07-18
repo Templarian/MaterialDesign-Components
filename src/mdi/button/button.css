@@ -1,35 +1,33 @@
-[part~=button] {
+[part="button"] {
   display: inline-flex;
   align-items: center;
+  align-content: center;
   font-family: var(--mdi-font-family);
   font-size: 1rem;
   line-height: 1.5rem;
 }
 
-[part~=button]:hover {
+[part="button"]:hover {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 }
 
-[part~=button].base {
-  border: 1px solid #4281E9;
-  background: #4281E9;
-  color: #FFF;
+[part="button"] {
+  border: 1px solid var(--mdi-button-border-color, #453C4F);
+  background-color: var(--mdi-button-background-color, #fff);
+  color: var(--mdi-button-color, #453C4F);
   padding: 0.25rem 0.5rem;
   border-radius: 0.25rem;
   outline: none;
-  --mdi-icon-color: #FFF;
+  --mdi-icon-color: var(--mdi-button-color, #453C4F);
 }
 
-[part~=button].base:hover {
-  background-color: #4F8FF9;
+[part="button"]:hover {
+  border: 1px solid var(--mdi-button-hover-border-color, #453C4F);
+  background-color: var(--mdi-button-hover-background-color, #453C4F);
+  color: var(--mdi-hover-button-color, #fff);
+  --mdi-icon-color: var(--mdi-button-hover-color, #fff);
 }
 
-[part~=button].base-inverse {
-  border: 1px solid #F1F1F1;
-  background: #FFF;
-  color: #4281E9;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
-  outline: none;
-  --mdi-icon-color: #4281E9;
+::slotted {
+  align-self: center;
 }
