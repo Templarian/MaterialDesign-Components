@@ -46,7 +46,9 @@ describe('mdi-markdown', () => {
       $content
     } = component;
     const result = $content.innerHTML.trim(); // '<h1>Hello</h1> '
-    expect(result).toEqual('<h1>Hello</h1>');
+    await (async () => {
+      expect(result).toEqual('<h1>Hello</h1>');
+    });
   });
 
   it('should transform markdown text input', async () => {
@@ -62,7 +64,9 @@ describe('mdi-markdown', () => {
       $content
     } = component;
     const result = $content.innerHTML.trim(); // '<h1 class="header">Hello</h1> '
-    expect(result).toEqual('<h1 class="header">Hello</h1>');
+    await (async () => {
+      expect(result).toEqual('<h1 class="header">Hello</h1>');
+    });
   });
 
   it('should markdown code block', async () => {
@@ -76,7 +80,9 @@ describe('mdi-markdown', () => {
       $content
     } = component;
     const result = $content.innerHTML.trim();
-    expect(result).toEqual('<pre><code>Hello\n</code></pre>');
+    await (async () => {
+      expect(result).toEqual('<pre><code>Hello\n</code></pre>');
+    });
   });
 
 });
