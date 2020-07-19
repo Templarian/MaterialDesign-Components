@@ -25,8 +25,9 @@ describe('mdi-markdown', () => {
   it('should only expose known props', () => {
     const { symbols } = customElements.get(MDI_MARKDOWN);
     const props = Object.keys(symbols);
-    expect(props.length).toBe(2);
+    expect(props.length).toBe(3);
     expect(props).toContain('text');
+    expect(props).toContain('file');
     expect(props).toContain('replace');
   });
 
