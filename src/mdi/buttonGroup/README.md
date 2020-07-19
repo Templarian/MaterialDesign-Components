@@ -3,47 +3,26 @@
 The `mdi-button-group` wraps the `mdi-button` component.
 
 ```typescript
-import '@mdi/web-components/mdi/button';
-import MdiButton from '@mdi/web-components/mdi/button';
+import '@mdi/web-components/mdi/buttonGroup';
+import MdiButtonGroup from '@mdi/web-components/mdi/buttonGroup';
 ```
 
 ```html
-<mdi-button>Click Me!</mdi-button>
+<mdi-button-group>
+  <mdi-button active>Hello</mdi-button>
+  <mdi-button>World</mdi-button>
+</mdi-button-group>
 ```
-
-| Slots       | Tested   | Description |
-| ----------- | -------- | ----------- |
-| default     | &#x2705; | Button contents. |
-
-| Attribute  | Tested   | Description |
-| ---------- | -------- | ----------- |
-| active     |          | Depressed visual state. |
-| start      |          | Internal Only |
-| end        |          | Internal Only |
-
-| Events     | Tested   | Description |
-| ---------- | -------- | ----------- |
-| click      | &#x2705; | Standard click. |
-
-| CSS Variables       | Default   | Description |
-| ------------------- | --------- | ----------- |
-| `--mdi-button-color` | `#453C4F` | Text color       |
-| `--mdi-button-background-color` | `#fff` | Background color       |
-| `--mdi-button-border-color` | `#453C4F`  | Border color       |
-| `--mdi-button-hover-color` | `#fff`  | `:hover` Text color      |
-| `--mdi-button-hover-background-color` | `#453C4F`  | `:hover` Background color      |
-| `--mdi-button-hover-border-color` | `#453C4F`  | `:hover` Border color      |
-| `--mdi-button-active-color` | `#fff`  | `active` Text color      |
-| `--mdi-button-active-background-color` | `#453C4F`  | `active` Background color      |
-| `--mdi-button-active-border-color` | `#453C4F`  | `active` Border color      |
 
 ### Slots
 
-Special styling is applied for `mdi-icon`.
+Special styling is applied for `mdi-button`.
 
 ```html
-<mdi-button>
-  <mdi-icon d="M...Z"></mdi-icon>
-  Hello!
-</mdi-button>
+<mdi-button-group>
+  <mdi-button>
+    <mdi-icon d="M...Z"></mdi-icon>
+    With Icons
+  </mdi-button>
+</mdi-button-group>
 ```
