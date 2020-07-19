@@ -10,6 +10,9 @@ import style from './button.css';
 })
 export default class MdiButton extends HTMLElement {
   @Prop() active: string | boolean = false;
+  @Prop() start: string | boolean = false;
+  @Prop() center: string | boolean = false;
+  @Prop() end: string | boolean = false;
 
   @Part() $button: HTMLButtonElement;
 
@@ -18,8 +21,18 @@ export default class MdiButton extends HTMLElement {
   }
 
   render(changes) {
+    const t = [true, 'true', ''];
     if (changes.active) {
-      this.$button.classList.toggle('active', this.active === 'true' || !!this.active);
+      this.$button.classList.toggle('active', t.includes(this.active));
+    }
+    if (changes.start) {
+      this.$button.classList.toggle('start', t.includes(this.start));
+    }
+    if (changes.end) {
+      this.$button.classList.toggle('end', t.includes(this.end));
+    }
+    if (changes.center) {
+      this.$button.classList.toggle('center', t.includes(this.center));
     }
   }
 }

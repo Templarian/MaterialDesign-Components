@@ -7,10 +7,6 @@
   line-height: 1.5rem;
 }
 
-[part="button"]:hover {
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
-}
-
 [part="button"] {
   border: 1px solid var(--mdi-button-border-color, #453C4F);
   background-color: var(--mdi-button-background-color, #fff);
@@ -26,6 +22,29 @@
   background-color: var(--mdi-button-hover-background-color, #453C4F);
   color: var(--mdi-hover-button-color, #fff);
   --mdi-icon-color: var(--mdi-button-hover-color, #fff);
+}
+
+[part="button"].start {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  margin-right: -1px;
+}
+
+[part="button"].center {
+  border-radius: 0;
+  margin-right: -1px;
+}
+
+[part="button"].end {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+[part="button"].active,
+[part="button"].active:hover {
+  box-shadow: 0 1px 0.25rem rgba(0, 0, 0, 0.5) inset;
+  background-color: rgba(69, 60, 79, 0.1);
+  color: var(--mdi-button-color, #453C4F);
 }
 
 ::slotted {

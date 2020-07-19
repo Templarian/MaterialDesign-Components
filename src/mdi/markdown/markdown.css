@@ -199,13 +199,22 @@ dl dd {
   line-height: 1.125rem;
 }
 
-[part=content] > p code a,
-[part=content] > ul code a,
-[part=content] > table code a,
-.tab-content > p code a,
-.tab-content > ul code a,
-.tab-content > table code a {
-  text-decoration: underline;
+[part=content] > p a > code,
+[part=content] > ul a > code,
+[part=content] > table a > code,
+.tab-content > p a > code,
+.tab-content > ul a > code,
+.tab-content > table a > code {
+  text-decoration: none;
+}
+
+[part=content] > p a:hover > code,
+[part=content] > ul a:hover > code,
+[part=content] > table a:hover > code,
+.tab-content > p a:hover > code,
+.tab-content > ul a:hover > code,
+.tab-content > table a:hover > code {
+  border-color: #278eca;
 }
 
 table code {
