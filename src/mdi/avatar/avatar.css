@@ -1,0 +1,11 @@
+:host {
+  display: inline-flex;
+  border: 1px solid var(--mdi-icon-border-color, #453C4F);
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+[part="img"] {
+  width: var(--mdi-avatar-width, 3rem);
+  height: var(--mdi-avatar-height, 3rem);
+}
