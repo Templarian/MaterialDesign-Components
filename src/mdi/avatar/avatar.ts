@@ -16,10 +16,15 @@ export default class MdiAvatar extends HTMLElement {
   @Prop() user: User = new User();
 
   @Part() $img: HTMLImageElement;
+  @Part() $sponsored: HTMLAnchorElement;
 
   render(changes) {
     if (changes.user) {
       this.$img.src = `data:image/png;base64,${this.user.base64 || noAvatar}`;
+      this.$sponsored.style.display = this.user.sponsored ? 'flex' : 'none';
+      if (this.user.sponsored) {
+        this.$sponsored.href = `https://github.com/sponsors/${this.user.github}`;
+      }
     }
   }
 }
