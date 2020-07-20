@@ -12,8 +12,8 @@
 }
 
 [part="img"] {
-  width: var(--mdi-avatar-width, 3rem);
-  height: var(--mdi-avatar-height, 3rem);
+  width: calc(var(--mdi-avatar-width, 3rem) - 2px);
+  height: calc(var(--mdi-avatar-height, 3rem) - 2px);
 }
 
 [part="sponsored"] {
