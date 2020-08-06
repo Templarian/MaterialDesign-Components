@@ -17,9 +17,11 @@ import MdiButton from '@mdi/web-components/mdi/button';
 
 | Attribute  | Tested   | Description |
 | ---------- | -------- | ----------- |
+| block      |          | block sizing |
 | active     |          | Depressed visual state. |
 | start      |          | Internal Only |
 | end        |          | Internal Only |
+| center     |          | Internal Only |
 
 | Events     | Tested   | Description |
 | ---------- | -------- | ----------- |

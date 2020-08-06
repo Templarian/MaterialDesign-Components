@@ -10,6 +10,7 @@ import style from './button.css';
 })
 export default class MdiButton extends HTMLElement {
   @Prop() active: string | boolean = false;
+  @Prop() block: string | boolean = false;
   @Prop() start: string | boolean = false;
   @Prop() center: string | boolean = false;
   @Prop() end: string | boolean = false;
@@ -33,6 +34,9 @@ export default class MdiButton extends HTMLElement {
     }
     if (changes.center) {
       this.$button.classList.toggle('center', t.includes(this.center));
+    }
+    if (changes.block) {
+      this.$button.classList.toggle('block', t.includes(this.block));
     }
   }
 }

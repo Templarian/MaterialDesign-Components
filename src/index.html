@@ -177,7 +177,9 @@
       var avatar2 = document.getElementById('avatar2');
       avatar2.user = {
         base64: AVATAR,
-        sponsored: true
+        sponsored: true,
+        github: 'Templarian',
+        name: 'Austin Andrews'
       };
     </script>
 
@@ -195,13 +197,16 @@
     <section>
       <h2>mdi-button</h2>
       <h3>Basic <small>Default</small></h3>
-      <div class="example example-flex">
-        <mdi-button>Example Button</mdi-button>
-        <mdi-button><mdi-icon path="M12,19.2C9.5,19.2 7.29,17.92 6,16C6.03,14 10,12.9 12,12.9C14,12.9 17.97,14 18,16C16.71,17.92 14.5,19.2 12,19.2M12,5A3,3 0 0,1 15,8A3,3 0 0,1 12,11A3,3 0 0,1 9,8A3,3 0 0,1 12,5M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2Z"></mdi-icon></mdi-button>
-        <mdi-button>
-          <mdi-icon path="M12,19.2C9.5,19.2 7.29,17.92 6,16C6.03,14 10,12.9 12,12.9C14,12.9 17.97,14 18,16C16.71,17.92 14.5,19.2 12,19.2M12,5A3,3 0 0,1 15,8A3,3 0 0,1 12,11A3,3 0 0,1 9,8A3,3 0 0,1 12,5M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2Z"></mdi-icon>
-          With Icon
-        </mdi-button>
+      <div class="example">
+        <div class="example-flex">
+          <mdi-button>Example Button</mdi-button>
+          <mdi-button><mdi-icon path="M12,19.2C9.5,19.2 7.29,17.92 6,16C6.03,14 10,12.9 12,12.9C14,12.9 17.97,14 18,16C16.71,17.92 14.5,19.2 12,19.2M12,5A3,3 0 0,1 15,8A3,3 0 0,1 12,11A3,3 0 0,1 9,8A3,3 0 0,1 12,5M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2Z"></mdi-icon></mdi-button>
+          <mdi-button>
+            <mdi-icon path="M12,19.2C9.5,19.2 7.29,17.92 6,16C6.03,14 10,12.9 12,12.9C14,12.9 17.97,14 18,16C16.71,17.92 14.5,19.2 12,19.2M12,5A3,3 0 0,1 15,8A3,3 0 0,1 12,11A3,3 0 0,1 9,8A3,3 0 0,1 12,5M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2Z"></mdi-icon>
+            With Icon
+          </mdi-button>
+        </div>
+        <mdi-button block>Block Button</mdi-button>
       </div>
     </section>
     <script src="mdiButton.js"></script>
@@ -291,8 +296,14 @@
     <script src="mdiGrid.js"></script>
     <script src="mdiTooltip.js"></script>
     <script>
-      var ele = document.getElementsByTagName('mdi-grid')[0];
       var tooltip = document.getElementById('iconGrid1Tooltip');
+      document.body.addEventListener('tooltip', (e) => {
+        var { visible, rect, text } = e.detail;
+        tooltip.visible = visible;
+        tooltip.rect = rect;
+        tooltip.text = text;
+      });
+      var ele = document.getElementsByTagName('mdi-grid')[0];
       tooltip.style.display = 'none';
       ele.addEventListener('select', (e) => {
         var icon = e.detail;
@@ -389,7 +400,7 @@
     <script src="mdiInputHexRgb.js"></script>
     <script>
       document.getElementById('inputHexRgb1').addEventListener('change', (e) => {
-        const hex = e.target.value;
+        var hex = e.target.value;
         document.getElementById('inputHexRgbValue1').innerText =
           `${hex}`;
       });
@@ -406,7 +417,31 @@
     <script src="mdiColor.js"></script>
     <script>
       document.getElementById('inputRange1').addEventListener('change', (e) => {
-        const value = e.target.value;
+        var value = e.target.value;
+      });
+    </script>
+
+    <section>
+      <h2>mdi-input-select</h2>
+      <h3>Basic</h3>
+      <div class="example">
+        <mdi-input-select id="inputSelect1"></mdi-inputselect>
+        <code>Selected: <span id="inputSelectValue1"></span></code>
+      </div>
+    </section>
+    <script src="mdiInputSelect.js"></script>
+    <script>
+      var select = document.getElementById('inputSelect1');
+      select.options = [
+        { label: 'Option 1', value: 'option1' },
+        { label: 'Option 2', value: 'option2' },
+        { label: 'Option 3', value: 'option3' },
+        { label: 'Option 4', value: 'option4' }
+      ];
+      select.value = select.options[1].value;
+      document.getElementById('inputSelect1').addEventListener('change', (e) => {
+        var value = e.target.value;
+        document.getElementById('inputSelectValue1').innerText = `${value}`;
       });
     </script>
 

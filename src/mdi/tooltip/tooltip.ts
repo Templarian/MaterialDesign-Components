@@ -9,21 +9,29 @@ import style from './tooltip.css'
   template
 })
 export default class MdiTooltip extends HTMLElement {
+  @Prop() visible: boolean = false;
+  @Prop() rect: any = null;
   @Prop() text: string = '';
   @Prop() position: string = 'bottom-center';
-  @Prop() width: string = '32';
-  @Prop() height: string = '32';
 
   @Part() $tooltip: HTMLDivElement;
   @Part() $tooltipText: HTMLSpanElement;
   @Part() $tooltipArrow: HTMLDivElement;
 
-  render() {
+  render(changes) {
     this.$tooltipText.innerText = this.text;
-    const arrow = Math.floor(parseInt(this.width, 10) / 2) - 5;
-    const height = parseInt(this.height, 10);
-    this.$tooltipArrow.style.left = `${arrow}px`;
-    this.$tooltipArrow.style.top = `${height}px`;
-    this.$tooltipText.style.top = `${height + 5}px`;
+    if (changes.visible) {
+      this.style.display = this.visible ? 'inline-flex' : 'none';
+    }
+    if (changes.rect && this.rect) {
+      const { top, right, bottom, left, width, height } = this.rect;
+      this.style.position = 'fixed';
+      this.style.left = `${this.rect.left}px`;
+      this.style.top = `${this.rect.top + 5}px`;
+      const arrow = Math.floor(width / 2) - 5;
+      this.$tooltipArrow.style.left = `${arrow}px`;
+      this.$tooltipArrow.style.top = `${height}px`;
+      this.$tooltipText.style.top = `${height + 5}px`;
+    }
   }
 }
