@@ -30,6 +30,32 @@
 
 [part="button"]:active {
   box-shadow: 0 1px 0.25rem rgba(0, 0, 0, 0.5) inset;
+  position: relative;
+}
+
+[part="button"]:focus {
+  position: relative;
+}
+
+[part="button"]:active::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  bottom: -1px;
+  left: -1px;
+  border-radius: 0.25rem;
+  box-shadow: 0 0 0 3px var(--mdi-search-focus-glow, rgb(79, 143, 249, 0.6));
+}
+[part="button"]:focus::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  bottom: -1px;
+  left: -1px;
+  border-radius: 0.25rem;
+  box-shadow: 0 0 0 3px var(--mdi-search-focus-glow, rgb(79, 143, 249, 0.5));
 }
 
 [part="button"].start {
