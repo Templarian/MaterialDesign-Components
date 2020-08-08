@@ -8,7 +8,7 @@ import style from './inputRange.css';
   style,
   template
 })
-export default class MdiNav extends HTMLElement {
+export default class MdiInputRange extends HTMLElement {
   @Prop() min: string = '0';
   @Prop() max: string = '100';
   @Prop() step: string = '1';

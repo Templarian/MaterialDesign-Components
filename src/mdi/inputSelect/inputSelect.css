@@ -16,6 +16,10 @@
   -webkit-appearance: none;
 }
 
+[part="select"]:focus {
+  box-shadow: 0 0 0 3px #4F8FF9;
+}
+
 [part="chevron"] {
   grid-row: 1;
   grid-column: 2;

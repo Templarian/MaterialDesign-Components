@@ -390,6 +390,29 @@
     </script>
 
     <section>
+      <h2>mdi-input-text</h2>
+      <h3>Basic <small>Value</small></h3>
+      <div class="example">
+        <mdi-input-text id="input1" value="Hello World!"></mdi-input-text>
+        <code>onchange: <span id="inputValue1"></span></code>
+        <code>oninput: <span id="inputValue2"></span></code>
+      </div>
+    </section>
+    <script src="mdiInputText.js"></script>
+    <script>
+      document.getElementById('input1').addEventListener('change', (e) => {
+        var value = e.target.value;
+        document.getElementById('inputValue1').innerText =
+          `${value}`;
+      });
+      document.getElementById('input1').addEventListener('input', (e) => {
+        var value = e.target.value;
+        document.getElementById('inputValue2').innerText =
+          `${value}`;
+      });
+    </script>
+
+    <section>
       <h2>mdi-input-hex-rgb</h2>
       <h3>Basic <small>Value</small></h3>
       <div class="example">

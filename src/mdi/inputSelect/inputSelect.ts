@@ -13,7 +13,7 @@ interface InputSelectItem {
   style,
   template
 })
-export default class MdiNav extends HTMLElement {
+export default class MdiInputSelect extends HTMLElement {
   @Prop() options: InputSelectItem[] = [];
   @Prop() value: string;
 

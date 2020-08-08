@@ -19,6 +19,9 @@ input {
   width: calc(100% - 1rem);
   border: .0625rem solid var(--mdi-search-border-color);
 }
+input:focus {
+  box-shadow: 0 0 0 3px #4F8FF9;
+}
 .active input + svg path {
   fill: #453C4F;
 }

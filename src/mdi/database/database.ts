@@ -12,7 +12,7 @@ const db = new DatabaseService();
   style,
   template
 })
-export default class MdiNav extends HTMLElement {
+export default class MdiDatabase extends HTMLElement {
   @Prop() font: string = '';
 
   async render() {

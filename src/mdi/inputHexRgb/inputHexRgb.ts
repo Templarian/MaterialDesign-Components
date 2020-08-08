@@ -9,7 +9,7 @@ import style from './inputHexRgb.css';
   style,
   template
 })
-export default class MdiNav extends HTMLElement {
+export default class MdiInputHexRgb extends HTMLElement {
   @Prop() value: string = '#000000';
 
   @Part() $hex: HTMLInputElement;
