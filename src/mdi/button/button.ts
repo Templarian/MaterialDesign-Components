@@ -18,7 +18,10 @@ export default class MdiButton extends HTMLElement {
   @Part() $button: HTMLButtonElement;
 
   connectedCallback() {
-    this.$button.addEventListener('click', (e) => this.dispatchEvent(new CustomEvent('click')));
+    this.$button.addEventListener('click', (e) => {
+      e.stopPropagation();
+      this.dispatchEvent(new CustomEvent('click'));
+    });
   }
 
   render(changes) {

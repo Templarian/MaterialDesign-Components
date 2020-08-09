@@ -21,7 +21,7 @@ Special styling is applied for `mdi-button`.
 ```html
 <mdi-button-group>
   <mdi-button>
-    <mdi-icon d="M...Z"></mdi-icon>
+    <mdi-icon path="M...Z"></mdi-icon>
     With Icons
   </mdi-button>
 </mdi-button-group>

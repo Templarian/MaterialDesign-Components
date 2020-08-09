@@ -45,7 +45,7 @@ Special styling is applied for `mdi-icon`.
 
 ```html
 <mdi-button>
-  <mdi-icon d="M...Z"></mdi-icon>
+  <mdi-icon path="M...Z"></mdi-icon>
   Hello!
 </mdi-button>
 ```

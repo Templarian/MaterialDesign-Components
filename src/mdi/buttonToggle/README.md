@@ -1,14 +1,17 @@
-# `<mdi-button>`
+# `<mdi-button-toggle>`
 
-The `mdi-button-link` component is essentially just a styled anchor, but it also allows special rendering for `mdi-button-group` and `mdi-icon`.
+The `mdi-button-toggle` component is essentially just a button with swappable slotted content. Commonly used with icons, but using `span` elements will allow assigning text content.
 
 ```typescript
-import '@mdi/web-components/mdi/buttonLink';
-import MdiButtonLink from '@mdi/web-components/mdi/buttonLink';
+import '@mdi/web-components/mdi/buttonToggle';
+import MdiButtonToggle from '@mdi/web-components/mdi/buttonToggle';
 ```
 
 ```html
-<mdi-button-link>Click Me!</mdi-button-link>
+<mdi-button-toggle>
+  <mdi-icon slot="active" path="M...Z"></mdi-icon>
+  <mdi-icon slot="inactive" path="M...Z"></mdi-icon>
+</mdi-button-toggle>
 ```
 
 | Slots       | Tested   | Description |
@@ -44,8 +47,8 @@ import MdiButtonLink from '@mdi/web-components/mdi/buttonLink';
 Special styling is applied for `mdi-icon`.
 
 ```html
-<mdi-button-link>
-  <mdi-icon path="M...Z"></mdi-icon>
-  Hello!
-</mdi-button-link>
+<mdi-button-toggle>
+  <mdi-icon slot="active" path="M...Z"></mdi-icon>
+  <mdi-icon slot="inactive" path="M...Z"></mdi-icon>
+</mdi-button-toggle>
 ```

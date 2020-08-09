@@ -24,7 +24,7 @@
 [part="button"]:hover {
   border: 1px solid var(--mdi-button-hover-border-color, #453C4F);
   background-color: var(--mdi-button-hover-background-color, #453C4F);
-  color: var(--mdi-hover-button-color, #fff);
+  color: var(--mdi-button-hover-color, #fff);
   --mdi-icon-color: var(--mdi-button-hover-color, #fff);
 }
 
@@ -74,11 +74,15 @@
   border-bottom-left-radius: 0;
 }
 
-[part="button"].active,
-[part="button"].active:hover {
+[part="button"].active {
   box-shadow: 0 1px 0.25rem rgba(0, 0, 0, 0.5) inset;
   background-color: rgba(69, 60, 79, 0.1);
   color: var(--mdi-button-color, #453C4F);
+}
+[part="button"].active:hover {
+  box-shadow: 0 1px 0.25rem rgba(0, 0, 0, 0.5) inset;
+  background-color: var(--mdi-button-color, #453C4F);
+  color: var(--mdi-button-hover-color, #fff);
 }
 
 [part="button"].block {
