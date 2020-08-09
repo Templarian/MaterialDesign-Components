@@ -9,6 +9,7 @@
   font-family: var(--mdi-font-family);
   font-size: 1rem;
   line-height: 1.5rem;
+  text-decoration: none;
 }
 
 [part="button"] {
@@ -85,6 +86,6 @@
   flex: 1;
 }
 
-::slotted {
+::slotted(*) {
   align-self: center;
 }
