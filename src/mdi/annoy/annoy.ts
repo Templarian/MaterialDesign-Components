@@ -42,7 +42,7 @@ export default class MdiAnnoy extends HTMLElement {
       var offset = d.scrollTop + window.innerHeight;
       var height = d.offsetHeight;
 
-      this.$list.classList.toggle('footer', offset >= height - (4 * 16));
+      this.classList.toggle('footer', offset >= height - (4 * 16));
     });
   }
 }

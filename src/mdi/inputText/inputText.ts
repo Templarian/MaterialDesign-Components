@@ -11,6 +11,7 @@ import style from './inputText.css';
 export default class MdiInputText extends HTMLElement {
   @Prop() name: string = '';
   @Prop() value: string = '';
+  @Prop() placeholder: string = '';
 
   @Part() $input: HTMLInputElement;
 
@@ -24,6 +25,9 @@ export default class MdiInputText extends HTMLElement {
   render(changes) {
     if (changes.value && !this.skipValue) {
       this.$input.value = this.value;
+    }
+    if (changes.placeholder) {
+      this.$input.placeholder = this.placeholder;
     }
     this.skipValue = false;
   }

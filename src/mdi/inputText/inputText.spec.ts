@@ -25,9 +25,10 @@ describe('mdi-input-text', () => {
   it('should only expose known props', () => {
     const { symbols } = customElements.get(MDI_INPUT_TEXT);
     const props = Object.keys(symbols);
-    expect(props.length).toBe(2);
+    expect(props.length).toBe(3);
     expect(props).toContain('name');
     expect(props).toContain('value');
+    expect(props).toContain('placeholder');
   });
 
   it('should default value to empty', () => {
@@ -41,6 +42,19 @@ describe('mdi-input-text', () => {
     component.value = 'Hello World!';
     const { $input } = component;
     expect($input.value).toEqual('Hello World!');
+  });
+
+  it('should default placeholder to empty', () => {
+    const component = selectComponent<MdiInputText>(MDI_INPUT_TEXT);
+    const { $input } = component;
+    expect($input.placeholder).toEqual('');
+  });
+
+  it('should set placeholder to "Hello World!"', () => {
+    const component = selectComponent<MdiInputText>(MDI_INPUT_TEXT);
+    component.placeholder = 'Hello World!';
+    const { $input } = component;
+    expect($input.placeholder).toEqual('Hello World!');
   });
 
 });
