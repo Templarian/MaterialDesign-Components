@@ -1,3 +1,8 @@
+:host {
+  display: block;
+  font-family: var(--mdi-font-family);
+}
+
 [part="wrapper"] {
   display: grid;
   grid-template-rows: auto;
@@ -17,7 +22,7 @@
 }
 
 [part="select"]:focus {
-  box-shadow: 0 0 0 3px #4F8FF9;
+  box-shadow: 0 0 0 3px rgba(79, 143, 249, 0.5);
 }
 
 [part="chevron"] {

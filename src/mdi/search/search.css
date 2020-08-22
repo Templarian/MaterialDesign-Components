@@ -1,6 +1,7 @@
 :host {
   display: block;
   align-self: center;
+  font-family: var(--mdi-font-family);
 }
 
 div {
