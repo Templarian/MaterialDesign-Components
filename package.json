@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@mdi/components",
-  "version": "0.1.74",
+  "version": "0.1.75",
   "license": "MIT",
   "author": "Austin Andrews",
   "scripts": {
@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@mdi/element": "0.0.12",
-    "@popperjs/core": "^2.4.2",
+    "@popperjs/core": "^2.4.4",
     "dexie": "^3.0.1",
     "js-yaml": "^3.14.0",
     "lodash-es": "^4.17.15",
@@ -41,6 +41,6 @@
     "rollup-plugin-terser": "^6.1.0",
     "rollup-plugin-typescript2": "^0.27.1",
     "ts-jest": "^24.3.0",
-    "typescript": "^3.9.5"
+    "typescript": "^3.9.7"
   }
 }
