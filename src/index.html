@@ -523,25 +523,37 @@
 
     <section>
       <h2>mdi-input-user-select</h2>
-      <h3>Basic</h3>
+      <h3>Loading (<code>null</code>)</h3>
       <div class="example">
         <mdi-input-user-select id="inputSelectUser1"></mdi-input-user-select>
         <code>Selected: <span id="inputSelectUserValue1"></span></code>
       </div>
+      <h3>Basic</h3>
+      <div class="example">
+        <mdi-input-user-select id="inputSelectUser2"></mdi-input-user-select>
+        <code>Selected: <span id="inputSelectUserValue2"></span></code>
+      </div>
+      <h3>No Data (<code>[]</code>)</h3>
+      <div class="example">
+        <mdi-input-user-select id="inputSelectUser3"></mdi-input-user-select>
+        <code>Selected: <span id="inputSelectUserValue3"></span></code>
+      </div>
     </section>
     <script src="mdiInputUserSelect.js"></script>
     <script>
-      var select = document.getElementById('inputSelectUser1');
-      select.options = [
+      var select3 = document.getElementById('inputSelectUser3');
+      select3.options = [];
+      var select2 = document.getElementById('inputSelectUser2');
+      select2.options = [
         { id: 'uuid1', name: 'First Last 1', base64: AVATAR, iconCount: 1200, github: 'gitname1' },
         { id: 'uuid2', name: 'First Last 2', base64: AVATAR, iconCount: 1000, github: 'gitname2' },
         { id: 'uuid3', name: 'First Last 3', base64: AVATAR, iconCount: 900, github: 'gitname3' },
         { id: 'uuid4', name: 'First Last 4', base64: AVATAR, iconCount: 600, github: 'gitname4' },
       ];
-      select.value = select.options[1];
-      document.getElementById('inputSelectUser1').addEventListener('change', (e) => {
+      select2.value = select2.options[1];
+      document.getElementById('inputSelectUser2').addEventListener('change', (e) => {
         var value = e.target.value;
-        document.getElementById('inputSelectUserValue1').innerText = `${value}`;
+        document.getElementById('inputSelectUserValue2').innerText = `${value}`;
       });
     </script>
 

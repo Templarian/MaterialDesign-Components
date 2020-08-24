@@ -1,9 +1,9 @@
 import { Component, Prop, Part } from '@mdi/element';
-import { createPopper } from '@popperjs/core';
 
 import template from './inputUserSelect.html';
 import style from './inputUserSelect.css';
 import { User } from './../shared/models/user';
+import MdiIcon from 'mdi/icon/icon';
 
 function createIcon(d: string, className: string) {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -25,17 +25,21 @@ const mdiShape = 'M11,13.5V21.5H3V13.5H11M12,2L17.5,11H6.5L12,2M17.5,13C20,13 22
   template
 })
 export default class MdiInputSelect extends HTMLElement {
-  @Prop() options: User[] = [];
+  @Prop() options: User[] | null = null;
   @Prop() value: User;
 
-  @Part() $select: HTMLDivElement;
+  @Part() $select: HTMLButtonElement;
   @Part() $selectedAvatar: HTMLImageElement;
+  @Part() $selectedName: HTMLSpanElement;
+  @Part() $githubIcon: MdiIcon;
+  @Part() $selectedGithub: HTMLSpanElement;
+  @Part() $countIcon: MdiIcon;
+  @Part() $selectedCount: HTMLSpanElement;
   @Part() $dropdown: HTMLDivElement;
+  @Part() $loading: SVGElement;
+  @Part() $loadingText: HTMLSpanElement;
 
   connectedCallback() {
-    createPopper(this.$select, this.$dropdown, {
-      placement: 'bottom-start'
-    });
     this.$select.addEventListener('click', this.handleClick.bind(this));
   }
 
@@ -46,31 +50,60 @@ export default class MdiInputSelect extends HTMLElement {
     this.$dropdown.classList.toggle('open', this.isOpen);
   }
 
+  loadingMode() {
+    this.$selectedAvatar.style.display = 'none';
+    this.$selectedName.style.display = 'none';
+    this.$githubIcon.style.display = 'none';
+    this.$selectedGithub.style.display = 'none';
+    this.$countIcon.style.display = 'none';
+    this.$selectedCount.style.display = 'none';
+    this.$loading.style.display = 'flex';
+    this.$loadingText.style.display = 'initial';
+    this.$select.disabled = true;
+  }
+
+  selectMode() {
+    this.$selectedAvatar.style.display = 'initial';
+    this.$selectedName.style.display = 'initial';
+    this.$githubIcon.style.display = 'initial';
+    this.$selectedGithub.style.display = 'initial';
+    this.$countIcon.style.display = 'initial';
+    this.$selectedCount.style.display = 'initial';
+    this.$loading.style.display = 'none';
+    this.$loadingText.style.display = 'none';
+    this.$select.disabled = false;
+  }
+
   render(changes) {
     if (changes.options) {
-      this.options.forEach(o => {
-        const button = document.createElement('button');
-        const img = document.createElement('img');
-        img.src = `${o.base64}`;
-        img.classList.add('avatar');
-        button.appendChild(img);
-        const spanName = document.createElement('span');
-        spanName.innerText = `${o.name}`;
-        spanName.classList.add('name');
-        button.appendChild(spanName);
-        const spanGitHub = document.createElement('span');
-        spanGitHub.innerText = `${o.github}`;
-        spanGitHub.classList.add('github');
-        button.appendChild(spanGitHub);
-        const spanIconCount = document.createElement('span');
-        spanIconCount.innerText = `${o.iconCount}`;
-        spanIconCount.classList.add('iconCount');
-        button.appendChild(spanIconCount);
-        button.dataset.id = `${o.id}`;
-        button.appendChild(createIcon(mdiGithub, 'githubIcon'));
-        button.appendChild(createIcon(mdiShape, 'countIcon'));
-        this.$dropdown.appendChild(button);
-      });
+      if (this.options === null) {
+        this.loadingMode();
+      } else {
+        this.selectMode();
+        this.options.forEach(o => {
+          const button = document.createElement('button');
+          const img = document.createElement('img');
+          img.src = `${o.base64}`;
+          img.classList.add('avatar');
+          button.appendChild(img);
+          const spanName = document.createElement('span');
+          spanName.innerText = `${o.name}`;
+          spanName.classList.add('name');
+          button.appendChild(spanName);
+          const spanGitHub = document.createElement('span');
+          spanGitHub.innerText = `${o.github}`;
+          spanGitHub.classList.add('github');
+          button.appendChild(spanGitHub);
+          const spanIconCount = document.createElement('span');
+          spanIconCount.innerText = `${o.iconCount}`;
+          spanIconCount.classList.add('iconCount');
+          button.appendChild(spanIconCount);
+          button.dataset.id = `${o.id}`;
+          button.appendChild(createIcon(mdiGithub, 'githubIcon'));
+          button.appendChild(createIcon(mdiShape, 'countIcon'));
+          this.$dropdown.appendChild(button);
+        });
+      }
       //if (this.$select.value !== this.value) {
       //  this.$select.value = this.value;
       //}
