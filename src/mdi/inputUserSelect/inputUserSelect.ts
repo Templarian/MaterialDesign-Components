@@ -3,7 +3,7 @@ import { Component, Prop, Part } from '@mdi/element';
 import template from './inputUserSelect.html';
 import style from './inputUserSelect.css';
 import { User } from './../shared/models/user';
-import MdiIcon from 'mdi/icon/icon';
+import MdiIcon from './../icon/icon';
 
 function createIcon(d: string, className: string) {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
