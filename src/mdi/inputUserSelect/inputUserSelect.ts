@@ -24,9 +24,9 @@ const mdiShape = 'M11,13.5V21.5H3V13.5H11M12,2L17.5,11H6.5L12,2M17.5,13C20,13 22
   style,
   template
 })
-export default class MdiInputSelect extends HTMLElement {
+export default class MdiInputUserSelect extends HTMLElement {
   @Prop() options: User[] | null = null;
-  @Prop() value: User;
+  @Prop() value: User | null = null;
 
   @Part() $select: HTMLButtonElement;
   @Part() $selectedAvatar: HTMLImageElement;
@@ -38,16 +38,45 @@ export default class MdiInputSelect extends HTMLElement {
   @Part() $dropdown: HTMLDivElement;
   @Part() $loading: SVGElement;
   @Part() $loadingText: HTMLSpanElement;
+  @Part() $noData: HTMLSpanElement;
 
   connectedCallback() {
     this.$select.addEventListener('click', this.handleClick.bind(this));
   }
 
   isOpen = false;
+  handleCloseBind;
+
+  close() {
+    this.isOpen = false;
+    this.$dropdown.classList.remove('open');
+    document.removeEventListener('mousedown', this.handleCloseBind);
+  }
+
+  handleClose(e) {
+    const target = e.target as MdiInputUserSelect;
+    if (target.nodeName === this.nodeName && target.isOpen) {
+      // Do nothing!
+    } else {
+      this.close();
+    }
+  }
 
   handleClick() {
     this.isOpen = !this.isOpen;
     this.$dropdown.classList.toggle('open', this.isOpen);
+    this.handleCloseBind = this.handleClose.bind(this);
+    document.addEventListener('mousedown', this.handleCloseBind);
+  }
+
+  handleSelect(e) {
+    const { id } = e.currentTarget.dataset;
+    const selected = this.options?.find(d => d.id === id);
+    this.value = selected || null;
+    this.dispatchEvent(
+      new CustomEvent('change')
+    );
+    this.close();
   }
 
   loadingMode() {
@@ -57,8 +86,22 @@ export default class MdiInputSelect extends HTMLElement {
     this.$selectedGithub.style.display = 'none';
     this.$countIcon.style.display = 'none';
     this.$selectedCount.style.display = 'none';
+    this.$noData.style.display = 'none';
     this.$loading.style.display = 'flex';
     this.$loadingText.style.display = 'initial';
+    this.$select.disabled = true;
+  }
+
+  noDataMode() {
+    this.$selectedAvatar.style.display = 'none';
+    this.$selectedName.style.display = 'none';
+    this.$githubIcon.style.display = 'none';
+    this.$selectedGithub.style.display = 'none';
+    this.$countIcon.style.display = 'none';
+    this.$selectedCount.style.display = 'none';
+    this.$noData.style.display = 'initial';
+    this.$loading.style.display = 'none';
+    this.$loadingText.style.display = 'none';
     this.$select.disabled = true;
   }
 
@@ -69,6 +112,7 @@ export default class MdiInputSelect extends HTMLElement {
     this.$selectedGithub.style.display = 'initial';
     this.$countIcon.style.display = 'initial';
     this.$selectedCount.style.display = 'initial';
+    this.$noData.style.display = 'none';
     this.$loading.style.display = 'none';
     this.$loadingText.style.display = 'none';
     this.$select.disabled = false;
@@ -78,6 +122,8 @@ export default class MdiInputSelect extends HTMLElement {
     if (changes.options) {
       if (this.options === null) {
         this.loadingMode();
+      } else if (this.options.length === 0) {
+        this.noDataMode();
       } else {
         this.selectMode();
         this.options.forEach(o => {
@@ -101,6 +147,7 @@ export default class MdiInputSelect extends HTMLElement {
           button.dataset.id = `${o.id}`;
           button.appendChild(createIcon(mdiGithub, 'githubIcon'));
           button.appendChild(createIcon(mdiShape, 'countIcon'));
+          button.addEventListener('click', this.handleSelect.bind(this));
           this.$dropdown.appendChild(button);
         });
       }
@@ -111,6 +158,9 @@ export default class MdiInputSelect extends HTMLElement {
     if (changes.value) {
       if (changes.value && this.value) {
         this.$selectedAvatar.src = this.value.base64 || '';
+        this.$selectedCount.innerText = `${this.value.iconCount}`;
+        this.$selectedName.innerText = `${this.value.name}`;
+        this.$selectedGithub.innerText = `${this.value.github}`;
       }
     }
   }
