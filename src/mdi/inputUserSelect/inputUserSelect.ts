@@ -27,6 +27,9 @@ const mdiShape = 'M11,13.5V21.5H3V13.5H11M12,2L17.5,11H6.5L12,2M17.5,13C20,13 22
 export default class MdiInputUserSelect extends HTMLElement {
   @Prop() options: User[] | null = null;
   @Prop() value: User | null = null;
+  @Prop() clear: boolean = false;
+  @Prop() noDataText: string = 'Empty Users List';
+  @Prop() noSelectionText: string = 'Select a User';
 
   @Part() $select: HTMLButtonElement;
   @Part() $selectedAvatar: HTMLImageElement;
@@ -39,6 +42,7 @@ export default class MdiInputUserSelect extends HTMLElement {
   @Part() $loading: SVGElement;
   @Part() $loadingText: HTMLSpanElement;
   @Part() $noData: HTMLSpanElement;
+  @Part() $noSelection: HTMLSpanElement;
 
   connectedCallback() {
     this.$select.addEventListener('click', this.handleClick.bind(this));
@@ -87,6 +91,7 @@ export default class MdiInputUserSelect extends HTMLElement {
     this.$countIcon.style.display = 'none';
     this.$selectedCount.style.display = 'none';
     this.$noData.style.display = 'none';
+    this.$noSelection.style.display = 'none';
     this.$loading.style.display = 'flex';
     this.$loadingText.style.display = 'initial';
     this.$select.disabled = true;
@@ -100,9 +105,24 @@ export default class MdiInputUserSelect extends HTMLElement {
     this.$countIcon.style.display = 'none';
     this.$selectedCount.style.display = 'none';
     this.$noData.style.display = 'initial';
+    this.$noSelection.style.display = 'none';
     this.$loading.style.display = 'none';
     this.$loadingText.style.display = 'none';
     this.$select.disabled = true;
+  }
+
+  noSelectionMode() {
+    this.$selectedAvatar.style.display = 'none';
+    this.$selectedName.style.display = 'none';
+    this.$githubIcon.style.display = 'none';
+    this.$selectedGithub.style.display = 'none';
+    this.$countIcon.style.display = 'none';
+    this.$selectedCount.style.display = 'none';
+    this.$noData.style.display = 'none';
+    this.$noSelection.style.display = 'initial';
+    this.$loading.style.display = 'none';
+    this.$loadingText.style.display = 'none';
+    this.$select.disabled = false;
   }
 
   selectMode() {
@@ -113,6 +133,7 @@ export default class MdiInputUserSelect extends HTMLElement {
     this.$countIcon.style.display = 'initial';
     this.$selectedCount.style.display = 'initial';
     this.$noData.style.display = 'none';
+    this.$noSelection.style.display = 'none';
     this.$loading.style.display = 'none';
     this.$loadingText.style.display = 'none';
     this.$select.disabled = false;
@@ -150,6 +171,9 @@ export default class MdiInputUserSelect extends HTMLElement {
           button.addEventListener('click', this.handleSelect.bind(this));
           this.$dropdown.appendChild(button);
         });
+        if (this.value === null) {
+          this.noSelectionMode();
+        }
       }
       //if (this.$select.value !== this.value) {
       //  this.$select.value = this.value;
@@ -161,7 +185,14 @@ export default class MdiInputUserSelect extends HTMLElement {
         this.$selectedCount.innerText = `${this.value.iconCount}`;
         this.$selectedName.innerText = `${this.value.name}`;
         this.$selectedGithub.innerText = `${this.value.github}`;
+        this.selectMode();
       }
+    }
+    if (changes.noDataText) {
+      this.$noData.innerText = this.noDataText;
+    }
+    if (changes.noSelectionText) {
+      this.$noSelection.innerText = this.noSelectionText;
     }
   }
 }
