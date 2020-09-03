@@ -1,3 +1,7 @@
+:host {
+  display: block;
+}
+
 [part="wrapper"] {
   display: grid;
   grid-template-rows: auto 0;
@@ -105,6 +109,8 @@
   background: #fff;
   z-index: 1;
   position: absolute;
+  max-height: 16.5rem;
+  overflow: auto;
 }
 
 [part="dropdown"] button {
@@ -125,14 +131,6 @@
 [part="dropdown"] button:hover .githubIcon,
 [part="dropdown"] button:hover .countIcon {
   color: #fff;
-}
-
-[part="dropdown"] button:first-child {
-  border-radius: 0.25rem 0.25rem 0 0;
-}
-
-[part="dropdown"] button:last-child {
-  border-radius: 0 0 0.25rem 0.25rem;
 }
 
 [part="loading"] {
