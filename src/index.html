@@ -431,6 +431,24 @@
     </script>
 
     <section>
+      <h2>mdi-input-file-local</h2>
+      <h3>Basic <small>Value</small></h3>
+      <div class="example">
+        <mdi-input-file-local id="inputFileLocal1" accepts-file-type="svg"></mdi-input-file-local>
+        <code>onchange: <span id="inputFileLocalValue1"></span></code>
+      </div>
+    </section>
+    <script src="mdiInputFileLocal.js"></script>
+    <script>
+      document.getElementById('inputFileLocal1').addEventListener('change', (e) => {
+        var value = e.detail.value;
+        var name = e.detail.name;
+        document.getElementById('inputFileLocalValue1').innerText =
+          `${name} - ${value}`;
+      });
+    </script>
+
+    <section>
       <h2>mdi-input-text</h2>
       <h3>Basic <small>Value</small></h3>
       <div class="example">
