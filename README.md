@@ -5,14 +5,9 @@
 > - [React](https://github.com/Templarian/MaterialDesign-React/)
 > - [Web Component](https://github.com/Templarian/MaterialDesign-WebComponent/)
 
-The website is made of many components...
+The website is made of many components, view the `src/mdi` folder to see the source.
 
-- [mdi-database](src/mdi/database/) - Database
-- [mdi-grid](src/mdi/grid/) - Icon grid
-- [mdi-header](src/mdi/header/) - Header
-- [mdi-icon](src/mdi/icon/) - Single icon
-- [mdi-nav](src/mdi/nav/) - Site navigation
-- [mdi-search](src/mdi/search/) - Global search
+- [View the Components](https://templarian.github.io/@mdi/components/)
 
 ## Contribute to this Project
 
