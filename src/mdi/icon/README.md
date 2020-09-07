@@ -11,12 +11,15 @@ import MdiIcon from '@mdi/web-components/mdi/icon';
 <mdi-icon path="..."></mdi-icon>
 ```
 
+## Attributes
+
 | Attributes | Tested   | Description |
 | ---------- | -------- | ----------- |
 | path       | &#x2705; | Set path data |
 
+## CSS Variables
 
-| CSS Variable        | Default   | Description |
+| CSS Variables       | Default   | Description |
 | ------------------- | --------- | ----------- |
 | `--mdi-icon-color`  | `#453C4F` | Color       |
 | `--mdi-icon-width`  | `1.5rem`  | Width       |
