@@ -17,8 +17,12 @@ export default class MdiHeader extends HTMLElement {
   @Part() $path: SVGPathElement;
   @Part() $name: HTMLSpanElement;
 
-  render() {
-    this.$path.setAttribute('d', this.logo);
-    this.$name.innerText = this.name;
+  render(changes) {
+    if (changes.logo) {
+      this.$path.setAttribute('d', this.logo);
+    }
+    if (changes.name) {
+      this.$name.innerText = this.name;
+    }
   }
 }

@@ -1,21 +1,26 @@
+:host {
+  display: block;
+}
 header {
   display: grid;
   grid-template-columns: auto 1fr;
   grid-template-rows: 1fr;
   grid-row: 1;
   grid-column: 1 / span 2;
-  background: #fff;
-  color: var(--mdi-header-color);
+  background: var(--mdi-header-background, #fff);
+  color: var(--mdi-header-color, #453C4F);
+  font-family: var(--mdi-font-family);
   height: 3rem;
 }
 header > a {
   grid-column: 1;
   display: inline-flex;
-  color: var(--mdi-header-color);
+  color: var(--mdi-header-color, #453C4F);
   text-decoration: none;
   align-items: center;
 }
-header > a > svg {
+header > a svg,
+header > a slot::slotted(svg) {
   display: inline-flex;
   width: 1.75rem;
   height: 1.75rem;
@@ -23,7 +28,7 @@ header > a > svg {
 }
 header > a > span {
   display: inline-flex;
-  color: var(--mdi-header-color);
+  color: var(--mdi-header-color, #453C4F);
   font-size: 1.5rem;
   margin: 0;
   font-weight: normal;

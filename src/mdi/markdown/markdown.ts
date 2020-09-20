@@ -20,6 +20,7 @@ import 'prismjs/components/prism-scss';
 import 'prismjs/components/prism-yaml';
 import 'prismjs/components/prism-php';
 import 'prismjs/components/prism-bash';
+import 'prismjs/components/prism-markdown';
 
 const supported = [
   'css',
@@ -36,7 +37,8 @@ const supported = [
   'php',
   'bash',
   'json',
-  'yaml'
+  'yaml',
+  'markdown'
 ];
 
 function yamlToggle(e) {

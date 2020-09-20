@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@mdi/components",
-  "version": "0.1.81",
+  "version": "0.1.85",
   "license": "MIT",
   "author": "Austin Andrews",
   "scripts": {

@@ -43,9 +43,10 @@ describe('mdi-avatar', () => {
     const component = selectComponent<MdiAvatar>(MDI_AVATAR);
     const { $img } = component;
     const user = new User();
-    user.base64 = AVATAR;
+    const encoded = `data:image/png;base64,${AVATAR}`;
+    user.base64 = encoded;
     component.user = user;
-    expect($img.getAttribute('src')).toEqual(`data:image/png;base64,${AVATAR}`);
+    expect($img.getAttribute('src')).toEqual(encoded);
   });
 
 });
