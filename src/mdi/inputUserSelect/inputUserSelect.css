@@ -123,13 +123,16 @@
   background: #fff;
 }
 
-[part="dropdown"] button:hover {
+[part="dropdown"] button:hover,
+[part="dropdown"] button:focus {
   color: #fff;
   background: #1E90FF;
 }
 
 [part="dropdown"] button:hover .githubIcon,
-[part="dropdown"] button:hover .countIcon {
+[part="dropdown"] button:hover .countIcon,
+[part="dropdown"] button:focus .githubIcon,
+[part="dropdown"] button:focus .countIcon {
   color: #fff;
 }
 

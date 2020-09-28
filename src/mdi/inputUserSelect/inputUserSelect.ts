@@ -46,10 +46,12 @@ export default class MdiInputUserSelect extends HTMLElement {
 
   connectedCallback() {
     this.$select.addEventListener('click', this.handleClick.bind(this));
+    this.addEventListener('keydown', this.handleKeys.bind(this));
   }
 
   isOpen = false;
   handleCloseBind;
+  optionsElements: HTMLButtonElement[] = [];
 
   close() {
     this.isOpen = false;
@@ -71,6 +73,17 @@ export default class MdiInputUserSelect extends HTMLElement {
     this.$dropdown.classList.toggle('open', this.isOpen);
     this.handleCloseBind = this.handleClose.bind(this);
     document.addEventListener('mousedown', this.handleCloseBind);
+    this.focusSelected();
+  }
+
+  focusSelected() {
+    const find = this.options?.findIndex((value) => value === this.value);
+    if (find && find !== -1) {
+      this.optionsElements[find].focus();
+      this.index = find;
+    } else if (this.optionsElements.length) {
+      this.optionsElements[0].focus();
+    }
   }
 
   handleSelect(e) {
@@ -147,7 +160,8 @@ export default class MdiInputUserSelect extends HTMLElement {
         this.noDataMode();
       } else {
         this.selectMode();
-        this.options.forEach(o => {
+        this.calculateMinWidth();
+        this.optionsElements = this.options.map(o => {
           const button = document.createElement('button');
           const img = document.createElement('img');
           img.src = `${o.base64}`;
@@ -170,6 +184,7 @@ export default class MdiInputUserSelect extends HTMLElement {
           button.appendChild(createIcon(mdiShape, 'countIcon'));
           button.addEventListener('click', this.handleSelect.bind(this));
           this.$dropdown.appendChild(button);
+          return button;
         });
         if (this.value === null) {
           this.noSelectionMode();
@@ -193,6 +208,42 @@ export default class MdiInputUserSelect extends HTMLElement {
     }
     if (changes.noSelectionText) {
       this.$noSelection.innerText = this.noSelectionText;
+    }
+  }
+
+  calculateMinWidth() {
+    const { width } = this.$select.getBoundingClientRect();
+    this.$dropdown.style.minWidth = `${width - 2}px`;
+  }
+
+  index = -1;
+  handleKeys(e: KeyboardEvent) {
+    const items = this.optionsElements;
+    let newIndex = this.index;
+    switch (e.which) {
+      case 38: // up
+        if (newIndex === 0) {
+          newIndex = items.length - 1;
+        } else if (newIndex >= 0) {
+          newIndex -= 1;
+        }
+        break;
+      case 40: // down
+        if (newIndex < items.length - 1) {
+          newIndex += 1;
+        } else if (newIndex === items.length - 1) {
+          newIndex = 0;
+        }
+        break;
+      case 9: // tab
+      case 27: // close
+          this.close();
+          break;
+    }
+    if (newIndex != this.index) {
+      this.index = newIndex;
+      items[newIndex].focus();
+      e.preventDefault();
     }
   }
 }

@@ -277,6 +277,44 @@
     </script>
 
     <section>
+      <h2>mdi-card</h2>
+      <h3>Basic</h3>
+      <div class="example">
+        <mdi-card>
+          <p>Content</p>
+        </mdi-card>
+      </div>
+    </section>
+    <script src="mdiCard.js"></script>
+    <script>
+      // None
+    </script>
+
+<section>
+  <h2>mdi-card-user</h2>
+  <h3>Basic</h3>
+  <div class="example">
+    <mdi-card-user id="cardUser1"></mdi-card-user>
+  </div>
+</section>
+<script src="mdiCardUser.js"></script>
+<script>
+  var cardUser1 = document.getElementById('cardUser1');
+  cardUser1.user = {
+    "id": "c4ea5584-07e3-11e4-bf19-842b2b6cfe1b",
+    "name": "Austin Andrews",
+    "description": "Hello, I am a developer that gets bored and makes icons, then websites for icons, then more icons. Open Source is pretty awesome.",
+    "base64": AVATAR,
+    "github": "Templarian",
+    "twitter": "Templarian",
+    "iconCount": 928,
+    "website": "http:\/\/templarian.com",
+    "sponsored": true,
+    "core": true
+  };
+</script>
+
+    <section>
       <h2>mdi-color</h2>
       <h3>Basic <small>Color</small></h3>
       <div class="example">
@@ -445,6 +483,23 @@
         var name = e.detail.name;
         document.getElementById('inputFileLocalValue1').innerText =
           `${name} - ${value}`;
+      });
+    </script>
+
+    <section>
+      <h2>mdi-input-check</h2>
+      <h3>Basic <small>Value</small></h3>
+      <div class="example">
+        <mdi-input-check id="inputCheck1" value="50"></mdi-input-check>
+        <code>Value: <span id="inputCheckValue1"></span></code>
+      </div>
+    </section>
+    <script src="mdiInputCheck.js"></script>
+    <script>
+      const inputCheckValue1 = document.getElementById('inputCheckValue1');
+      document.getElementById('inputCheck1').addEventListener('change', (e) => {
+        var value = e.target.value;
+        inputCheckValue1.innerText = value;
       });
     </script>
 

@@ -10,6 +10,7 @@ export class User {
   public website: string | null = null;
   public sponsored: boolean = false;
   public sponsorship: string = '';
+  public core: boolean = false;
 
   from(user: User): User {
       this.id = user.id;
@@ -28,6 +29,7 @@ export class User {
       this.website = user.website;
       this.sponsored = user.sponsored;
       this.sponsorship = `https://github.com/users/${user.github}/sponsorship`;
+      this.core = user.core;
       return this;
   }
 }
