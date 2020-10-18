@@ -1,3 +1,9 @@
+export interface Option {
+  value: any;
+  label: string;
+  disabled: boolean;
+}
+
 export function list($list: HTMLElement, options, key, add, update) {
   const elements = Array.from($list.children) as HTMLElement[];
   const current = elements.map((e: HTMLElement) => e.dataset.key);
@@ -15,4 +21,10 @@ export function list($list: HTMLElement, options, key, add, update) {
     }
     element?.remove();
   });
+}
+
+export function item($list: HTMLElement, option: Option, key: string): HTMLLIElement {
+  const elements = Array.from($list.children);
+  const item = elements.find((e: HTMLElement) => e.dataset.key === option[key]);
+  return item as HTMLLIElement;
 }

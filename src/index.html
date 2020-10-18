@@ -520,9 +520,9 @@
       const inputCheckList1 = document.getElementById('inputCheckList1');
       const inputCheckListValue1 = document.getElementById('inputCheckListValue1');
       inputCheckList1.options = [
-        { value: 'uuid1', label: 'Item 1', value: true },
-        { value: 'uuid2', label: 'Item 2', value: false },
-        { value: 'uuid3', label: 'Item 3', value: true, disabled: true },
+        { value: 'uuid1', label: 'Item 1', checked: true },
+        { value: 'uuid2', label: 'Item 2', checked: false },
+        { value: 'uuid3', label: 'Item 3', checked: true, disabled: true },
         { value: 'uuid4', label: 'Item 4' }
       ];
       inputCheckList1.addEventListener('change', (e) => {
