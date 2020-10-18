@@ -33,6 +33,10 @@
 [part="button"]:not(:hover):focus {
   box-shadow: 0 0 0 3px var(--mdi-input-check-focus-glow, rgb(79, 143, 249, 0.5));
 }
-[part="button"]:hover [part="path"] {
+[part="button"]:not(:disabled):hover [part="path"] {
   fill: #4f8ff9;
+}
+
+[part="button"]:disabled {
+  color: #AAA;
 }

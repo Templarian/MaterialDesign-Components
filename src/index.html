@@ -490,7 +490,9 @@
       <h2>mdi-input-check</h2>
       <h3>Basic <small>Value</small></h3>
       <div class="example">
-        <mdi-input-check id="inputCheck1" value="50"></mdi-input-check>
+        <mdi-input-check id="inputCheck1" value="true"></mdi-input-check>
+        <mdi-input-check id="inputCheck1" disabled></mdi-input-check>
+        <mdi-input-check id="inputCheck1" value="true" disabled></mdi-input-check>
         <div>
           <code>Value: <span id="inputCheckValue1"></span></code>
         </div>
@@ -518,9 +520,9 @@
       const inputCheckList1 = document.getElementById('inputCheckList1');
       const inputCheckListValue1 = document.getElementById('inputCheckListValue1');
       inputCheckList1.options = [
-        { value: 'uuid1', label: 'Item 1' },
-        { value: 'uuid2', label: 'Item 2' },
-        { value: 'uuid3', label: 'Item 3', disabled: true },
+        { value: 'uuid1', label: 'Item 1', value: true },
+        { value: 'uuid2', label: 'Item 2', value: false },
+        { value: 'uuid3', label: 'Item 3', value: true, disabled: true },
         { value: 'uuid4', label: 'Item 4' }
       ];
       inputCheckList1.addEventListener('change', (e) => {

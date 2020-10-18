@@ -45,6 +45,9 @@ export default class MdiInputCheckList extends HTMLElement {
         (option) => {
           const li = document.createElement('li');
           const button = document.createElement('button');
+          if (option.disabled === true) {
+            button.disabled = true;
+          }
           const svg = document.createElementNS(NS_SVG, 'svg') as SVGElement;
           svg.setAttribute('viewBox', '0 0 24 24');
           svg.setAttribute('part', 'svg');

@@ -19,7 +19,7 @@
   flex-direction: column;
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 0.25rem 0;
 }
 
 [part="list"] li {
@@ -28,7 +28,7 @@
 }
 
 [part="list"] li:not(:last-child) {
-  margin-bottom: 0.125rem;
+  margin-bottom: 0.25rem;
 }
 
 [part="list"] button {
@@ -58,4 +58,7 @@
 }
 [part="list"] button:hover [part="path"] {
   fill: #4f8ff9;
+}
+[part="list"] button:disabled {
+  color: #AAA;
 }
