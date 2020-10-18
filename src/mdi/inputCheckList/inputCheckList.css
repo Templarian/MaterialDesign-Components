@@ -1,5 +1,6 @@
 :host {
-  display: inline-flex;
+  display: flex;
+  flex-direction: column;
 }
 
 .blank {
@@ -13,12 +14,30 @@
   color: var(--mdi-input-check-checked-color, #453C4F);
 }
 
-[part="button"] {
+[part="list"] {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+[part="list"] li {
+  display: flex;
+  flex-direction: column;
+}
+
+[part="list"] li:not(:last-child) {
+  margin-bottom: 0.125rem;
+}
+
+[part="list"] button {
   display: flex;
   padding: 0;
   border: 0;
   outline: 0;
   border-radius: 0.25rem;
+  align-items: center;
   background: transparent;
 }
 
@@ -27,12 +46,16 @@
   height: var(--mdi-icon-check-size, 1.5rem);
 }
 
-[part="button"]:not(:hover):active {
+[part="list"] button span {
+  margin-left: 0.25rem;
+}
+
+[part="list"] button:not(:hover):active {
   box-shadow: 0 0 0 3px var(--mdi-input-check-active-glow, rgb(79, 143, 249, 0.6));
 }
-[part="button"]:not(:hover):focus {
+[part="list"] button:not(:hover):focus {
   box-shadow: 0 0 0 3px var(--mdi-input-check-focus-glow, rgb(79, 143, 249, 0.5));
 }
-[part="button"]:hover [part="path"] {
+[part="list"] button:hover [part="path"] {
   fill: #4f8ff9;
 }
