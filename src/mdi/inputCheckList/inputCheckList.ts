@@ -48,14 +48,21 @@ export default class MdiInputCheckList extends HTMLElement {
           if (option.disabled === true) {
             button.disabled = true;
           }
+          const value = [true, 'true'].includes(option.value);
+          button.classList.toggle('checked', value);
+          button.classList.toggle('blank', !value);
           const svg = document.createElementNS(NS_SVG, 'svg') as SVGElement;
           svg.setAttribute('viewBox', '0 0 24 24');
           svg.setAttribute('part', 'svg');
           const path = document.createElementNS(NS_SVG, 'path') as SVGPathElement;
-          path.setAttribute('d', PATH_BLANK);
+          path.setAttribute('d', value ? PATH_CHECKED : PATH_BLANK);
+          path.setAttribute('fill', 'currentColor');
+          path.setAttribute('part', 'path');
           svg.appendChild(path);
           const check = document.createElementNS(NS_SVG, 'path') as SVGPathElement;
           check.setAttribute('d', PATH_CHECK);
+          check.setAttribute('fill', 'currentColor');
+          check.setAttribute('part', 'check');
           svg.appendChild(check);
           button.appendChild(svg);
           const span = document.createElement('span');
