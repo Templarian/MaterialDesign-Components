@@ -24,13 +24,17 @@ export default class MdiInputCheckList extends HTMLElement {
   }
 
   handleClick(option) {
-    const checked = [true, 'true'].includes(option.checked);
-    option.checked = !checked;
+    const checked = this.value.includes(option.value);
     const li = item(this.$list, option, 'value');
     const button = li.querySelector('button');
     button?.classList.toggle('blank', checked);
     button?.classList.toggle('checked', !checked);
     li.querySelector('[part="path"]')?.setAttribute('d', checked ? PATH_BLANK : PATH_CHECKED);
+    if (checked) {
+      this.value.splice(this.value.findIndex(v => v === option.value), 1);
+    } else {
+      this.value.push(option.value);
+    }
     this.dispatchEvent(new CustomEvent('change'));
   }
 
@@ -46,14 +50,15 @@ export default class MdiInputCheckList extends HTMLElement {
           if (option.disabled === true) {
             button.disabled = true;
           }
-          const value = [true, 'true'].includes(option.checked);
-          button.classList.toggle('checked', value);
-          button.classList.toggle('blank', !value);
+          console.log('check...', this.value, option.value);
+          const checked = this.value.includes(option.value);
+          button.classList.toggle('checked', checked);
+          button.classList.toggle('blank', !checked);
           const svg = document.createElementNS(NS_SVG, 'svg') as SVGElement;
           svg.setAttribute('viewBox', '0 0 24 24');
           svg.setAttribute('part', 'svg');
           const path = document.createElementNS(NS_SVG, 'path') as SVGPathElement;
-          path.setAttribute('d', value ? PATH_CHECKED : PATH_BLANK);
+          path.setAttribute('d', checked ? PATH_CHECKED : PATH_BLANK);
           path.setAttribute('fill', 'currentColor');
           path.setAttribute('part', 'path');
           svg.appendChild(path);
