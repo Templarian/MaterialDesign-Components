@@ -1,8 +1,7 @@
 export interface Option {
   value: any;
   label: string;
-  disabled: boolean;
-  checked: boolean;
+  disabled?: boolean;
 }
 
 export function list($list: HTMLElement, options, key, add, update) {
