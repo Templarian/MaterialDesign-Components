@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@mdi/components",
-  "version": "0.1.94",
+  "version": "0.1.96",
   "license": "MIT",
   "author": "Austin Andrews",
   "scripts": {
@@ -14,7 +14,7 @@
     "url": "git+https://github.com/Templarian/MaterialDesign-Web-Component.git"
   },
   "dependencies": {
-    "@mdi/element": "0.0.15",
+    "@mdi/element": "0.0.17",
     "@popperjs/core": "^2.4.4",
     "dexie": "^3.0.1",
     "js-yaml": "^3.14.0",

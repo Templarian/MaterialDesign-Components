@@ -858,37 +858,27 @@
       var modifications = [
       {
           "id": "3e7a0e1b-b355-11e7-bf5c-94188269ec50",
-          "modificationId": "691c8829-b1e7-11e7-bf5c-94188269ec50",
+          "modificationId": "B4DEB3A8-A146-4086-9D7B-B67842A9CCB8",
           "packageId": "38EF63D0-4744-11E4-B3CF-842B2B6CFE1B",
           "nameBefore": null,
           "nameAfter": null,
           "dataBefore": null,
           "dataAfter": null,
-          "text": "laundrette",
-          "date": "2017-10-17T16:07:15Z",
+          "text": "Release `v1.0.42` with awesome updates.\n\n- Updates\n  - `markdown` Supported",
+          "date": "2020-10-20T16:07:15Z",
           "user": {
               "id": "c4ea5584-07e3-11e4-bf19-842b2b6cfe1b",
               "name": "Austin Andrews",
               "github": "templarian",
               "twitter": "Templarian"
           },
-          "icon": {
-              "id": "42C06A23-81D5-4EF6-8CFA-B4FBF66E7B17",
-              "name": "washing-machine",
-              "data": "M14.83,11.17C16.39,12.73 16.39,15.27 14.83,16.83C13.27,18.39 10.73,18.39 9.17,16.83L14.83,11.17M6,2H18A2,2 0 0,1 20,4V20A2,2 0 0,1 18,22H6A2,2 0 0,1 4,20V4A2,2 0 0,1 6,2M7,4A1,1 0 0,0 6,5A1,1 0 0,0 7,6A1,1 0 0,0 8,5A1,1 0 0,0 7,4M10,4A1,1 0 0,0 9,5A1,1 0 0,0 10,6A1,1 0 0,0 11,5A1,1 0 0,0 10,4M12,8A6,6 0 0,0 6,14A6,6 0 0,0 12,20A6,6 0 0,0 18,14A6,6 0 0,0 12,8Z",
-              "user": {
-                  "id": "a8a312b6-07e4-11e4-bf19-842b2b6cfe1b",
-                  "name": "Google",
-                  "github": "Google",
-                  "twitter": "Google"
-              }
-          },
+          "icon": null,
           "version": {
-              "major": 5,
+              "major": 1,
               "minor": 0,
-              "patch": 45
+              "patch": 42
           },
-          "issue": 42
+          "issue": null
       },
       {
           "id": "87fb6a41-b354-11e7-bf5c-94188269ec50",
@@ -1152,6 +1142,18 @@
           "issue": null
       }
     ];
+    </script>
+    <section>
+      <h2>mdi-modification</h2>
+      <h3>Basic</h3>
+      <div class="example">
+        <mdi-modification id="modification"></mdi-nav>
+      </div>
+    </section>
+    <script src="mdiModification.js"></script>
+    <script>
+      const modification = document.getElementById('modification');
+      modification.modifications = modifications;
     </script>
 
     <section>
