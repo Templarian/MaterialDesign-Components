@@ -80,9 +80,12 @@
   background: #453C4F;
   color: #fff;
 }
-[part="iconAliasCreated"] [part="edit"] {
-  grid-column: 5;
+.edit [part="iconAliasCreated"] [part="edit"] {
   display: flex;
+}
+[part="iconAliasCreated"] [part="edit"] {
+  display: none;
+  grid-column: 5;
   align-self: center;
   padding: 0.25rem;
   border: 0;

@@ -482,10 +482,11 @@
     <script>
       var tooltip3 = document.getElementById('tooltip3');
       document.body.addEventListener('tooltip', (e) => {
-        var { visible, rect, text } = e.detail;
+        var { visible, rect, text, position } = e.detail;
         tooltip3.visible = visible;
         tooltip3.rect = rect;
         tooltip3.text = text;
+        tooltip3.position = position;
       });
       var ele = document.getElementsByTagName('mdi-grid')[0];
       tooltip3.style.display = 'none';
@@ -1353,15 +1354,19 @@
     </script>
     <section>
       <h2>mdi-modification</h2>
-      <h3>Basic</h3>
+      <h3>Basic <button id="editToggle">Toggle Edit Mode</button></h3>
       <div class="example">
         <mdi-modification id="modification"></mdi-nav>
       </div>
     </section>
     <script src="mdiModification.js"></script>
     <script>
-      const modification = document.getElementById('modification');
+      var modification = document.getElementById('modification');
       modification.modifications = modifications;
+      var editToggle = document.getElementById('editToggle');
+      editToggle.addEventListener('click', () => {
+        modification.edit = !modification.edit;
+      });
     </script>
 
     <section>
