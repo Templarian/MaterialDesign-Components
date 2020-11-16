@@ -5,6 +5,7 @@ import style from './modification.css';
 
 import templateNews from './type/news.html';
 import templateIconAliasCreated from './type/iconAliasCreated.html';
+import templateIconAliasDeleted from './type/iconAliasDeleted.html';
 
 import { Modification } from 'mdi/shared/models/modification';
 import { list, item } from './../shared/list';
@@ -21,7 +22,7 @@ const mapTemplates = {
   [ModificationType.IconRenamed]: templateNews,
   [ModificationType.IconDeleted]: templateNews,
   [ModificationType.IconAliasCreated]: templateIconAliasCreated,
-  [ModificationType.IconAliasDeleted]: templateNews,
+  [ModificationType.IconAliasDeleted]: templateIconAliasDeleted,
   [ModificationType.IconTagCreated]: templateNews,
   [ModificationType.IconTagDeleted]: templateNews
 }
