@@ -1,5 +1,96 @@
 :host {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  color: #453C4F;
 }
 
+.invalid {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+[part="news"] {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr;
+  grid-template-rows: 3.25rem auto;
+  padding: 0.25rem;
+}
+[part="news"] [part="avatar"] {
+  grid-column: 1;
+}
+[part="news"] [part="label"] {
+  grid-column: 1;
+  grid-row: 2;
+  text-align: center;
+  padding-right: 0.5rem;
+}
+[part="news"] [part="markdown"] {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  border: 1px solid #DDD;
+  padding: 0 1rem;
+  background: #fff;
+  border-radius: 0.25rem;
+}
+
+[part="iconAliasCreated"] {
+  display: grid;
+  grid-template-columns: 3.5rem 3.5rem 1fr auto auto;
+  padding: 0.25rem;
+}
+[part="iconAliasCreated"] [part="avatar"] {
+  grid-column: 1;
+}
+[part="iconAliasCreated"] [part="icon"] {
+  grid-column: 2;
+  --mdi-icon-width: 3rem;
+  --mdi-icon-height: 3rem;
+  width: 3rem;
+  border: 1px solid #ddd;
+  background: #fff;
+  border-radius: 0.25rem;
+}
+[part="iconAliasCreated"] [part="content"] {
+  grid-column: 3;
+  align-content: center;
+  display: flex;
+  align-items: center;
+}
+[part="iconAliasCreated"] [part="content"] code {
+  display: inline-block;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.125rem;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(69, 60, 79, 0.2);
+  line-height: 1.125rem;
+}
+[part="iconAliasCreated"] [part="issue"] {
+  grid-column: 4;
+  display: flex;
+  align-self: center;
+  text-decoration: none;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #453C4F;
+  color: #453C4F;
+  border-radius: 0.25rem;
+}
+[part="iconAliasCreated"] [part="issue"]:hover {
+  background: #453C4F;
+  color: #fff;
+}
+[part="iconAliasCreated"] [part="edit"] {
+  grid-column: 5;
+  display: flex;
+  align-self: center;
+  padding: 0.25rem;
+  border: 0;
+  border-radius: 0.25rem;
+  margin-left: 0.5rem;
+  cursor: pointer;
+}
+[part="iconAliasCreated"] [part="edit"]:hover {
+  background: #453C4F;
+  --mdi-icon-color: #fff;
+}
