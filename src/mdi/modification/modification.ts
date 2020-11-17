@@ -4,8 +4,15 @@ import template from './modification.html';
 import style from './modification.css';
 
 import templateNews from './type/news.html';
+import templateIconCreated from './type/iconCreated.html';
+import templateIconModified from './type/iconModified.html';
+import templateIconRenamed from './type/iconRenamed.html';
+import templateIconDeleted from './type/iconDeleted.html';
 import templateIconAliasCreated from './type/iconAliasCreated.html';
 import templateIconAliasDeleted from './type/iconAliasDeleted.html';
+import templateIconTagCreated from './type/iconTagCreated.html';
+import templateIconTagDeleted from './type/iconTagDeleted.html';
+import templateIconDescriptionModified from './type/iconDescriptionModified.html';
 
 import { Modification } from 'mdi/shared/models/modification';
 import { list, item } from './../shared/list';
@@ -17,14 +24,15 @@ const editIcon = 'M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.3
 
 const mapTemplates = {
   [ModificationType.News]: templateNews,
-  [ModificationType.IconCreated]: templateNews,
-  [ModificationType.IconModified]: templateNews,
-  [ModificationType.IconRenamed]: templateNews,
-  [ModificationType.IconDeleted]: templateNews,
+  [ModificationType.IconCreated]: templateIconCreated,
+  [ModificationType.IconModified]: templateIconModified,
+  [ModificationType.IconRenamed]: templateIconRenamed,
+  [ModificationType.IconDeleted]: templateIconDeleted,
   [ModificationType.IconAliasCreated]: templateIconAliasCreated,
   [ModificationType.IconAliasDeleted]: templateIconAliasDeleted,
-  [ModificationType.IconTagCreated]: templateNews,
-  [ModificationType.IconTagDeleted]: templateNews
+  [ModificationType.IconTagCreated]: templateIconTagCreated,
+  [ModificationType.IconTagDeleted]: templateIconTagDeleted,
+  [ModificationType.IconDescriptionModified]: templateIconDescriptionModified
 }
 
 @Component({
