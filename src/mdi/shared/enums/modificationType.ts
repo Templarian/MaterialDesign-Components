@@ -14,5 +14,6 @@ export enum ModificationType {
   IconDeprecated = 'f92f310f-bfed-11e9-8ca0-94188269ec50',
   IconWorkInProgress = 'e262be80-bfed-11e9-8ca0-94188269ec50',
   IconLive = 'f92f2ba6-bfed-11e9-8ca0-94188269ec50',
-  IconPublished = 'e262b92e-bfed-11e9-8ca0-94188269ec50'
+  IconPublished = 'e262b92e-bfed-11e9-8ca0-94188269ec50',
+  Date = 'date'
 }

@@ -10,6 +10,12 @@
   border-color: #f5c6cb;
 }
 
+h2 {
+  font-weight: normal;
+  font-size: 1.25rem;
+  margin: 0.5rem 0 0.5rem 0;
+}
+
 /* Individual Templates */
 
 [part="news"] {
