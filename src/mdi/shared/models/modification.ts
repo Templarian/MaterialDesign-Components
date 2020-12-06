@@ -11,6 +11,8 @@ export class Modification {
   public icon: Icon;
   public iconNameBefore: string;
   public iconNameAfter: string;
+  public iconDescriptionBefore: string;
+  public iconDescriptionAfter: string;
   public iconDataBefore: string;
   public iconDataAfter: string;
   public text: string;
@@ -29,6 +31,8 @@ export class Modification {
     this.icon = new Icon().from(modification.icon);
     this.iconNameBefore = modification.iconNameBefore;
     this.iconNameAfter = modification.iconNameAfter;
+    this.iconDescriptionBefore = modification.iconDescriptionBefore;
+    this.iconDescriptionAfter = modification.iconDescriptionAfter;
     this.iconDataBefore = modification.iconDataBefore;
     this.iconDataAfter = modification.iconDataAfter;
     this.text = modification.text;

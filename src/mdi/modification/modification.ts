@@ -13,6 +13,8 @@ import templateIconAliasDeleted from './type/iconAliasDeleted.html';
 import templateIconTagCreated from './type/iconTagCreated.html';
 import templateIconTagDeleted from './type/iconTagDeleted.html';
 import templateIconDescriptionModified from './type/iconDescriptionModified.html';
+import templateIconAuthorModified from './type/iconAuthorModified.html';
+import templateIconDeprecated from './type/iconDeprecated.html';
 
 import { Modification } from 'mdi/shared/models/modification';
 import { list, item } from './../shared/list';
@@ -32,7 +34,9 @@ const mapTemplates = {
   [ModificationType.IconAliasDeleted]: templateIconAliasDeleted,
   [ModificationType.IconTagCreated]: templateIconTagCreated,
   [ModificationType.IconTagDeleted]: templateIconTagDeleted,
-  [ModificationType.IconDescriptionModified]: templateIconDescriptionModified
+  [ModificationType.IconDescriptionModified]: templateIconDescriptionModified,
+  [ModificationType.IconAuthorModified]: templateIconAuthorModified,
+  [ModificationType.IconDeprecated]: templateIconDeprecated
 }
 
 @Component({
@@ -66,6 +70,24 @@ export default class MdiModification extends HTMLElement {
               },
               iconName: {
                 innerText: modification.icon && modification.icon.name
+              },
+              iconNameBefore: {
+                innerText: modification.iconNameBefore
+              },
+              iconNameAfter: {
+                innerText: modification.iconNameAfter
+              },
+              iconDescriptionBefore: {
+                text: modification.iconDescriptionBefore
+              },
+              iconDescriptionAfter: {
+                text: modification.iconDescriptionAfter
+              },
+              iconDataBefore: {
+                innerText: modification.iconDataBefore
+              },
+              iconDataAfter: {
+                innerText: modification.iconDataAfter
               },
               avatar: {
                 user: modification.user as any
