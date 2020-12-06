@@ -17,12 +17,12 @@ import templateIconDescriptionModified from './type/iconDescriptionModified.html
 import templateIconAuthorModified from './type/iconAuthorModified.html';
 import templateIconDeprecated from './type/iconDeprecated.html';
 
-import { Modification } from 'mdi/shared/models/modification';
+import { Modification } from './../shared/models/modification';
 import { list, item } from './../shared/list';
-import { ModificationType } from 'mdi/shared/enums/modificationType';
+import { ModificationType } from './../shared/enums/modificationType';
 import { addTooltip, BOTTOM_END, BOTTOM_START } from './../tooltip';
-import { User } from 'mdi/shared/models/user';
-import { Icon } from 'mdi/shared/models/icon';
+import { User } from './../shared/models/user';
+import { Icon } from './../shared/models/icon';
 
 const noIcon = 'M0 0h24v24H0V0zm2 2v20h20V2H2z';
 const editIcon = 'M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z';
