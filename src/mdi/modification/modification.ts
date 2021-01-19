@@ -64,6 +64,12 @@ function dateToString(date: string) {
   return `${month} ${d.getDate()}, ${d.getFullYear()}`;
 }
 
+function dateToUUID(date: string) {
+  const d = new Date(date);
+  const month = months[d.getMonth()];
+  return `${d.getFullYear()}-${month}-${d.getDate()}`;
+}
+
 function itemsInsertDates(modifications) {
   const items: Modification[] = [];
   let unique = '';
@@ -71,7 +77,7 @@ function itemsInsertDates(modifications) {
     const date = dateToString(m.date);
     if (unique !== date) {
       items.push(new Modification().from({
-        id: `date-${i}`,
+        id: `date-${dateToUUID(m.date)}`,
         modificationId: ModificationType.Date,
         text: date,
         user: new User(),
@@ -129,10 +135,10 @@ export default class MdiModification extends HTMLElement {
                 text: modification.iconDescriptionAfter
               },
               iconDataBefore: {
-                innerText: modification.iconDataBefore
+                path: modification.iconDataBefore
               },
               iconDataAfter: {
-                innerText: modification.iconDataAfter
+                path: modification.iconDataAfter
               },
               avatar: {
                 user: modification.user as any

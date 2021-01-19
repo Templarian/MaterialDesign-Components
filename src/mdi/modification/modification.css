@@ -43,7 +43,6 @@ h2 {
 }
 
 [part="iconCreated"],
-[part="iconModified"],
 [part="iconRenamed"],
 [part="iconDeleted"],
 [part="iconAliasCreated"],
@@ -69,7 +68,8 @@ h2 {
   grid-column: 1;
 }
 [part="iconCreated"] [part="icon"],
-[part="iconModified"] [part="icon"],
+[part="iconModified"] [part="iconDataBefore"],
+[part="iconModified"] [part="iconDataAfter"],
 [part="iconRenamed"] [part="icon"],
 [part="iconDeleted"] [part="icon"],
 [part="iconAliasCreated"] [part="icon"],
@@ -202,6 +202,50 @@ h2 {
   --mdi-icon-color: #fff;
 }
 
+/* Individiual Tweaks */
+[part="iconCreated"] [part="icon"] {
+  background: #d1e7dd;
+  border-color: #badbcc;
+}
+
+[part="iconRenamed"] [part="icon"] {
+  background-color: #fff3cd;
+  border-color: #ffecb5;
+}
+
+[part="iconModified"] {
+  display: grid;
+  grid-template-columns: 3.5rem 3.5rem 3.5rem 1fr auto auto;
+  padding: 0.25rem;
+}
+[part="iconModified"] [part="iconDataBefore"] {
+  opacity: 0.4;
+}
+[part="iconModified"] [part="iconDataAfter"] {
+  grid-column: 3;
+}
+[part="iconModified"] [part="content"] {
+  grid-column: 4;
+}
+[part="iconModified"] [part="issue"] {
+  grid-column: 5;
+}
+[part="iconModified"] [part="edit"] {
+  grid-column: 6;
+}
+
+[part="iconAliasCreated"] [part="icon"],
+[part="iconAliasDeleted"] [part="icon"] {
+  background-color: #DDC6E7;
+  border-color: 1px solid #DBBDE5;
+}
+
+[part="iconTagCreated"] [part="icon"],
+[part="iconTagDeleted"] [part="icon"] {
+  background-color: #cff4fc;
+  border-color: #b6effb;
+}
+
 [part="iconDescriptionModified"] {
   display: grid;
   grid-template-columns: 3.5rem 3.5rem 1fr 0.5rem 1fr auto;
@@ -249,4 +293,12 @@ h2 {
   grid-row: 2;
   justify-content: center;
   margin-top: 0.25rem;
+}
+
+.added {
+  border-bottom: 3px solid #badbcc;
+}
+
+.removed {
+  border-bottom: 3px solid #f5c6cb;
 }

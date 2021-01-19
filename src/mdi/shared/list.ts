@@ -1,8 +1,15 @@
 export function list($list: HTMLElement, items: any[], key, add, update) {
   const elements = Array.from($list.children) as HTMLElement[];
   const current = elements.map((e: HTMLElement) => e.dataset.key);
+  const itemKeys = items.map(x => x[key]);
   items.forEach(item => {
-    if (current.length === 0) {
+    if (current.includes(item[key])) {
+      const element = elements.find((e: HTMLElement) => e.dataset.key === current[key]);
+      if (item[key] === current[key]) {
+        update(item, element);
+        return;
+      }
+    } else {
       const newItem = add(item);
       if (newItem instanceof DocumentFragment) {
         (newItem.children[0] as any).dataset.key = item[key];
@@ -12,12 +19,11 @@ export function list($list: HTMLElement, items: any[], key, add, update) {
       $list.appendChild(newItem);
       return;
     }
-    const element = elements.find((e: HTMLElement) => e.dataset.key === current[key]);
-    if (item[key] === current[key]) {
-      update(item, element);
-      return;
+  });
+  elements.forEach(element => {
+    if (!itemKeys.includes(element.dataset.key)) {
+      element.remove();
     }
-    element?.remove();
   });
 }
 
