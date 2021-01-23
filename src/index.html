@@ -1390,7 +1390,12 @@
       var launchAlert = document.getElementById('launchAlert');
       launchAlert.addEventListener('click', function () {
         var MdiModalAlert = customElements.get('mdi-modal-alert');
-        MdiModalAlert.open();
+        MdiModalAlert.open({
+          header: 'Header Text',
+          message: 'Message body...'
+        }).then(function (result) {
+          console.log(result);
+        });
       });
     </script>
     <section>

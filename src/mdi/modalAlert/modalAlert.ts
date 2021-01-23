@@ -27,11 +27,11 @@ export default class MdiModalAlert extends MdiOverlay {
   }
 
   handleYes() {
-    this.close();
+    this.close(true);
   }
 
   handleNo() {
-    this.close();
+    this.close(false);
   }
 
   render(changes) {

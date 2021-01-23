@@ -8,7 +8,10 @@ import MdiModalAlert from '@mdi/components/mdiModalAlert';
 
 ```typescript
 const result = await MdiModalAlert.open({
-
+  header: 'Delete Item',
+  message: 'Are you sure you want to delete the item?'
 });
-console.log(result);
+if (result) {
+  console.log('Item has been deleted.');
+}
 ```

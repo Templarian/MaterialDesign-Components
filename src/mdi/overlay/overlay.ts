@@ -5,6 +5,7 @@ function camelToDash(str: string): string {
 }
 
 const layers: any[] = [];
+const promises: any[] = [];
 
 // Update to support passing no object for a base class
 @Component({
@@ -12,14 +13,18 @@ const layers: any[] = [];
   template: '-'
 })
 export default class MdiOverlay extends HTMLElement {
-  static open(props: any = {}) {
+  static open(props: any = {}): Promise<any> {
     var ele = document.createElement(camelToDash(this.name));
     Object.assign(ele, props);
     document.body.appendChild(ele);
     layers.push(ele);
+    return new Promise((resolve) => {
+      promises.push(resolve);
+    });
   }
 
-  close() {
+  close(result?: any) {
     layers.pop().remove();
+    promises.pop()(result);
   }
 }
