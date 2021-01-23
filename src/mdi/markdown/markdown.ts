@@ -302,7 +302,7 @@ export default class MdiMarkdown extends HTMLElement {
   processYaml(m, content) {
     let error = ''
     try {
-      const json = YAML.load(content);
+      const json = YAML.load(content) as any;
       if (json.type) {
         const html = [] as any[];
         html.push('<div class="yaml">');
