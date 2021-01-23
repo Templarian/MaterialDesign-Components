@@ -3,8 +3,8 @@
 The `mdi-button` component is essentially just a styled button, but it also allows special rendering for `mdi-button-group` and `mdi-icon`.
 
 ```typescript
-import '@mdi/web-components/mdi/button';
-import MdiButton from '@mdi/web-components/mdi/button';
+import '@mdi/components/mdi/button';
+import MdiButton from '@mdi/components/mdi/button';
 ```
 
 ```html

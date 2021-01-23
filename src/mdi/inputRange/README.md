@@ -3,8 +3,8 @@
 The `mdi-input-range` component creates an input range slider.
 
 ```typescript
-import '@mdi/web-components/mdiInputRange';
-import { MdiInputRange } from '@mdi/web-components/mdiInputRange';
+import '@mdi/components/mdiInputRange';
+import { MdiInputRange } from '@mdi/components/mdiInputRange';
 ```
 
 ```html

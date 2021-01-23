@@ -3,8 +3,8 @@
 The `mdi-button-link` component is essentially just a styled anchor, but it also allows special rendering for `mdi-button-group` and `mdi-icon`.
 
 ```typescript
-import '@mdi/web-components/mdi/buttonLink';
-import MdiButtonLink from '@mdi/web-components/mdi/buttonLink';
+import '@mdi/components/mdi/buttonLink';
+import MdiButtonLink from '@mdi/components/mdi/buttonLink';
 ```
 
 ```html

@@ -3,8 +3,8 @@
 The `mdi-button-group` wraps the `mdi-button` component.
 
 ```typescript
-import '@mdi/web-components/mdi/buttonGroup';
-import MdiButtonGroup from '@mdi/web-components/mdi/buttonGroup';
+import '@mdi/components/mdi/buttonGroup';
+import MdiButtonGroup from '@mdi/components/mdi/buttonGroup';
 ```
 
 ```html

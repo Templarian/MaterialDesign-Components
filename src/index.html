@@ -1379,6 +1379,21 @@
     ];
     </script>
     <section>
+      <h2>MdiModalAlert</h2>
+      <h3>Basic</h3>
+      <div class="example">
+        <button id="launchAlert">Open Alert</button>
+      </div>
+    </section>
+    <script src="mdiModalAlert.js"></script>
+    <script>
+      var launchAlert = document.getElementById('launchAlert');
+      launchAlert.addEventListener('click', function () {
+        var MdiModalAlert = customElements.get('mdi-modal-alert');
+        MdiModalAlert.open();
+      });
+    </script>
+    <section>
       <h2>mdi-modification</h2>
       <h3>Basic <button id="editToggle">Toggle Edit Mode</button></h3>
       <div class="example">
@@ -1391,6 +1406,9 @@
     <script>
       var modification = document.getElementById('modification');
       modification.modifications = modifications;
+      modification.addEventListener('edit', (e) => {
+        console.log(e.detail);
+      });
       var editToggle = document.getElementById('editToggle');
       editToggle.addEventListener('click', () => {
         modification.edit = !modification.edit;

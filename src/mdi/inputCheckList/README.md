@@ -3,8 +3,8 @@
 The `mdi-input-check-list` component is a list of checkboxes.
 
 ```typescript
-import '@mdi/web-components/mdi/inputCheck';
-import MdiInputCheck from '@mdi/web-components/mdi/inputCheck';
+import '@mdi/components/mdi/inputCheck';
+import MdiInputCheck from '@mdi/components/mdi/inputCheck';
 ```
 
 ```html

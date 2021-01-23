@@ -14,7 +14,7 @@ import MdiAvatar from './../avatar/avatar';
   style,
   template
 })
-export default class MdiIcon extends HTMLElement {
+export default class MdiCardUser extends HTMLElement {
   @Prop() user: User | null = null;
 
   @Part() $loading: HTMLDivElement;

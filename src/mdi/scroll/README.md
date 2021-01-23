@@ -6,7 +6,7 @@ The `mdi-scroll` component handles scrolling data in the viewport. This componen
 - Advanced: Unlimited lists of data only rendered when in the viewport to cut down DOM elements.
 
 ```typescript
-import '@mdi/web-components/mdiScroll.js';
+import '@mdi/components/mdiScroll.js';
 ```
 
 ```html

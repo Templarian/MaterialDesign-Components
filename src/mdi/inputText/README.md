@@ -3,8 +3,8 @@
 The `mdi-input-text` component creates an input that accepts text input.
 
 ```typescript
-import '@mdi/web-components/mdiInputText';
-import { MdiInputRange } from '@mdi/web-components/mdiInputText';
+import '@mdi/components/mdiInputText';
+import { MdiInputRange } from '@mdi/components/mdiInputText';
 ```
 
 ```html

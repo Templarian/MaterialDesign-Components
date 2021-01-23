@@ -3,8 +3,8 @@
 The `mdi-card` component is a presentational component for adding a shadow with rounded corners.
 
 ```typescript
-import '@mdi/web-components/mdi/icon';
-import MdiIcon from '@mdi/web-components/mdi/icon';
+import '@mdi/components/mdi/icon';
+import MdiIcon from '@mdi/components/mdi/icon';
 ```
 
 ```html

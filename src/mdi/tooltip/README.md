@@ -3,9 +3,9 @@
 The `mdi-tooltip` component should be placed on the top level. It then is wired to a shared event.
 
 ```typescript
-import '@mdi/web-components/mdi/tooltip';
-import MdiTooltip from '@mdi/web-components/mdi/tooltip';
-import { addTooltip } from '@mdi/web-components/mdi/addTooltip';
+import '@mdi/components/mdi/tooltip';
+import MdiTooltip from '@mdi/components/mdi/tooltip';
+import { addTooltip } from '@mdi/components/mdi/addTooltip';
 ```
 
 ```html
@@ -39,7 +39,7 @@ handleTooltip(e) {
 Triggering a tooltip on a part.
 
 ```javascript
-import { addTooltip } from '@mdi/web-components/mdi/tooltip/addTooltip';
+import { addTooltip } from '@mdi/components/mdi/tooltip/addTooltip';
 
 connectedCallback() {
   addTooltip(this.$partName, () => {

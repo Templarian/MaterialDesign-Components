@@ -3,8 +3,8 @@
 The `mdi-avatar` component takes a user object and renders an avatar circle.
 
 ```typescript
-import '@mdi/web-components/mdi/avatar';
-import MdiAvatar from '@mdi/web-components/mdi/avatar';
+import '@mdi/components/mdi/avatar';
+import MdiAvatar from '@mdi/components/mdi/avatar';
 ```
 
 ```html

@@ -3,8 +3,8 @@
 The `mdi-preview` component allows a standard way to render a grid behind an icon.
 
 ```typescript
-import '@mdi/web-components/mdi/preview';
-import MdiIcon from '@mdi/web-components/mdi/preview';
+import '@mdi/components/mdi/preview';
+import MdiIcon from '@mdi/components/mdi/preview';
 ```
 
 ```html

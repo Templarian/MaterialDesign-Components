@@ -3,8 +3,8 @@
 The `mdi-card-user` component lets one display a `User` type in a visual card.
 
 ```typescript
-import '@mdi/web-components/mdi/cardUser';
-import MdiIcon from '@mdi/web-components/mdi/cardUser';
+import '@mdi/components/mdi/cardUser';
+import MdiIcon from '@mdi/components/mdi/cardUser';
 ```
 
 ```html

@@ -3,8 +3,8 @@
 The `mdi-modification` component takes an array of modifications and displays the values.
 
 ```typescript
-import '@mdi/web-components/mdi/modification';
-import MdiModification from '@mdi/web-components/mdi/modification';
+import '@mdi/components/mdi/modification';
+import MdiModification from '@mdi/components/mdi/modification';
 ```
 
 ```html

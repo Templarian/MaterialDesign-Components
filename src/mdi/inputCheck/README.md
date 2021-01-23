@@ -3,8 +3,8 @@
 The `mdi-input-check` component is a styled checkbox.
 
 ```typescript
-import '@mdi/web-components/mdi/inputCheck';
-import MdiInputCheck from '@mdi/web-components/mdi/inputCheck';
+import '@mdi/components/mdi/inputCheck';
+import MdiInputCheck from '@mdi/components/mdi/inputCheck';
 ```
 
 ```html

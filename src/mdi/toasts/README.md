@@ -3,7 +3,7 @@
 The `mdi-toasts` will create instances of `mdi-toast`.
 
 ```typescript
-import '@mdi/web-components/mdiToast.js';
+import '@mdi/components/mdiToast.js';
 ```
 
 ```html

@@ -98,6 +98,8 @@ function itemsInsertDates(modifications) {
 export default class MdiModification extends HTMLElement {
   @Prop() modifications: Modification[] | null = null;
   @Prop() edit: boolean = false;
+  // Ex: pictogrammers/repo
+  @Prop() github: string = '';
 
   @Part() $items: HTMLDivElement;
 
@@ -149,7 +151,7 @@ export default class MdiModification extends HTMLElement {
               issue: {
                 style: modification.issue ? '' : 'display:none',
                 innerText: modification.issue ? `#${modification.issue}` : '',
-                href: `https://github.com/Templarian/MaterialDesign/issues/${modification.issue}`
+                href: `https://github.com/${this.github}/issues/${modification.issue}`
               }
             });
             const issue = n.querySelector('[part="issue"]');
@@ -163,6 +165,16 @@ export default class MdiModification extends HTMLElement {
               addTooltip(avatar, () => {
                 return modification.user.name;
               }, BOTTOM_START);
+            }
+            const edit = n.querySelector('[part="edit"]');
+            if (edit) {
+              edit.addEventListener('click', () => {
+                this.dispatchEvent(new CustomEvent('edit', {
+                  detail: {
+                    modification
+                  }
+                }));
+              });
             }
             return n;
           }

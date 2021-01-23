@@ -3,8 +3,8 @@
 The `mdi-button-toggle` component is essentially just a button with swappable slotted content. Commonly used with icons, but using `span` elements will allow assigning text content.
 
 ```typescript
-import '@mdi/web-components/mdi/buttonToggle';
-import MdiButtonToggle from '@mdi/web-components/mdi/buttonToggle';
+import '@mdi/components/mdi/buttonToggle';
+import MdiButtonToggle from '@mdi/components/mdi/buttonToggle';
 ```
 
 ```html

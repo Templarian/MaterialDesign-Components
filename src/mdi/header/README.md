@@ -3,7 +3,7 @@
 The `mdi-header` component renders the logo and header with a slot for search and nav.
 
 ```typescript
-import '@mdi/web-components/mdiHeader.js';
+import '@mdi/components/mdiHeader.js';
 ```
 
 ```html

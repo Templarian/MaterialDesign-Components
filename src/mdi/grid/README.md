@@ -5,8 +5,8 @@ The `mdi-grid` component allows a standard way to render a configurable grid of 
 > Note: Context menus and tooltips can be triggered with events described below. These are outside of the component so they can be rendered elsewhere in the DOM.
 
 ```typescript
-import '@mdi/web-components/mdiGrid.js';
-import MdiGrid from '@mdi/web-components/mdiGrid.js';
+import '@mdi/components/mdiGrid.js';
+import MdiGrid from '@mdi/components/mdiGrid.js';
 ```
 
 ```html

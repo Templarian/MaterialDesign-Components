@@ -3,8 +3,8 @@
 The `mdi-input-select` component creates an select drop down.
 
 ```typescript
-import '@mdi/web-components/mdiInputSelect';
-import { MdiInputSelect } '@mdi/web-components/mdiInputSelect';
+import '@mdi/components/mdiInputSelect';
+import { MdiInputSelect } '@mdi/components/mdiInputSelect';
 ```
 
 ```html

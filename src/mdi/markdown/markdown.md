@@ -14,10 +14,10 @@ The `mdi-markdown` component allows a standard way to render markdown files and 
   - `information`, `attention` - Pastel Blue
 
 ```typescript
-import '@mdi/web-components/mdi/markdown';
+import '@mdi/components/mdi/markdown';
 import MdiMarkdown, {
   MarkdownReplace
-} from '@mdi/web-components/mdi/markdown';
+} from '@mdi/components/mdi/markdown';
 ```
 
 ```html
