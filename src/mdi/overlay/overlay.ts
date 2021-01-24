@@ -1,4 +1,4 @@
-import { Component, Prop, Part } from '@mdi/element';
+import { Component } from '@mdi/element';
 
 function camelToDash(str: string): string {
   return str.replace(/([a-zA-Z])(?=[A-Z])/g, '$1-').toLowerCase()
@@ -7,11 +7,7 @@ function camelToDash(str: string): string {
 const layers: any[] = [];
 const promises: any[] = [];
 
-// Update to support passing no object for a base class
-@Component({
-  selector: 'mdi-overlay',
-  template: '-'
-})
+@Component()
 export default class MdiOverlay extends HTMLElement {
   static open(props: any = {}): Promise<any> {
     var ele = document.createElement(camelToDash(this.name));
