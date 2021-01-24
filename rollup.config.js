@@ -1,4 +1,5 @@
-import typescript from 'rollup-plugin-typescript2';
+import typescript from '@rollup/plugin-typescript';
+//import typescript from 'rollup-plugin-typescript2';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import multi from '@rollup/plugin-multi-entry';
@@ -13,18 +14,36 @@ const DIST_COMPONENTS = true;
 const BROWSER = 'iife';
 const PROD = !process.env.ROLLUP_WATCH;
 const TSCONFIG = {
-  typescript: require('typescript'),
-  tsconfigOverride: {
-    compilerOptions: {
-      module: "es2015"
-    }
-  }
+  module: "es2015",
 };
 
 // Append to the inputs any outside your project
 // ['./node_modules/foo/src/foo/bar.ts']
 const inputs = [];
 const entries = [];
+
+function addEntry(input2, name2) {
+  entries.push({
+    plugins: [
+      typescript(TSCONFIG),
+      commonjs(),
+      resolve(),
+      string({
+        include: '**/*.html'
+      }),
+      string({
+        include: '**/*.css'
+      })
+    ],
+    input: input2,
+    output: {
+      name: `${name2}`,
+      file: `./dist/${name2}.js`,
+      format: BROWSER,
+      sourcemap: true
+    }
+  });
+}
 
 const srcDir = path.join(__dirname, 'src');
 const namespaces = fs.readdirSync(srcDir)
@@ -41,26 +60,7 @@ namespaces.forEach((namespace) => {
       const input = `./src/${namespace}/${component}/${component}.ts`;
       inputs.push(input);
       if (DIST_COMPONENTS) {
-        entries.push({
-          plugins: [
-            commonjs(),
-            resolve(),
-            typescript(TSCONFIG),
-            string({
-              include: '**/*.html'
-            }),
-            string({
-              include: '**/*.css'
-            })
-          ],
-          input,
-          output: {
-            name: `${name}`,
-            file: `./dist/${name}.js`,
-            format: BROWSER,
-            sourcemap: true
-          }
-        });
+        addEntry(input, name);
       }
     } else {
       console.error(`Unable to find ${file}!`);
@@ -69,9 +69,9 @@ namespaces.forEach((namespace) => {
 });
 
 const plugins = [
+  typescript(TSCONFIG),
   commonjs(),
   resolve(),
-  typescript(TSCONFIG),
   string({
     include: '**/*.html'
   }),
@@ -101,7 +101,9 @@ export default [
   {
     input: inputs,
     output: {
-      file: './dist/main.js'
+      file: './dist/main.js',
+      format: BROWSER,
+      sourcemap: true
     },
     plugins
   }

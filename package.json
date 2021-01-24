@@ -14,8 +14,9 @@
     "url": "git+https://github.com/Templarian/MaterialDesign-Web-Component.git"
   },
   "dependencies": {
-    "@mdi/element": "0.0.18",
+    "@mdi/element": "0.0.20",
     "@popperjs/core": "^2.6.0",
+    "@rollup/plugin-typescript": "^8.1.0",
     "dexie": "^3.0.3",
     "js-yaml": "^3.14.1",
     "lodash-es": "^4.17.20",
@@ -41,6 +42,7 @@
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.29.0",
     "ts-jest": "^26.4.4",
-    "typescript": "^3.9.7"
+    "typescript": "^3.9.7",
+    "tslib": "^2.1.0"
   }
 }
