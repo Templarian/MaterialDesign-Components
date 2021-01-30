@@ -142,50 +142,10 @@
     #mdiScrollList button:hover {
       background: #CCC;
     }
-    .tooltip-grid {
-      height: 300px;
-      display: grid;
-      grid-template-rows: 4rem 4rem 1fr 4rem 4rem;
-      grid-template-columns: 4rem 4rem 1fr 4rem 4rem;
-    }
-    .tooltip-grid button {
-      width: 3rem;
-      height: 3rem;
-      align-self: center;
-      justify-self: center;
-    }
-    #tooltipSource1 {
-      grid-column: 3;
-      grid-row: 3;
-    }
-    #tooltipSource2 {
-      grid-column: 3;
-      grid-row: 3;
-    }
-    #tooltipSource1 {
-      margin-right: 10rem;
-    }
-    #tooltipSource2 {
-      margin-left: 10rem;
-    }
-    #tooltipTopStart {  grid-column: 2; grid-row: 1; }
-    #tooltipTop { grid-column: 3; grid-row: 1; }
-    #tooltipTopEnd { grid-column: 4; grid-row: 1; }
-    #tooltipRightStart {  grid-column: 5; grid-row: 2; }
-    #tooltipRight { grid-column: 5; grid-row: 3; }
-    #tooltipRightEnd { grid-column: 5; grid-row: 4; }
-    #tooltipBottomStart {  grid-column: 2; grid-row: 5; }
-    #tooltipBottom { grid-column: 3; grid-row: 5; }
-    #tooltipBottomEnd { grid-column: 4; grid-row: 5; }
-    #tooltipLeftStart {  grid-column: 1; grid-row: 2; }
-    #tooltipLeft { grid-column: 1; grid-row: 3; }
-    #tooltipLeftEnd { grid-column: 1; grid-row: 4; }
   </style>
 </head>
 
 <body>
-  <mdi-tooltip id="tooltip1"></mdi-tooltip>
-  <mdi-tooltip id="tooltip2"></mdi-tooltip>
   <mdi-tooltip id="tooltip3"></mdi-tooltip>
   <div class="wrapper">
   <script>
@@ -246,23 +206,9 @@
 
     <section>
       <h2>mdi-button</h2>
-      <h3>Basic <small>Default</small></h3>
-      <div class="example">
-        <div class="example-flex">
-          <mdi-button>Example Button</mdi-button>
-          <mdi-button><mdi-icon path="M12,19.2C9.5,19.2 7.29,17.92 6,16C6.03,14 10,12.9 12,12.9C14,12.9 17.97,14 18,16C16.71,17.92 14.5,19.2 12,19.2M12,5A3,3 0 0,1 15,8A3,3 0 0,1 12,11A3,3 0 0,1 9,8A3,3 0 0,1 12,5M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2Z"></mdi-icon></mdi-button>
-          <mdi-button>
-            <mdi-icon path="M12,19.2C9.5,19.2 7.29,17.92 6,16C6.03,14 10,12.9 12,12.9C14,12.9 17.97,14 18,16C16.71,17.92 14.5,19.2 12,19.2M12,5A3,3 0 0,1 15,8A3,3 0 0,1 12,11A3,3 0 0,1 9,8A3,3 0 0,1 12,5M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2Z"></mdi-icon>
-            With Icon
-          </mdi-button>
-        </div>
-        <mdi-button block>Block Button</mdi-button>
-      </div>
+      <x-button-basic></x-button-basic>
+      <x-button-states></x-button-states>
     </section>
-    <script src="mdiButton.js"></script>
-    <script>
-
-    </script>
 
     <section>
       <h2>mdi-button-link</h2>
@@ -398,67 +344,8 @@
 
     <section>
       <h2>mdi-tooltip</h2>
-      <h3>Directions</h3>
-      <div class="example">
-        <div class="tooltip-grid">
-          <button id="tooltipSource1"></button>
-          <button id="tooltipSource2"></button>
-          <button id="tooltipTop"></button>
-          <button id="tooltipTopStart"></button>
-          <button id="tooltipTopEnd"></button>
-          <button id="tooltipRight"></button>
-          <button id="tooltipRightStart"></button>
-          <button id="tooltipRightEnd"></button>
-          <button id="tooltipBottom"></button>
-          <button id="tooltipBottomStart"></button>
-          <button id="tooltipBottomEnd"></button>
-          <button id="tooltipLeft"></button>
-          <button id="tooltipLeftStart"></button>
-          <button id="tooltipLeftEnd"></button>
-        </div>
-      </div>
+      <x-tooltip-basic></x-tooltip-basic>
     </section>
-    <script src="mdiTooltip.js"></script>
-    <script>
-      var tooltip1 = document.getElementById('tooltip1');
-      var tooltip2 = document.getElementById('tooltip2');
-      var tooltipSource1 = document.getElementById('tooltipSource1');
-      var tooltipSource2 = document.getElementById('tooltipSource2');
-      function setPosition(position) {
-        tooltip1.position = position;
-        tooltip2.position = position;
-        tooltip1.visible = true;
-        tooltip1.rect = tooltipSource1.getBoundingClientRect();
-        tooltip1.text = 'Hello World!';
-        tooltip2.visible = true;
-        tooltip2.rect = tooltipSource2.getBoundingClientRect();
-        tooltip2.text = '-';
-      }
-      const tooltipTop = document.getElementById('tooltipTop');
-      tooltipTop.addEventListener('click', () => { setPosition('top'); });
-      const tooltipTopStart = document.getElementById('tooltipTopStart');
-      tooltipTopStart.addEventListener('click', () => { setPosition('top-start'); });
-      const tooltipTopEnd = document.getElementById('tooltipTopEnd');
-      tooltipTopEnd.addEventListener('click', () => { setPosition('top-end'); });
-      const tooltipRight = document.getElementById('tooltipRight');
-      tooltipRight.addEventListener('click', () => { setPosition('right'); });
-      const tooltipRightStart = document.getElementById('tooltipRightStart');
-      tooltipRightStart.addEventListener('click', () => { setPosition('right-start'); });
-      const tooltipRightEnd = document.getElementById('tooltipRightEnd');
-      tooltipRightEnd.addEventListener('click', () => { setPosition('right-end'); });
-      const tooltipBottom = document.getElementById('tooltipBottom');
-      tooltipBottom.addEventListener('click', () => { setPosition('bottom'); });
-      const tooltipBottomStart = document.getElementById('tooltipBottomStart');
-      tooltipBottomStart.addEventListener('click', () => { setPosition('bottom-start'); });
-      const tooltipBottomEnd = document.getElementById('tooltipBottomEnd');
-      tooltipBottomEnd.addEventListener('click', () => { setPosition('bottom-end'); });
-      const tooltipLeft = document.getElementById('tooltipLeft');
-      tooltipLeft.addEventListener('click', () => { setPosition('left'); });
-      const tooltipLeftStart = document.getElementById('tooltipLeftStart');
-      tooltipLeftStart.addEventListener('click', () => { setPosition('left-start'); });
-      const tooltipLeftEnd = document.getElementById('tooltipLeftEnd');
-      tooltipLeftEnd.addEventListener('click', () => { setPosition('left-end'); });
-    </script>
 
     <section>
       <h2>mdi-grid</h2>
@@ -1724,7 +1611,7 @@
       database.font = fontId;
     </script>
   </main>
-  <!--<script src="main.js"></script>-->
+  <script src="main.js"></script>
   <script>
     // Lets create a nav
     var list = document.getElementById('list');
