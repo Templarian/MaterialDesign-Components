@@ -6,8 +6,27 @@ const CopyPlugin = require("copy-webpack-plugin");
 const DIST_COMPONENTS = false;
 const IS_DEV = true;
 
+function dashToCamel(str) {
+  return str.replace(/-([a-z])/g, m => m[1].toUpperCase());
+}
+
+let filterComponents = [];
+
+// Limit demo to only listed components:
+if (process.argv.length > 3 && process.argv[3]) {
+  const aComp = process.argv[3];
+  const aComps = aComp.split(/,/g);
+  aComps.forEach((aC) => {
+    if (aC.match(/^\w+([A-Z]|-)/) === null) {
+      throw new Error(`${aC} must be formatted as namespace-component or namespaceComponent`);
+    }
+  });
+  filterComponents = aComps.map(x => dashToCamel(x));
+}
+
 // Append to the inputs any outside your project
 // ['./node_modules/foo/src/foo/bar.ts']
+const components = [];
 const inputs = [];
 const entries = [];
 
@@ -46,18 +65,16 @@ const namespaces = fs.readdirSync(srcDir)
   .filter((f) => f.match(/^[a-z]+$/) !== null);
 namespaces.forEach((namespace) => {
   const namespaceDir = path.join(srcDir, namespace);
-  const components = fs.readdirSync(namespaceDir)
+  const comps = fs.readdirSync(namespaceDir)
     .filter((f) => f.match(/^[a-zA-Z0-9]+$/) !== null);
-  components.forEach((component) => {
+    comps.forEach((component) => {
     const componentDir = path.join(namespaceDir, component);
     const file = path.join(componentDir, `${component}.ts`);
     if (fs.existsSync(file)) {
       const name = `${namespace}${component[0].toUpperCase()}${component.substr(1)}`;
       const input = `./src/${namespace}/${component}/${component}.ts`;
       inputs.push(input);
-      if (DIST_COMPONENTS) {
-        addEntries(input, name);
-      }
+      components.push({ input, name });
       const examplesDir = `${componentDir}/__examples__`;
       if ((fs.existsSync(examplesDir))) {
         const examples = fs.readdirSync(examplesDir)
@@ -73,6 +90,11 @@ namespaces.forEach((namespace) => {
     }
   });
 });
+if (DIST_COMPONENTS) {
+  components.push(({ input, name }) => {
+    addEntries(input, name);
+  });
+}
 addEntries(inputs, 'main');
 console.log(`Building ${entries.length - 1} components...`);
 entries[entries.length - 1].plugins = [
