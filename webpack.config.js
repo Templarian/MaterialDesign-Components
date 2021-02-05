@@ -1,10 +1,12 @@
 const path = require('path');
 const fs = require('fs');
-const CopyPlugin = require("copy-webpack-plugin");
+//const CopyPlugin = require("copy-webpack-plugin");
+const { read, write } = require('./scripts/utils');
 
 // This will generate individual JS files
 const DIST_COMPONENTS = false;
 const IS_DEV = true;
+const DIST_DIR = 'dist2';
 
 function dashToCamel(str) {
   return str.replace(/-([a-z])/g, m => m[1].toUpperCase());
@@ -12,7 +14,7 @@ function dashToCamel(str) {
 
 let filterComponents = [];
 
-// Limit demo to only listed components:
+// Limit demo to render only listed components:
 if (process.argv.length > 3 && process.argv[3]) {
   const aComp = process.argv[3];
   const aComps = aComp.split(/,/g);
@@ -24,9 +26,9 @@ if (process.argv.length > 3 && process.argv[3]) {
   filterComponents = aComps.map(x => dashToCamel(x));
 }
 
-// Append to the inputs any outside your project
-// ['./node_modules/foo/src/foo/bar.ts']
+// Lists
 const components = [];
+const examples = [];
 const inputs = [];
 const entries = [];
 
@@ -52,7 +54,7 @@ function addEntries(input, name) {
     },
     output: {
       filename: `${name}.js`,
-      path: path.resolve(__dirname, 'dist2'),
+      path: path.resolve(__dirname, DIST_DIR),
     },
     performance: {
       hints: false
@@ -74,19 +76,20 @@ namespaces.forEach((namespace) => {
       const name = `${namespace}${component[0].toUpperCase()}${component.substr(1)}`;
       const input = `./src/${namespace}/${component}/${component}.ts`;
       inputs.push(input);
-      components.push({ input, name });
+      components.push({ input, name, namespace });
       const examplesDir = `${componentDir}/__examples__`;
       if ((fs.existsSync(examplesDir))) {
-        const examples = fs.readdirSync(examplesDir)
+        const examples2 = fs.readdirSync(examplesDir)
           .filter((f) => f.match(/^[a-zA-Z0-9]+$/) !== null);
-        examples.forEach((example) => {
+        examples2.forEach((example) => {
           const exampleDir = path.join(examplesDir, example);
           const exInput = path.join(exampleDir, `${example}.ts`);
           inputs.push(exInput);
+          examples.push({ input: exInput, name, example })
         });
       }
     } else {
-      console.error(`Unable to find ${file}!`);
+      // console.error(`Unable to find ${file}!`);
     }
   });
 });
@@ -96,16 +99,16 @@ if (DIST_COMPONENTS) {
   });
 }
 addEntries(inputs, 'main');
-console.log(`Building ${entries.length - 1} components...`);
-entries[entries.length - 1].plugins = [
-  new CopyPlugin({
-    patterns: [
-      { from: "src/index.html", to: "index.html" },
-    ],
-  }),
-];
+console.log(`Stats: ${components.length - 1} Components, ${examples.length} Examples`);
+
+console.log(`Writing ${DIST_DIR}/index.html`);
+const index = read('./src/index.html');
+write(`${DIST_DIR}/index.html`, index);
+
+console.log(`Building...`);
+
 entries[entries.length - 1].devServer = {
-  contentBase: path.join(__dirname, 'dist2'),
+  contentBase: path.join(__dirname, DIST_DIR),
   compress: true,
   port: 3000
 };

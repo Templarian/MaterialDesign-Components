@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="shortcut icon" type="image/png" href="favicon.png"/>
+  <title>Website Components</title>
+  <style>
+    :root {
+      --mdi-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      --mdi-icon-color: #453C4F;
+      --mdi-header-color: #453C4F;
+      --mdi-header-background: #fff;
+      --mdi-search-border-color: #453C4F;
+      --mdi-dropdown-border-color: #453C4F;
+    }
+    body {
+      margin: 0;
+      font-family: var(--mdi-font-family);
+    }
+    .wrapper {
+      display: grid;
+      grid-template-columns: 12rem calc(100% - 12rem);
+      grid-template-rows: 3rem auto;
+    }
+    code {
+      font-family: 'Consolas', 'Courier New', Courier, monospace;
+    }
+    header {
+      display: flex;
+      grid-row: 1;
+      grid-column: 1 / span 2;
+      background: #414F56;
+      color: #FFF;
+      align-items: center;
+    }
+    header > svg {
+      display: inline-flex;
+      width: 1.5rem;
+      height: 1.5rem;
+      margin: 0 0.75rem 0 1rem;
+    }
+    header > h1 {
+      display: inline-flex;
+      color: #FFF;
+      font-size: 1.5rem;
+      margin: 0;
+      font-weight: normal;
+    }
+    aside {
+      grid-row: 2;
+      grid-column: 1;
+      padding: 1rem;
+    }
+    aside > div {
+      font-weight: bold;;
+    }
+    aside > ul {
+      list-style: none;
+      padding: 0 0 0 0.5rem;
+      line-height: 1.5rem;
+    }
+    aside > ul > li {
+      margin-bottom: 0.25rem;
+    }
+    aside a::before {
+      content: ' ';
+      position: absolute;
+      width: 1rem;
+      left: -1.5rem;
+      top: 0;
+      bottom: 0;
+      border-radius: 0 0.125rem 0.125rem 0;
+      background: rgba(65, 79, 86, 0.3);
+    }
+
+    aside a:hover::before {
+      background: rgba(65, 79, 86, 0.5);
+    }
+
+    aside a {
+      position: relative;
+      color: #414F56;
+      text-decoration: none;
+    }
+    aside a:hover {
+      text-decoration: underline;
+    }
+    main {
+      grid-row: 2;
+      grid-column: 2;
+      padding: 0 1rem 1rem 1rem;
+    }
+    main > section {
+      padding: 1rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+      margin-top: 1.5rem;
+    }
+    main > section > h2 {
+      margin: 0;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 0.5rem;
+    }
+    h1 small,
+    h2 small,
+    h3 small {
+      color: #999;
+      font-weight: normal;
+      font-size: 0.875rem;
+    }
+    .example {
+      vertical-align: top;
+      background: #F1F1F1;
+      border-radius: 0.25rem;
+      border: 1px dashed #222;
+      padding: 0.5rem;
+      margin-bottom: 0.5rem;
+      margin-right: 1rem;
+      box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1) inset;
+    }
+    .example-flex {
+      display: flex;
+    }
+    body > button {
+      border: 1px solid #DDD;
+      background-image: linear-gradient(-180deg,#fafbfc,#eff3f6 90%);
+      color: #24292e;
+      border: 1px solid rgba(27,31,35,.2);
+      border-radius: .25em;
+      padding: 0.25rem 0.4rem 0.2rem 0.4rem;
+    }
+    body > button:hover {
+      background-image: linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);
+      background-position: -.5em;
+      border-color: rgba(27,31,35,.35);
+    }
+    #mdiScrollList button {
+      background: transparent;
+      border: 1px dashed #DDD;
+    }
+    #mdiScrollList button:hover {
+      background: #CCC;
+    }
+  </style>
+</head>
+
+<body>
+  <mdi-tooltip id="tooltip3"></mdi-tooltip>
+  <div class="wrapper">
+  <header>
+    <svg viewBox="0 0 24 24">
+      <path fill="currentColor" d="M2,2H8V4H16V2H22V8H20V16H22V22H16V20H8V22H2V16H4V8H2V2M16,8V6H8V8H6V16H8V18H16V16H18V8H16M4,4V6H6V4H4M18,4V6H20V4H18M4,18V20H6V18H4M18,18V20H20V18H18Z" />
+    </svg>
+    <h1>MDI Website Components</h1>
+  </header>
+  <aside>
+    <div>Components</div>
+    <ul id="list"></ul>
+    <div>Overlays</div>
+    <ul id="listOverlays"></ul>
+  </aside>
+  <main>
+    <p>Use this application <code>index.html</code> to debug components. Along with the examples here components have a seperate documentation readme file in their folder.</p>
+
+    <section>
+      <h2>mdi-annoy</h2>
+
+    </section>
+
+    <section>
+      <h2>mdi-avatar</h2>
+    </section>
+
+    <section>
+      <h2>mdi-button</h2>
+      <x-button-basic></x-button-basic>
+      <x-button-states></x-button-states>
+    </section>
+
+    <section>
+      <h2>mdi-button-link</h2>
+
+    </section>
+
+    <section>
+      <h2>mdi-button-group</h2>
+      <h3>Basic <small>Default</small></h3>
+      <div class="example example-flex">
+        <mdi-button-group>
+          <mdi-button><mdi-icon path="M12,19.2C9.5,19.2 7.29,17.92 6,16C6.03,14 10,12.9 12,12.9C14,12.9 17.97,14 18,16C16.71,17.92 14.5,19.2 12,19.2M12,5A3,3 0 0,1 15,8A3,3 0 0,1 12,11A3,3 0 0,1 9,8A3,3 0 0,1 12,5M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2Z"></mdi-icon></mdi-button>
+          <mdi-button>
+            <mdi-icon path="M12,19.2C9.5,19.2 7.29,17.92 6,16C6.03,14 10,12.9 12,12.9C14,12.9 17.97,14 18,16C16.71,17.92 14.5,19.2 12,19.2M12,5A3,3 0 0,1 15,8A3,3 0 0,1 12,11A3,3 0 0,1 9,8A3,3 0 0,1 12,5M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2Z"></mdi-icon>
+            With Icon
+          </mdi-button>
+          <mdi-button active>
+            active
+          </mdi-button>
+        </mdi-button-group>
+      </div>
+    </section>
+    <script src="mdiButtonGroup.js"></script>
+    <script>
+
+    </script>
+
+    <section>
+      <h2>mdi-button-toggle</h2>
+    </section>
+
+    <section>
+      <h2>mdi-card</h2>
+
+    </section>
+
+<section>
+  <h2>mdi-card-user</h2>
+  <h3>Basic</h3>
+  <div class="example">
+    <mdi-card-user id="cardUser1"></mdi-card-user>
+  </div>
+</section>
+<script src="mdiCardUser.js"></script>
+<script>
+  var cardUser1 = document.getElementById('cardUser1');
+  cardUser1.user = {
+    "id": "c4ea5584-07e3-11e4-bf19-842b2b6cfe1b",
+    "name": "Austin Andrews",
+    "description": "Hello, I am a developer that gets bored and makes icons, then websites for icons, then more icons. Open Source is pretty awesome.",
+    "base64": AVATAR,
+    "github": "Templarian",
+    "twitter": "Templarian",
+    "iconCount": 928,
+    "website": "http:\/\/templarian.com",
+    "sponsored": true,
+    "core": true
+  };
+</script>
+
+    <section>
+      <h2>mdi-color</h2>
+      <h3>Basic <small>Color</small></h3>
+      <div class="example">
+        <mdi-color id="color1" value="#000"></mdi-color>
+        <code>Selected: <span id="colorSelected"></span></code>
+      </div>
+    </section>
+    <script src="mdiColor.js"></script>
+    <script>
+      document.getElementById('color1').addEventListener('select', (e) => {
+        const { rgb, hex } = e.detail;
+        document.getElementById('colorSelected').innerText =
+          `${hex} or rgba(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+      });
+    </script>
+
+    <section>
+      <h2>mdi-dropdown</h2>
+      <h3>Basic <small>Dropdown</small></h3>
+      <div class="example">
+        <mdi-dropdown>
+          <button>Click Me</button>
+          <div slot="popover">
+            Render anything inside...
+          </div>
+        </mdi-dropdown>
+        <mdi-dropdown>
+          <a href="/">Click Me</a>
+          <div slot="popover">
+            Render anything inside...
+          </div>
+        </mdi-dropdown>
+      </div>
+    </section>
+    <script src="mdiDropdown.js"></script>
+
+    <section>
+      <h2>mdi-tooltip</h2>
+      <x-tooltip-basic></x-tooltip-basic>
+    </section>
+
+    <section>
+      <h2>mdi-grid</h2>
+      <h3>Basic <small>Icon Grid</small></h3>
+      <p>
+        <button onclick="iconGrid.basic(1)">Render 1</button>
+        <button onclick="iconGrid.basic(10)">Render 10</button>
+        <button onclick="iconGrid.basic(50)">Render 50</button>
+        <button onclick="iconGrid.basic(250)">Render 250</button>
+        <button onclick="iconGrid.basic(-1)">Render 5000+</button>
+      </p>
+      <p>
+        <label>Size (<span id="mdiScrollSizeText">24</span>): <input id="mdiScrollSize" type="range" min="24" max="96" step="4" value="24" /></label>
+        <label>Padding (<span id="mdiScrollPaddingText">8</span>): <input id="mdiScrollPadding" type="range" min="0" max="24" step="2" value="8" /></label>
+        <label>Gap (<span id="mdiScrollGapText">4</span>): <input id="mdiScrollGap" type="range" min="0" max="16" step="2" value="4" /></label>
+      </p>
+      <div class="example">
+        <mdi-grid id="iconGrid1"></mdi-grid>
+      </div>
+    </section>
+    <script src="mdiScroll.js"></script>
+    <script src="mdiGrid.js"></script>
+    <script>
+      var tooltip3 = document.getElementById('tooltip3');
+      document.body.addEventListener('tooltip', (e) => {
+        var { visible, rect, text, position } = e.detail;
+        tooltip3.visible = visible;
+        tooltip3.rect = rect;
+        tooltip3.text = text;
+        tooltip3.position = position;
+      });
+      var ele = document.getElementsByTagName('mdi-grid')[0];
+      tooltip3.style.display = 'none';
+      ele.addEventListener('select', (e) => {
+        var icon = e.detail;
+        alert(icon.name);
+      });
+      ele.addEventListener('entericon', (e) => {
+        var icon = e.detail.icon;
+        console.log('enter', e.detail);
+        var rect = ele.getBoundingClientRect();
+        tooltip3.style.position = 'fixed';
+        tooltip3.style.left = `${e.detail.x}px`;
+        tooltip3.style.top = `${e.detail.y}px`;
+        tooltip3.width = e.detail.width;
+        tooltip3.height = e.detail.height;
+        tooltip3.text = icon.name;
+        tooltip3.style.display = 'block';
+      });
+      ele.addEventListener('leaveicon', (e) => {
+        var icon = e.detail;
+        tooltip3.style.display = 'none';
+        console.log('leave', e.detail);
+      });
+      ele.addEventListener('openmenu', (e) => {
+        var icon = e.detail;
+        console.log(e.detail);
+      });
+      ele.addEventListener('closemenu', (e) => {
+        var icon = e.detail;
+        console.log(e.detail);
+      });
+      var mdiScrollSizeText = document.getElementById('mdiScrollSizeText');
+      document.getElementById('mdiScrollSize').addEventListener('change', (e) => {
+        ele.size = e.target.value;
+        mdiScrollSizeText.innerText = e.target.value;
+      });
+      var mdiScrollPaddingText = document.getElementById('mdiScrollPaddingText');
+      document.getElementById('mdiScrollPadding').addEventListener('change', (e) => {
+        ele.padding = e.target.value;
+        mdiScrollPaddingText.innerText = e.target.value;
+      });
+      var mdiScrollGapText = document.getElementById('mdiScrollGapText');
+      document.getElementById('mdiScrollGap').addEventListener('change', (e) => {
+        ele.gap = e.target.value;
+        mdiScrollGapText.innerText = e.target.value;
+      });
+      window.iconGrid = {
+        basic: (count) => {
+          const element = document.getElementById('iconGrid1');
+          element.icons = getIcons(count);
+        }
+      };
+    </script>
+
+    <section>
+      <h2>mdi-input-file-local</h2>
+      <h3>Basic <small>Value</small></h3>
+      <div class="example">
+        <mdi-input-file-local id="inputFileLocal1" accepts-file-type="svg"></mdi-input-file-local>
+        <code>onchange: <span id="inputFileLocalValue1"></span></code>
+      </div>
+    </section>
+    <script src="mdiInputFileLocal.js"></script>
+    <script>
+      document.getElementById('inputFileLocal1').addEventListener('change', (e) => {
+        var value = e.detail.value;
+        var name = e.detail.name;
+        document.getElementById('inputFileLocalValue1').innerText =
+          `${name} - ${value}`;
+      });
+    </script>
+
+    <section>
+      <h2>mdi-input-check</h2>
+      <h3>Basic <small>Value</small></h3>
+      <div class="example">
+        <mdi-input-check id="inputCheck1" value="true"></mdi-input-check>
+        <mdi-input-check id="inputCheck1" disabled></mdi-input-check>
+        <mdi-input-check id="inputCheck1" value="true" disabled></mdi-input-check>
+        <div>
+          <code>Value: <span id="inputCheckValue1"></span></code>
+        </div>
+      </div>
+    </section>
+    <script src="mdiInputCheck.js"></script>
+    <script>
+      const inputCheckValue1 = document.getElementById('inputCheckValue1');
+      document.getElementById('inputCheck1').addEventListener('change', (e) => {
+        var value = e.target.value;
+        inputCheckValue1.innerText = value;
+      });
+    </script>
+
+    <section>
+      <h2>mdi-input-check-list</h2>
+      <h3>Basic <small>Value</small></h3>
+      <div class="example">
+        <mdi-input-check-list id="inputCheckList1"></mdi-input-check-list>
+        <code>Value: <span id="inputCheckListValue1"></span></code>
+      </div>
+    </section>
+    <script src="mdiInputCheckList.js"></script>
+    <script>
+      const inputCheckList1 = document.getElementById('inputCheckList1');
+      const inputCheckListValue1 = document.getElementById('inputCheckListValue1');
+      inputCheckList1.value = ['uuid1', 'uuid3'];
+      inputCheckList1.options = [
+        { value: 'uuid1', label: 'Item 1' },
+        { value: 'uuid2', label: 'Item 2' },
+        { value: 'uuid3', label: 'Item 3', disabled: true },
+        { value: 'uuid4', label: 'Item 4' }
+      ];
+      inputCheckListValue1.innerText = inputCheckList1.value.join(',');
+      inputCheckList1.addEventListener('change', (e) => {
+        var value = e.target.value;
+        inputCheckListValue1.innerText = value.join(',');
+      });
+    </script>
+
+    <section>
+      <h2>mdi-input-text</h2>
+      <h3>Basic <small>Value</small></h3>
+      <div class="example">
+        <mdi-input-text id="input1" value="Hello World!"></mdi-input-text>
+        <code>onchange: <span id="inputValue1"></span></code>
+        <code>oninput: <span id="inputValue2"></span></code>
+      </div>
+    </section>
+    <script src="mdiInputText.js"></script>
+    <script>
+      document.getElementById('input1').addEventListener('change', (e) => {
+        var value = e.target.value;
+        document.getElementById('inputValue1').innerText =
+          `${value}`;
+      });
+      document.getElementById('input1').addEventListener('input', (e) => {
+        var value = e.target.value;
+        document.getElementById('inputValue2').innerText =
+          `${value}`;
+      });
+    </script>
+
+    <section>
+      <h2>mdi-input-text-icon</h2>
+      <h3>Basic <small>Value</small></h3>
+      <div class="example">
+        <mdi-input-text-icon id="input2" placeholder="Search" path="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"></mdi-input-text-icon>
+      </div>
+    </section>
+    <script src="mdiInputTextIcon.js"></script>
+    <script>
+
+    </script>
+
+    <section>
+      <h2>mdi-input-hex-rgb</h2>
+      <h3>Basic <small>Value</small></h3>
+      <div class="example">
+        <mdi-input-hex-rgb id="inputHexRgb1" value="#000000"></mdi-input-hex-rgb>
+        <code>Selected: <span id="inputHexRgbValue1"></span></code>
+      </div>
+    </section>
+    <script src="mdiInputHexRgb.js"></script>
+    <script>
+      document.getElementById('inputHexRgb1').addEventListener('change', (e) => {
+        var hex = e.target.value;
+        document.getElementById('inputHexRgbValue1').innerText =
+          `${hex}`;
+      });
+    </script>
+
+    <section>
+      <h2>mdi-input-range</h2>
+      <h3>Basic <small>Value</small></h3>
+      <div class="example">
+        <mdi-input-range id="inputRange1" value="50"></mdi-input-range>
+        <code>Selected: <span id="inputRangeValue1"></span></code>
+      </div>
+    </section>
+    <script src="mdiColor.js"></script>
+    <script>
+      document.getElementById('inputRange1').addEventListener('change', (e) => {
+        var value = e.target.value;
+      });
+    </script>
+
+    <section>
+      <h2>mdi-input-select</h2>
+      <h3>Basic</h3>
+      <div class="example">
+        <mdi-input-select id="inputSelect1"></mdi-input-select>
+        <code>Selected: <span id="inputSelectValue1"></span></code>
+      </div>
+    </section>
+    <script src="mdiInputSelect.js"></script>
+    <script>
+      var select = document.getElementById('inputSelect1');
+      select.options = [
+        { label: 'Option 1', value: 'option1' },
+        { label: 'Option 2', value: 'option2' },
+        { label: 'Option 3', value: 'option3' },
+        { label: 'Option 4', value: 'option4' }
+      ];
+      select.value = select.options[1].value;
+      document.getElementById('inputSelect1').addEventListener('change', (e) => {
+        var value = e.target.value;
+        document.getElementById('inputSelectValue1').innerText = `${value}`;
+      });
+    </script>
+
+    <section>
+      <h2>mdi-input-user-select</h2>
+      <h3>Loading (<code>null</code>)</h3>
+      <div class="example">
+        <mdi-input-user-select id="inputSelectUser1"></mdi-input-user-select>
+        <code>Selected: <span id="inputSelectUserValue1"></span></code>
+      </div>
+      <h3>Basic</h3>
+      <div class="example">
+        <mdi-input-user-select id="inputSelectUser4"></mdi-input-user-select>
+        <code>Selected: <span id="inputSelectUserValue4"></span></code>
+      </div>
+      <h3>Basic (no value)</h3>
+      <div class="example">
+        <mdi-input-user-select id="inputSelectUser2"></mdi-input-user-select>
+        <code>Selected: <span id="inputSelectUserValue2"></span></code>
+      </div>
+      <h3>No Data (<code>[]</code>)</h3>
+      <div class="example">
+        <mdi-input-user-select id="inputSelectUser3"></mdi-input-user-select>
+        <code>Selected: <span id="inputSelectUserValue3"></span></code>
+      </div>
+    </section>
+    <script src="mdiInputUserSelect.js"></script>
+    <script>
+      var select3 = document.getElementById('inputSelectUser3');
+      select3.options = [];
+      var select2 = document.getElementById('inputSelectUser2');
+      var options = [
+        { id: 'uuid1', name: 'First Last 1', base64: AVATAR, iconCount: 1200, github: 'gitname1' },
+        { id: 'uuid2', name: 'First Last 2', base64: AVATAR, iconCount: 1000, github: 'gitname2' },
+        { id: 'uuid3', name: 'First Last 3', base64: AVATAR, iconCount: 900, github: 'gitname3' },
+        { id: 'uuid4', name: 'First Last 4', base64: AVATAR, iconCount: 600, github: 'gitname4' },
+      ];
+      select2.options = options;
+      select2.value = select2.options[1];
+      document.getElementById('inputSelectUser2').addEventListener('change', (e) => {
+        var value = e.target.value;
+        document.getElementById('inputSelectUserValue2').innerText = `${value}`;
+      });
+      var select4 = document.getElementById('inputSelectUser4');
+      select4.options = options;
+    </script>
+
+    <section>
+      <h2>mdi-header</h2>
+      <h3>Basic <small>Main Header</small></h3>
+      <div class="example">
+        <mdi-header
+          logo="M2,2H8V4H16V2H22V8H20V16H22V22H16V20H8V22H2V16H4V8H2V2M16,8V6H8V8H6V16H8V18H16V16H18V8H16M4,4V6H6V4H4M18,4V6H20V4H18M4,18V20H6V18H4M18,18V20H20V18H18Z"
+          name="Material Design Icons">
+          <mdi-search slot="search"></mdi-search>
+          <mdi-nav slot="nav"></mdi-nav>
+        </mdi-nav>
+      </div>
+    </section>
+    <script src="mdiHeader.js"></script>
+
+    <section>
+      <h2>MdiModalAlert</h2>
+      <h3>Basic</h3>
+      <div class="example">
+        <button id="launchAlert">Open Alert</button>
+      </div>
+    </section>
+    <script src="mdiModalAlert.js"></script>
+    <script>
+      var launchAlert = document.getElementById('launchAlert');
+      launchAlert.addEventListener('click', function () {
+        var MdiModalAlert = customElements.get('mdi-modal-alert');
+        MdiModalAlert.open({
+          header: 'Header Text',
+          message: 'Message body...'
+        }).then(function (result) {
+          console.log(result);
+        });
+      });
+    </script>
+
+    <section>
+      <h2>mdi-preview</h2>
+      <h3>Basic <small>Default</small></h3>
+      <div class="example">
+        <mdi-preview path="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" size="8"></mdi-preview>
+      </div>
+    </section>
+
+  </main>
+  <script src="main.js"></script>
+  <script>
+    // Lets create a nav
+    var list = document.getElementById('list');
+    var h2s = document.getElementsByTagName('h2');
+    for (let i = 0; i < h2s.length; i++) {
+      var element = h2s[i];
+      var text = element.innerText;
+      var anchor = document.createElement('a');
+      var hash = text.replace(/ /g, '-').replace(/'/g, '').toLowerCase();
+      anchor.href = `#${hash}`;
+      element.id = hash;
+      var m = text.match(/mdi-([a-z-]+)/, '');
+      anchor.innerText = m ? m[1] : 'invalid h2 innerText';
+      var li = document.createElement('li');
+      li.appendChild(anchor);
+      list.appendChild(li);
+    }
+  </script>
+  </div>
+</body>
+</html>
