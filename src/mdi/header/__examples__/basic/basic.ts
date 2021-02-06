@@ -3,9 +3,9 @@ import { Component, Part, Prop } from '@mdi/element';
 import template from './basic.html';
 
 @Component({
-  selector: 'x-annoy-basic',
+  selector: 'x-mdi-header-basic',
   template
 })
-export default class XAnnoyBasic extends HTMLElement {
+export default class XMdiHeaderBasic extends HTMLElement {
 
 }

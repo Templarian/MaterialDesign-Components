@@ -1,9 +1,26 @@
-<h3>Basic <small>Annoyance</small></h3>
+<h3>Basic <small>Icon Grid</small></h3>
+<p>
+  <button part="button1">Render 1</button>
+  <button part="button10">Render 10</button>
+  <button part="button50">Render 50</button>
+  <button part="button250">Render 250</button>
+  <button part="buttonAll">Render 5000+</button>
+</p>
+<p>
+  <label>
+    Size (<span part="mdiScrollSizeText">24</span>):
+    <input part="mdiScrollSize" type="range" min="24" max="96" step="4" value="24" />
+  </label>
+  <label>
+    Padding (<span part="mdiScrollPaddingText">8</span>):
+    <input part="mdiScrollPadding" type="range" min="0" max="24" step="2" value="8" />
+  </label>
+  <label>
+    Gap (<span part="mdiScrollGapText">4</span>):
+    <input part="mdiScrollGap" type="range" min="0" max="16" step="2" value="4" />
+  </label>
+</p>
 <div class="example">
-  <mdi-annoy></mdi-annoy>
+  <mdi-database part="database"></mdi-database>
+  <mdi-grid part="iconGrid1"></mdi-grid>
 </div>
-<pre style="color:#FFF;background:#222;padding:0.5rem;border-radius:0.25rem">mdi-annoy {
-  position: fixed;
-  bottom: 1.5rem;
-  right: 2rem;
-}</pre>

@@ -25,6 +25,9 @@
     }
     code {
       font-family: 'Consolas', 'Courier New', Courier, monospace;
+      border: 1px solid #ddd;
+      padding: 0.15rem 0.25rem;
+      border-radius: 0.25rem;
     }
     header {
       display: flex;
@@ -91,16 +94,54 @@
       grid-column: 2;
       padding: 0 1rem 1rem 1rem;
     }
-    main > section {
-      padding: 1rem;
-      border-radius: 0.5rem;
-      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
-      margin-top: 1.5rem;
+    main > p {
+      line-height: 1.5rem;
     }
-    main > section > h2 {
-      margin: 0;
+    main > section {
+      padding: 1.5rem 1rem 1rem 1rem;
+      border-radius: 0.5rem;
+      border: 1px solid #ccc;
+      margin-top: 2rem;
+    }
+    main > h2 {
+      margin: 1.5rem 0 0.5rem 0;
       border-bottom: 1px solid #ddd;
       padding-bottom: 0.5rem;
+      font-size: 1.5rem;
+      font-weight: normal;
+    }
+    main > h2 > span {
+      padding: 0.75rem 0.5rem 0.5rem 0.25rem;
+      font-size: 1rem;
+      display: inline;
+      float: right;
+      color: #aaa;
+    }
+    main > section > h3 {
+      font-size: 1.25rem;
+      font-weight: normal;
+      padding: 0;
+      display: inline-block;
+      position: absolute;
+      margin: -2.5rem 0 0 1rem;
+    }
+    main > section > h3::before {
+      content: ' ';
+      background: #fff;
+      left: -1rem;
+      right: -1rem;
+      position: absolute;
+      border-radius: 0 0 0.5rem 0.5rem;
+      margin: 0;
+      height: 1rem;
+      border-bottom: 1px solid #ccc;
+      border-left: 1px solid #ccc;
+      border-right: 1px solid #ccc;
+    top: calc(1rem - 1px);
+    }
+    main > section > h3 > span {
+      position: relative;
+      z-index: 1;
     }
     h1 small,
     h2 small,
@@ -148,9 +189,17 @@
     </header>
     <aside>
       <div>Components</div>
-      <ul id="listComponents"></ul>
+      <ul>
+        <!-- [ListComponents] -->
+      </ul>
       <div>Overlays</div>
-      <ul id="listOverlays"></ul>
+      <ul>
+        <!-- [ListOverlays] -->
+      </ul>
+      <div>Shared</div>
+      <ul>
+        <!-- [ListShared] -->
+      </ul>
     </aside>
     <main>
       <p>This page is generated from <code>npm start</code>. To render only specific components use <code>npm start mdi-button</code>.</p>

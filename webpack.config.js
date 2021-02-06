@@ -1,6 +1,5 @@
 const path = require('path');
 const fs = require('fs');
-//const CopyPlugin = require("copy-webpack-plugin");
 const { read, write } = require('./scripts/utils');
 
 // This will generate individual JS files
@@ -10,6 +9,10 @@ const DIST_DIR = 'dist2';
 
 function dashToCamel(str) {
   return str.replace(/-([a-z])/g, m => m[1].toUpperCase());
+}
+
+function camelToDash(str) {
+  return str.replace(/([a-zA-Z])(?=[A-Z])/g, '$1-').toLowerCase()
 }
 
 let filterComponents = [];
@@ -85,7 +88,7 @@ namespaces.forEach((namespace) => {
           const exampleDir = path.join(examplesDir, example);
           const exInput = path.join(exampleDir, `${example}.ts`);
           inputs.push(exInput);
-          examples.push({ input: exInput, name, example })
+          examples.push({ input: exInput, name, namespace, example })
         });
       }
     } else {
@@ -102,7 +105,28 @@ addEntries(inputs, 'main');
 console.log(`Stats: ${components.length - 1} Components, ${examples.length} Examples`);
 
 console.log(`Writing ${DIST_DIR}/index.html`);
-const index = read('./src/index.html');
+let index = read('./src/index.html');
+
+const exampleHtml = [];
+let prevComp = '';
+examples.forEach(({ input, name, example }) => {
+  // ex x-[mdiButton]-[basicTest] = x-mdi-button-basic-test
+  if (prevComp !== name) {
+    exampleHtml.push('<h2>');
+    exampleHtml.push(camelToDash(name));
+    exampleHtml.push(`<span>component</span>`);
+    exampleHtml.push('</h2>');
+    prevComp = name;
+  }
+  const tag = `x-${camelToDash(name)}-${camelToDash(example)}`;
+  exampleHtml.push('<section>');
+  exampleHtml.push(`<h3><span>${example}</span></h3>`);
+  exampleHtml.push(`<${tag}></${tag}>`);
+  exampleHtml.push('</section>');
+  exampleHtml.push('');
+});
+
+index = index.replace('<!-- [Examples] -->', exampleHtml.join('\n'));
 write(`${DIST_DIR}/index.html`, index);
 
 console.log(`Building...`);

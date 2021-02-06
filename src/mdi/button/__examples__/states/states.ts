@@ -4,10 +4,10 @@ import MdiButton from './../../button';
 import template from './states.html';
 
 @Component({
-  selector: 'x-button-states',
+  selector: 'x-mdi-button-states',
   template
 })
-export default class XButtonStates extends HTMLElement {
+export default class XMdiButtonStates extends HTMLElement {
   @Part() $active: MdiButton;
 
   connectedCallback() {

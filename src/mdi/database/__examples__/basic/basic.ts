@@ -1,58 +1,37 @@
 import { Component, Part, Prop } from '@mdi/element';
+import MdiDatabase from 'mdi/database/database';
+import { Icon } from './../../../shared/models/icon';
 
 import template from './basic.html';
 
 @Component({
-  selector: 'x-database-basic',
+  selector: 'x-mdi-database-basic',
   template
 })
-export default class XDatabaseBasic extends HTMLElement {
-/*
-      // Worker
-      // Build a worker from an anonymous function body
-      var blobURL = URL.createObjectURL( new Blob([ '(',
-      function(){
-        self.onmessage = function(e) {
-          var { icons, term } = e.data;
-          self.postMessage(icons.filter((icon) => {
-            return icon.name === term;
-          }));
-        };
-      }.toString(),
-      ')()' ], { type: 'application/javascript' } ) ),
+export default class XMdiDatabaseBasic extends HTMLElement {
 
-      worker = new Worker( blobURL );
+  @Prop() fontId = 'D051337E-BC7E-11E5-A4E9-842B2B6CFE1B';
 
-      worker.onmessage = function(e) {
-        console.log("Received: ", e.data);
-      }
+  @Part() $database: MdiDatabase;
 
-      // Won't be needing this anymore
-      //URL.revokeObjectURL( blobURL );
-      // Get Data
-      const fontId = 'D051337E-BC7E-11E5-A4E9-842B2B6CFE1B';
-      const database = document.getElementsByTagName('mdi-database')[0];
-      database.addEventListener('sync', async (e) => {
-        const { db } = e.detail;
-        const count = await db.getCount(fontId);
-        console.log('Total Icons', count);
-        const icons = await db.getIcons(fontId);
-        console.log('Icon Objects:', icons.length);
+  @Part() $count: HTMLSpanElement;
+  @Part() $total: HTMLSpanElement;
 
-        worker.postMessage({ icons, term: 'account' });
-        window.getIcons = (count) => {
-          if (count === -1) {
-            return icons;
-          }
-          return icons.slice(0, count);
-        };
-        // Search
-        const search = document.getElementById('search');
-        search.icons = icons;
-        // Init examples with icons
-        document.getElementById('picker1').icons = getIcons(200);
-        iconGrid.basic(10);
-      });
-      database.font = fontId;
-      */
+  icons: Icon[] = [];
+
+  connectedCallback() {
+    this.$database.addEventListener('sync', this.handleSync.bind(this));
+    this.$database.font = this.fontId;
+  }
+
+  async handleSync(e: CustomEvent) {
+    const { db } = e.detail;
+    const count = await db.getCount(this.fontId);
+    this.$count.innerText = count;
+    const icons = await db.getIcons(this.fontId);
+    this.$total.innerText = icons.length;
+
+    // Optionally Cache outide of IndexedDB
+    this.icons = icons;
+  }
 }

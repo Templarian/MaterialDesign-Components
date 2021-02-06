@@ -1,15 +1,15 @@
 import { Component, Part, Prop } from '@mdi/element';
 import MdiAvatar from './../../avatar';
 import { AVATAR } from './constants';
-
-import template from './basic.html';
 import { User } from './../../../shared/models/user';
 
+import template from './basic.html';
+
 @Component({
-  selector: 'x-avatar-basic',
+  selector: 'x-mdi-avatar-basic',
   template
 })
-export default class XAvatarBasic extends HTMLElement {
+export default class XMdiAvatarBasic extends HTMLElement {
   @Part() $avatar1: MdiAvatar;
   @Part() $avatar2: MdiAvatar;
 

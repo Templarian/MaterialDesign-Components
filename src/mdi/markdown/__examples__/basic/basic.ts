@@ -5,10 +5,10 @@ import { example, icons, mdiAlert, mdiVanish } from './constants';
 import template from './basic.html';
 
 @Component({
-  selector: 'x-markdown-basic',
+  selector: 'x-mdi-markdown-basic',
   template
 })
-export default class XMarkdownBasic extends HTMLElement {
+export default class XMdiMarkdownBasic extends HTMLElement {
   @Part() $markdown: MdiMarkdown;
 
   connectedCallback() {

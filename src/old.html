@@ -161,81 +161,6 @@
     <ul id="listOverlays"></ul>
   </aside>
   <main>
-    <p>Use this application <code>index.html</code> to debug components. Along with the examples here components have a seperate documentation readme file in their folder.</p>
-
-    <section>
-      <h2>mdi-annoy</h2>
-
-    </section>
-
-    <section>
-      <h2>mdi-avatar</h2>
-    </section>
-
-    <section>
-      <h2>mdi-button</h2>
-      <x-button-basic></x-button-basic>
-      <x-button-states></x-button-states>
-    </section>
-
-    <section>
-      <h2>mdi-button-link</h2>
-
-    </section>
-
-    <section>
-      <h2>mdi-button-group</h2>
-      <h3>Basic <small>Default</small></h3>
-      <div class="example example-flex">
-        <mdi-button-group>
-          <mdi-button><mdi-icon path="M12,19.2C9.5,19.2 7.29,17.92 6,16C6.03,14 10,12.9 12,12.9C14,12.9 17.97,14 18,16C16.71,17.92 14.5,19.2 12,19.2M12,5A3,3 0 0,1 15,8A3,3 0 0,1 12,11A3,3 0 0,1 9,8A3,3 0 0,1 12,5M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2Z"></mdi-icon></mdi-button>
-          <mdi-button>
-            <mdi-icon path="M12,19.2C9.5,19.2 7.29,17.92 6,16C6.03,14 10,12.9 12,12.9C14,12.9 17.97,14 18,16C16.71,17.92 14.5,19.2 12,19.2M12,5A3,3 0 0,1 15,8A3,3 0 0,1 12,11A3,3 0 0,1 9,8A3,3 0 0,1 12,5M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2Z"></mdi-icon>
-            With Icon
-          </mdi-button>
-          <mdi-button active>
-            active
-          </mdi-button>
-        </mdi-button-group>
-      </div>
-    </section>
-    <script src="mdiButtonGroup.js"></script>
-    <script>
-
-    </script>
-
-    <section>
-      <h2>mdi-button-toggle</h2>
-    </section>
-
-    <section>
-      <h2>mdi-card</h2>
-
-    </section>
-
-<section>
-  <h2>mdi-card-user</h2>
-  <h3>Basic</h3>
-  <div class="example">
-    <mdi-card-user id="cardUser1"></mdi-card-user>
-  </div>
-</section>
-<script src="mdiCardUser.js"></script>
-<script>
-  var cardUser1 = document.getElementById('cardUser1');
-  cardUser1.user = {
-    "id": "c4ea5584-07e3-11e4-bf19-842b2b6cfe1b",
-    "name": "Austin Andrews",
-    "description": "Hello, I am a developer that gets bored and makes icons, then websites for icons, then more icons. Open Source is pretty awesome.",
-    "base64": AVATAR,
-    "github": "Templarian",
-    "twitter": "Templarian",
-    "iconCount": 928,
-    "website": "http:\/\/templarian.com",
-    "sponsored": true,
-    "core": true
-  };
-</script>
 
     <section>
       <h2>mdi-color</h2>
@@ -273,95 +198,6 @@
       </div>
     </section>
     <script src="mdiDropdown.js"></script>
-
-    <section>
-      <h2>mdi-tooltip</h2>
-      <x-tooltip-basic></x-tooltip-basic>
-    </section>
-
-    <section>
-      <h2>mdi-grid</h2>
-      <h3>Basic <small>Icon Grid</small></h3>
-      <p>
-        <button onclick="iconGrid.basic(1)">Render 1</button>
-        <button onclick="iconGrid.basic(10)">Render 10</button>
-        <button onclick="iconGrid.basic(50)">Render 50</button>
-        <button onclick="iconGrid.basic(250)">Render 250</button>
-        <button onclick="iconGrid.basic(-1)">Render 5000+</button>
-      </p>
-      <p>
-        <label>Size (<span id="mdiScrollSizeText">24</span>): <input id="mdiScrollSize" type="range" min="24" max="96" step="4" value="24" /></label>
-        <label>Padding (<span id="mdiScrollPaddingText">8</span>): <input id="mdiScrollPadding" type="range" min="0" max="24" step="2" value="8" /></label>
-        <label>Gap (<span id="mdiScrollGapText">4</span>): <input id="mdiScrollGap" type="range" min="0" max="16" step="2" value="4" /></label>
-      </p>
-      <div class="example">
-        <mdi-grid id="iconGrid1"></mdi-grid>
-      </div>
-    </section>
-    <script src="mdiScroll.js"></script>
-    <script src="mdiGrid.js"></script>
-    <script>
-      var tooltip3 = document.getElementById('tooltip3');
-      document.body.addEventListener('tooltip', (e) => {
-        var { visible, rect, text, position } = e.detail;
-        tooltip3.visible = visible;
-        tooltip3.rect = rect;
-        tooltip3.text = text;
-        tooltip3.position = position;
-      });
-      var ele = document.getElementsByTagName('mdi-grid')[0];
-      tooltip3.style.display = 'none';
-      ele.addEventListener('select', (e) => {
-        var icon = e.detail;
-        alert(icon.name);
-      });
-      ele.addEventListener('entericon', (e) => {
-        var icon = e.detail.icon;
-        console.log('enter', e.detail);
-        var rect = ele.getBoundingClientRect();
-        tooltip3.style.position = 'fixed';
-        tooltip3.style.left = `${e.detail.x}px`;
-        tooltip3.style.top = `${e.detail.y}px`;
-        tooltip3.width = e.detail.width;
-        tooltip3.height = e.detail.height;
-        tooltip3.text = icon.name;
-        tooltip3.style.display = 'block';
-      });
-      ele.addEventListener('leaveicon', (e) => {
-        var icon = e.detail;
-        tooltip3.style.display = 'none';
-        console.log('leave', e.detail);
-      });
-      ele.addEventListener('openmenu', (e) => {
-        var icon = e.detail;
-        console.log(e.detail);
-      });
-      ele.addEventListener('closemenu', (e) => {
-        var icon = e.detail;
-        console.log(e.detail);
-      });
-      var mdiScrollSizeText = document.getElementById('mdiScrollSizeText');
-      document.getElementById('mdiScrollSize').addEventListener('change', (e) => {
-        ele.size = e.target.value;
-        mdiScrollSizeText.innerText = e.target.value;
-      });
-      var mdiScrollPaddingText = document.getElementById('mdiScrollPaddingText');
-      document.getElementById('mdiScrollPadding').addEventListener('change', (e) => {
-        ele.padding = e.target.value;
-        mdiScrollPaddingText.innerText = e.target.value;
-      });
-      var mdiScrollGapText = document.getElementById('mdiScrollGapText');
-      document.getElementById('mdiScrollGap').addEventListener('change', (e) => {
-        ele.gap = e.target.value;
-        mdiScrollGapText.innerText = e.target.value;
-      });
-      window.iconGrid = {
-        basic: (count) => {
-          const element = document.getElementById('iconGrid1');
-          element.icons = getIcons(count);
-        }
-      };
-    </script>
 
     <section>
       <h2>mdi-input-file-local</h2>
@@ -562,20 +398,6 @@
       var select4 = document.getElementById('inputSelectUser4');
       select4.options = options;
     </script>
-
-    <section>
-      <h2>mdi-header</h2>
-      <h3>Basic <small>Main Header</small></h3>
-      <div class="example">
-        <mdi-header
-          logo="M2,2H8V4H16V2H22V8H20V16H22V22H16V20H8V22H2V16H4V8H2V2M16,8V6H8V8H6V16H8V18H16V16H18V8H16M4,4V6H6V4H4M18,4V6H20V4H18M4,18V20H6V18H4M18,18V20H20V18H18Z"
-          name="Material Design Icons">
-          <mdi-search slot="search"></mdi-search>
-          <mdi-nav slot="nav"></mdi-nav>
-        </mdi-nav>
-      </div>
-    </section>
-    <script src="mdiHeader.js"></script>
 
     <section>
       <h2>MdiModalAlert</h2>

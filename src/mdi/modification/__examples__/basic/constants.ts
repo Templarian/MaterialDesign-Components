@@ -14,7 +14,7 @@
 // - IconWorkInProgress
 // - IconLive
 // - IconPublished
-export const modifications = [
+export const modifications: any[] = [
   {
     "id": "3e7a0e1b-b355-11e7-bf5c-94188269ec50",
     "modificationId": "B4DEB3A8-A146-4086-9D7B-B67842A9CCB8",
