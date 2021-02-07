@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('fs');
+const CopyPlugin = require("copy-webpack-plugin");
 const { read, write } = require('./scripts/utils');
 
 // This will generate individual JS files
@@ -130,6 +131,14 @@ index = index.replace('<!-- [Examples] -->', exampleHtml.join('\n'));
 write(`${DIST_DIR}/index.html`, index);
 
 console.log(`Building...`);
+
+entries[entries.length - 1].plugins = [
+  new CopyPlugin({
+    patterns: [
+      { from: "api/", to: `api/` },
+    ],
+  }),
+];
 
 entries[entries.length - 1].devServer = {
   contentBase: path.join(__dirname, DIST_DIR),

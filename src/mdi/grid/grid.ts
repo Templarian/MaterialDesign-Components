@@ -10,6 +10,13 @@ import style from './grid.css';
 
 declare const ResizeObserver;
 
+const KEY = {
+  ArrowUp: 'ArrowUp',
+  ArrowRight: 'ArrowRight',
+  ArrowDown: 'ArrowDown',
+  ArrowLeft: 'ArrowLeft'
+}
+
 interface MouseMeta {
   gridX: number,
   gridY: number,
@@ -300,6 +307,7 @@ export default class MdiGrid extends HTMLElement {
     return Math.floor(w / rowHeight);
   }
 
+  // bug 16px height when 0 icons
   render(changes) {
     // Calculate Icon Size
     const { size, padding, gap, rowHeight, scrollWidth } = this.getIconMetrics();
@@ -322,31 +330,30 @@ export default class MdiGrid extends HTMLElement {
   }
 
   moveFocus(e: KeyboardEvent, index: number) {
-    console.log(e.which, index);
     let newIndex;
-    switch (e.which) {
-      case 37:
+    switch (e.key) {
+      case KEY.ArrowLeft:
         newIndex = index - 1;
         if (newIndex >= 0) {
           this.items[newIndex][0].focus();
           e.preventDefault();
         }
         break;
-      case 38:
+      case KEY.ArrowUp:
         newIndex = index - this.columns;
         if (newIndex >= 0) {
           this.items[newIndex][0].focus();
           e.preventDefault();
         }
         break;
-      case 39:
+      case KEY.ArrowRight:
         newIndex = index + 1;
         if (newIndex < this.icons.length) {
           this.items[newIndex][0].focus();
           e.preventDefault();
         }
         break;
-      case 40:
+      case KEY.ArrowDown:
         newIndex = index + this.columns;
         if (newIndex < this.icons.length) {
           this.items[newIndex][0].focus();

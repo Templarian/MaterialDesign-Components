@@ -1,4 +1,5 @@
 <h3>Basic <small>Icon Grid</small></h3>
+<mdi-tooltip part="tooltip"></mdi-tooltip>
 <p>
   <button part="button1">Render 1</button>
   <button part="button10">Render 10</button>
@@ -8,19 +9,19 @@
 </p>
 <p>
   <label>
-    Size (<span part="mdiScrollSizeText">24</span>):
-    <input part="mdiScrollSize" type="range" min="24" max="96" step="4" value="24" />
+    Size (<span part="sizeText">24</span>):
+    <input part="size" type="range" min="24" max="96" step="4" value="24" />
   </label>
   <label>
-    Padding (<span part="mdiScrollPaddingText">8</span>):
-    <input part="mdiScrollPadding" type="range" min="0" max="24" step="2" value="8" />
+    Padding (<span part="paddingText">8</span>):
+    <input part="padding" type="range" min="0" max="24" step="2" value="8" />
   </label>
   <label>
-    Gap (<span part="mdiScrollGapText">4</span>):
-    <input part="mdiScrollGap" type="range" min="0" max="16" step="2" value="4" />
+    Gap (<span part="gapText">4</span>):
+    <input part="gap" type="range" min="0" max="16" step="2" value="4" />
   </label>
 </p>
 <div class="example">
   <mdi-database part="database"></mdi-database>
-  <mdi-grid part="iconGrid1"></mdi-grid>
+  <mdi-grid part="grid"></mdi-grid>
 </div>

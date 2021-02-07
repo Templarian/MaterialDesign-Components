@@ -1,5 +1,6 @@
 import { Component, Part, Prop } from '@mdi/element';
 import MdiDatabase from 'mdi/database/database';
+import MdiTooltip from 'mdi/tooltip';
 import { Icon } from './../../../shared/models/icon';
 import MdiGrid from './../../grid';
 
@@ -19,16 +20,17 @@ export default class XMdiGridBasic extends HTMLElement {
   @Part() $button250: HTMLButtonElement;
   @Part() $buttonAll: HTMLButtonElement;
 
-  @Part() $mdiScrollSizeText: HTMLSpanElement;
-  @Part() $mdiScrollPaddingText: HTMLSpanElement;
-  @Part() $mdiScrollGapText: HTMLSpanElement;
+  @Part() $sizeText: HTMLSpanElement;
+  @Part() $paddingText: HTMLSpanElement;
+  @Part() $gapText: HTMLSpanElement;
 
-  @Part() $mdiScrollSize: HTMLInputElement;
-  @Part() $mdiScrollPadding: HTMLInputElement;
-  @Part() $mdiScrollGap: HTMLInputElement;
+  @Part() $size: HTMLInputElement;
+  @Part() $padding: HTMLInputElement;
+  @Part() $gap: HTMLInputElement;
 
   @Part() $database: MdiDatabase;
-  @Part() $iconGrid1: MdiGrid;
+  @Part() $grid: MdiGrid;
+  @Part() $tooltip: MdiTooltip;
 
   icons: Icon[] = [];
 
@@ -48,16 +50,30 @@ export default class XMdiGridBasic extends HTMLElement {
     this.$buttonAll.addEventListener('click', () => {
       this.setIcons(-1);
     });
+    this.$size.addEventListener('input', this.handleSize.bind(this));
+    this.$padding.addEventListener('input', this.handlePadding.bind(this));
+    this.$gap.addEventListener('input', this.handleGap.bind(this));
 
     this.$database.addEventListener('sync', this.handleSync.bind(this));
     this.$database.font = this.fontId;
+
+    this.addEventListener('tooltip', this.handleTooltip.bind(this));
+  }
+
+  handleTooltip(e) {
+    const { visible, rect, text, position } = e.detail;
+    this.$tooltip.visible = visible;
+    this.$tooltip.rect = rect;
+    this.$tooltip.text = text;
+    this.$tooltip.position = position;
+    e.stopPropagation();
   }
 
   setIcons(count: number) {
     if (count === -1) {
-      this.$iconGrid1.icons = this.icons;
+      this.$grid.icons = this.icons;
     }
-    this.$iconGrid1.icons = this.icons.slice(0, count);
+    this.$grid.icons = this.icons.slice(0, count);
   }
 
   async handleSync(e: CustomEvent) {
@@ -69,17 +85,23 @@ export default class XMdiGridBasic extends HTMLElement {
     this.icons = icons;
     this.setIcons(10);
   }
+
+  handleSize(e) {
+    this.$grid.size = e.target.value;
+    this.$sizeText.innerText = e.target.value;
+  }
+
+  handlePadding(e) {
+    this.$grid.padding = e.target.value;
+    this.$paddingText.innerText = e.target.value;
+  }
+
+  handleGap(e) {
+    this.$grid.gap = e.target.value;
+    this.$gapText.innerText = e.target.value;
+  }
+
 /*
-var tooltip3 = document.getElementById('tooltip3');
-      document.body.addEventListener('tooltip', (e) => {
-        var { visible, rect, text, position } = e.detail;
-        tooltip3.visible = visible;
-        tooltip3.rect = rect;
-        tooltip3.text = text;
-        tooltip3.position = position;
-      });
-      var ele = document.getElementsByTagName('mdi-grid')[0];
-      tooltip3.style.display = 'none';
       ele.addEventListener('select', (e) => {
         var icon = e.detail;
         alert(icon.name);
@@ -109,26 +131,5 @@ var tooltip3 = document.getElementById('tooltip3');
         var icon = e.detail;
         console.log(e.detail);
       });
-      var mdiScrollSizeText = document.getElementById('mdiScrollSizeText');
-      document.getElementById('mdiScrollSize').addEventListener('change', (e) => {
-        ele.size = e.target.value;
-        mdiScrollSizeText.innerText = e.target.value;
-      });
-      var mdiScrollPaddingText = document.getElementById('mdiScrollPaddingText');
-      document.getElementById('mdiScrollPadding').addEventListener('change', (e) => {
-        ele.padding = e.target.value;
-        mdiScrollPaddingText.innerText = e.target.value;
-      });
-      var mdiScrollGapText = document.getElementById('mdiScrollGapText');
-      document.getElementById('mdiScrollGap').addEventListener('change', (e) => {
-        ele.gap = e.target.value;
-        mdiScrollGapText.innerText = e.target.value;
-      });
-      window.iconGrid = {
-        basic: (count) => {
-          const element = document.getElementById('iconGrid1');
-          element.icons = getIcons(count);
-        }
-      };
 */
 }
