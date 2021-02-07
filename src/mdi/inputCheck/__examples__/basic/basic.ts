@@ -9,11 +9,11 @@ import template from './basic.html';
 })
 export default class XMdiInputCheckBasic extends HTMLElement {
 
-  @Prop() $input1: MdiInputCheck;
-  @Prop() $value: HTMLSpanElement;
+  @Part() $input: MdiInputCheck;
+  @Part() $value: HTMLSpanElement;
 
   connectedCallback() {
-    this.$input1.addEventListener('change', this.handleChange.bind(this));
+    this.$input.addEventListener('change', this.handleChange.bind(this));
   }
 
   handleChange(e) {
