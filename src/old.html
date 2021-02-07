@@ -163,61 +163,6 @@
   <main>
 
     <section>
-      <h2>mdi-color</h2>
-      <h3>Basic <small>Color</small></h3>
-      <div class="example">
-        <mdi-color id="color1" value="#000"></mdi-color>
-        <code>Selected: <span id="colorSelected"></span></code>
-      </div>
-    </section>
-    <script src="mdiColor.js"></script>
-    <script>
-      document.getElementById('color1').addEventListener('select', (e) => {
-        const { rgb, hex } = e.detail;
-        document.getElementById('colorSelected').innerText =
-          `${hex} or rgba(${rgb.r}, ${rgb.g}, ${rgb.b})`;
-      });
-    </script>
-
-    <section>
-      <h2>mdi-dropdown</h2>
-      <h3>Basic <small>Dropdown</small></h3>
-      <div class="example">
-        <mdi-dropdown>
-          <button>Click Me</button>
-          <div slot="popover">
-            Render anything inside...
-          </div>
-        </mdi-dropdown>
-        <mdi-dropdown>
-          <a href="/">Click Me</a>
-          <div slot="popover">
-            Render anything inside...
-          </div>
-        </mdi-dropdown>
-      </div>
-    </section>
-    <script src="mdiDropdown.js"></script>
-
-    <section>
-      <h2>mdi-input-file-local</h2>
-      <h3>Basic <small>Value</small></h3>
-      <div class="example">
-        <mdi-input-file-local id="inputFileLocal1" accepts-file-type="svg"></mdi-input-file-local>
-        <code>onchange: <span id="inputFileLocalValue1"></span></code>
-      </div>
-    </section>
-    <script src="mdiInputFileLocal.js"></script>
-    <script>
-      document.getElementById('inputFileLocal1').addEventListener('change', (e) => {
-        var value = e.detail.value;
-        var name = e.detail.name;
-        document.getElementById('inputFileLocalValue1').innerText =
-          `${name} - ${value}`;
-      });
-    </script>
-
-    <section>
       <h2>mdi-input-check</h2>
       <h3>Basic <small>Value</small></h3>
       <div class="example">
@@ -265,29 +210,6 @@
     </script>
 
     <section>
-      <h2>mdi-input-text</h2>
-      <h3>Basic <small>Value</small></h3>
-      <div class="example">
-        <mdi-input-text id="input1" value="Hello World!"></mdi-input-text>
-        <code>onchange: <span id="inputValue1"></span></code>
-        <code>oninput: <span id="inputValue2"></span></code>
-      </div>
-    </section>
-    <script src="mdiInputText.js"></script>
-    <script>
-      document.getElementById('input1').addEventListener('change', (e) => {
-        var value = e.target.value;
-        document.getElementById('inputValue1').innerText =
-          `${value}`;
-      });
-      document.getElementById('input1').addEventListener('input', (e) => {
-        var value = e.target.value;
-        document.getElementById('inputValue2').innerText =
-          `${value}`;
-      });
-    </script>
-
-    <section>
       <h2>mdi-input-text-icon</h2>
       <h3>Basic <small>Value</small></h3>
       <div class="example">
@@ -299,61 +221,6 @@
 
     </script>
 
-    <section>
-      <h2>mdi-input-hex-rgb</h2>
-      <h3>Basic <small>Value</small></h3>
-      <div class="example">
-        <mdi-input-hex-rgb id="inputHexRgb1" value="#000000"></mdi-input-hex-rgb>
-        <code>Selected: <span id="inputHexRgbValue1"></span></code>
-      </div>
-    </section>
-    <script src="mdiInputHexRgb.js"></script>
-    <script>
-      document.getElementById('inputHexRgb1').addEventListener('change', (e) => {
-        var hex = e.target.value;
-        document.getElementById('inputHexRgbValue1').innerText =
-          `${hex}`;
-      });
-    </script>
-
-    <section>
-      <h2>mdi-input-range</h2>
-      <h3>Basic <small>Value</small></h3>
-      <div class="example">
-        <mdi-input-range id="inputRange1" value="50"></mdi-input-range>
-        <code>Selected: <span id="inputRangeValue1"></span></code>
-      </div>
-    </section>
-    <script src="mdiColor.js"></script>
-    <script>
-      document.getElementById('inputRange1').addEventListener('change', (e) => {
-        var value = e.target.value;
-      });
-    </script>
-
-    <section>
-      <h2>mdi-input-select</h2>
-      <h3>Basic</h3>
-      <div class="example">
-        <mdi-input-select id="inputSelect1"></mdi-input-select>
-        <code>Selected: <span id="inputSelectValue1"></span></code>
-      </div>
-    </section>
-    <script src="mdiInputSelect.js"></script>
-    <script>
-      var select = document.getElementById('inputSelect1');
-      select.options = [
-        { label: 'Option 1', value: 'option1' },
-        { label: 'Option 2', value: 'option2' },
-        { label: 'Option 3', value: 'option3' },
-        { label: 'Option 4', value: 'option4' }
-      ];
-      select.value = select.options[1].value;
-      document.getElementById('inputSelect1').addEventListener('change', (e) => {
-        var value = e.target.value;
-        document.getElementById('inputSelectValue1').innerText = `${value}`;
-      });
-    </script>
 
     <section>
       <h2>mdi-input-user-select</h2>

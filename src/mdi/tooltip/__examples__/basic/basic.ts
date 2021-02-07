@@ -5,11 +5,11 @@ import template from './basic.html';
 import style from './basic.css';
 
 @Component({
-  selector: 'x-tooltip-basic',
+  selector: 'x-mdi-tooltip-basic',
   template,
   style
 })
-export default class XTooltipBasic extends HTMLElement {
+export default class XMdiTooltipBasic extends HTMLElement {
 
   @Part() $tooltip1: MdiTooltip;
   @Part() $tooltip2: MdiTooltip;

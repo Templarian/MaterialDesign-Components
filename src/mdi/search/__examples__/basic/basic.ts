@@ -4,10 +4,10 @@ import MdiSearch from './../../search';
 import template from './basic.html';
 
 @Component({
-  selector: 'x-search-basic',
+  selector: 'x-mdi-search-basic',
   template
 })
-export default class XSearchBasic extends HTMLElement {
+export default class XMdiSearchBasic extends HTMLElement {
   @Part() $search: MdiSearch;
 
   connectedCallback() {
