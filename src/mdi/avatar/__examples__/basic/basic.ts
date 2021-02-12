@@ -1,5 +1,6 @@
 import { Component, Part, Prop } from '@mdi/element';
 import MdiAvatar from './../../avatar';
+import MdiTooltip from './../../../tooltip';
 import { AVATAR } from './constants';
 import { User } from './../../../shared/models/user';
 
@@ -10,6 +11,8 @@ import template from './basic.html';
   template
 })
 export default class XMdiAvatarBasic extends HTMLElement {
+
+  @Part() $tooltip: MdiTooltip;
   @Part() $avatar1: MdiAvatar;
   @Part() $avatar2: MdiAvatar;
 
@@ -24,5 +27,15 @@ export default class XMdiAvatarBasic extends HTMLElement {
       github: 'Templarian',
       name: 'Austin Andrews'
     } as any);
+    this.addEventListener('tooltip', this.handleTooltip.bind(this));
+  }
+
+  handleTooltip(e) {
+    const { visible, rect, text, position } = e.detail;
+    this.$tooltip.visible = visible;
+    this.$tooltip.rect = rect;
+    this.$tooltip.text = text;
+    this.$tooltip.position = position;
+    e.stopPropagation();
   }
 }

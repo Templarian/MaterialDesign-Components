@@ -303,11 +303,11 @@ export default class MdiGrid extends HTMLElement {
   }
 
   calculateColumns(width, rowHeight) {
-    let w = width - this.currentGap;
-    return Math.floor(w / rowHeight);
+    const actualWidth = width - this.currentGap;
+    const columns = Math.floor(actualWidth / rowHeight);
+    return columns > 0 ? columns : 1;
   }
 
-  // bug 16px height when 0 icons
   render(changes) {
     // Calculate Icon Size
     const { size, padding, gap, rowHeight, scrollWidth } = this.getIconMetrics();
@@ -324,9 +324,15 @@ export default class MdiGrid extends HTMLElement {
     }
     // Virtual Grid
     const count = this.icons.length;
-    const rows = Math.ceil(count / this.columns);
-    this.currentRow = -1;
-    this.$scroll.height = gap + (rows * rowHeight);
+    if (count) {
+      const rows = Math.ceil(count / this.columns);
+      this.currentRow = -1;
+      console.log('---', gap + (rows * rowHeight));
+      console.log('init', this.$scroll.height)
+      this.$scroll.setAttribute('height', (gap + (rows * rowHeight)).toString());
+    } else {
+      this.$scroll.setAttribute('height', '0');
+    }
   }
 
   moveFocus(e: KeyboardEvent, index: number) {

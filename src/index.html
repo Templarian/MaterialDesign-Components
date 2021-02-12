@@ -104,17 +104,49 @@
       margin-top: 2rem;
     }
     main > h2 {
+      position: relative;
       margin: 1.5rem 0 0.5rem 0;
       border-bottom: 1px solid #ddd;
       padding-bottom: 0.5rem;
       font-size: 1.5rem;
       font-weight: normal;
     }
+    main > h2 > a > svg {
+      width: 24px;
+      height: 24px;
+      vertical-align: middle;
+      margin-top: -2px;
+    }
+    main > h2 > button {
+      margin: 0;
+      border-radius: 0.25rem 0.25rem 0 0;
+      border: 1px solid #ccc;
+      background: #fff;
+      padding: 0.25rem 0.5rem;
+      position: absolute;
+      bottom: -1px;
+      right: 0.5rem;
+      color: #453C4F;
+    }
+    main > h2 > button:hover {
+      background: #453C4F;
+      border-top-color: #453C4F;
+      border-right-color: #453C4F;
+      border-bottom-color: #fff;
+      border-left-color: #453C4F;
+    }
+    main > h2 > button > svg {
+      width: 24px;
+      height: 24px;
+      vertical-align: middle;
+    }
+    main > h2 > button:hover > svg {
+      color: #fff;
+    }
     main > h2 > span {
       padding: 0.75rem 0.5rem 0.5rem 0.25rem;
       font-size: 1rem;
       display: inline;
-      float: right;
       color: #aaa;
     }
     main > section > h3 {

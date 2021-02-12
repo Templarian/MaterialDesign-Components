@@ -2,8 +2,9 @@ import { Component, Prop, Part, Local } from '@mdi/element';
 
 import template from './menuIcon.html';
 import style from './menuIcon.css'
-import { copyText } from './../shared/copy';
+import { copyText, getCopySvgInline } from './../shared/copy';
 import { addInfoToast } from './../shared/toast';
+import { Icon } from './../shared/models/icon';
 
 @Component({
   selector: 'mdi-menu-icon',
@@ -40,7 +41,11 @@ export default class MdiMenuIcon extends HTMLElement {
   @Local('#000000') cachePngColor: string;
   @Local('24') cachePngSize: string;
   @Local('#000000') cacheSvgColor: string;
-/*
+
+  color = 'svg';
+  @Prop() currentIndex: 0;
+  @Prop() icon: Icon = new Icon();
+
   connectedCallback() {
     // Wire Up Context Menu
     this.$copyIconName.addEventListener('click', this.handleCopyIconName.bind(this));
@@ -133,7 +138,7 @@ export default class MdiMenuIcon extends HTMLElement {
       alert(`SVG ${this.cachePngSize} ${this.cachePngColor}`);
     });
     this.$copySvgInline.addEventListener('click', () => {
-      const icon = this.icons[this.currentIndex];
+      const icon = this.icon;
       copyText(getCopySvgInline(icon));
       this.hideContextMenu();
       addInfoToast(`Copied inline SVG "${icon.name}" to clipboard.`);
@@ -156,15 +161,21 @@ export default class MdiMenuIcon extends HTMLElement {
   }
 
   handleCopyIconName() {
-    const icon = this.icons[this.currentIndex];
-    copyText(icon.name);
-    addInfoToast(`Copied "${icon.name}" to clipboard.`);
+    const icon = this.icon;
+    if (icon && icon.name) {
+      copyText(icon.name);
+      addInfoToast(`Copied "${icon.name}" to clipboard.`);
+    }
     this.hideContextMenu();
+  }
+
+  hideContextMenu() {
+
   }
 
   showContextMenu(index: number, x: number, y: number) {
     this.dispatchEvent(new CustomEvent('closemenu'));
-    const gridRect = this.$grid.getBoundingClientRect();
+    /*const gridRect = this.$grid.getBoundingClientRect();
     const cmRect = this.$contextMenu.getBoundingClientRect();
     if (y + gridRect.top + cmRect.height + 4 > window.innerHeight
       && x + gridRect.left + cmRect.width + 24 > window.innerWidth) {
@@ -198,7 +209,7 @@ export default class MdiMenuIcon extends HTMLElement {
     }
     this.preventClose = false;
     document.addEventListener('mousedown', handleMouseDown);
-    this.$color.style.visibility = 'hidden';
+    this.$color.style.visibility = 'hidden';*/
   }
 
   render() {
@@ -256,6 +267,5 @@ export default class MdiMenuIcon extends HTMLElement {
       this.$svgColor.style.color = 'transparent';
     }
   }
-  */
 
 }
