@@ -44,6 +44,7 @@ export default class MdiGrid extends HTMLElement {
   @Prop() width: string = 'auto';
   @Prop() height: string = 'auto';
 
+  @Part() $none: HTMLDivElement;
   @Part() $scroll: MdiScroll;
   @Part() $grid: HTMLDivElement;
 

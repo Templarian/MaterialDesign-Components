@@ -14,6 +14,7 @@ export default class XMdiGridBasic extends HTMLElement {
 
   @Prop() fontId = 'D051337E-BC7E-11E5-A4E9-842B2B6CFE1B';
 
+  @Part() $button0: HTMLButtonElement;
   @Part() $button1: HTMLButtonElement;
   @Part() $button10: HTMLButtonElement;
   @Part() $button50: HTMLButtonElement;
@@ -35,6 +36,9 @@ export default class XMdiGridBasic extends HTMLElement {
   icons: Icon[] = [];
 
   connectedCallback() {
+    this.$button0.addEventListener('click', () => {
+      this.setIcons(0);
+    });
     this.$button1.addEventListener('click', () => {
       this.setIcons(1);
     });

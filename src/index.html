@@ -33,7 +33,7 @@
       display: flex;
       grid-row: 1;
       grid-column: 1 / span 2;
-      background: #414F56;
+      background: #453C4F;
       color: #FFF;
       align-items: center;
     }
@@ -62,23 +62,10 @@
       list-style: none;
       padding: 0 0 0 0.5rem;
       line-height: 1.5rem;
+      margin: 0.5rem 0;
     }
     aside > ul > li {
       margin-bottom: 0.25rem;
-    }
-    aside a::before {
-      content: ' ';
-      position: absolute;
-      width: 1rem;
-      left: -1.5rem;
-      top: 0;
-      bottom: 0;
-      border-radius: 0 0.125rem 0.125rem 0;
-      background: rgba(65, 79, 86, 0.3);
-    }
-
-    aside a:hover::before {
-      background: rgba(65, 79, 86, 0.5);
     }
 
     aside a {
@@ -111,6 +98,16 @@
       font-size: 1.5rem;
       font-weight: normal;
     }
+    main > h2.open {
+      border-bottom: none;
+    }
+    main > h2 > a {
+      text-decoration: none;
+      color: #aaa;
+    }
+    main > h2 > a:hover {
+      color: #453C4F;
+    }
     main > h2 > a > svg {
       width: 24px;
       height: 24px;
@@ -127,27 +124,55 @@
       bottom: -1px;
       right: 0.5rem;
       color: #453C4F;
+      outline: none;
     }
+    main > h2 > button.active,
     main > h2 > button:hover {
       background: #453C4F;
       border-top-color: #453C4F;
       border-right-color: #453C4F;
-      border-bottom-color: #fff;
+      border-bottom-color: transparent;
       border-left-color: #453C4F;
+      color: #fff;
     }
     main > h2 > button > svg {
       width: 24px;
       height: 24px;
       vertical-align: middle;
     }
-    main > h2 > button:hover > svg {
-      color: #fff;
+    main > h2 > button + span.line {
+      display: none;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -0.25rem;
+      height: 0.25rem;
+      background: transparent;
+      transition: background-color linear 0.2s;
     }
-    main > h2 > span {
+    main > h2 > button:not(.active):hover + span.line {
+      display: block;
+      background: #453C4F;
+    }
+    main > h2 > span.label {
       padding: 0.75rem 0.5rem 0.5rem 0.25rem;
       font-size: 1rem;
       display: inline;
       color: #aaa;
+      position: absolute;
+      right: 4rem;
+    }
+    main > div.markdown {
+      display: none;
+    }
+    main > div.markdown > *:first-child {
+      border: 0.25rem solid #453C4F;
+      margin-top: -0.5rem;
+      padding: 0 1rem;
+      border-radius: 0.5rem;
+    }
+    main > div.markdown.show {
+      display: block;
     }
     main > section > h3 {
       font-size: 1.25rem;
@@ -211,6 +236,28 @@
 </head>
 
 <body>
+  <script>
+    var markdownCache = {};
+    function markdown(name, text) {
+      var h2 = document.getElementById(`${name}H2`);
+      var readme = document.getElementById(`${name}Readme`);
+      var container = document.getElementById(`${name}Container`);
+      readme.addEventListener('click', function () {
+        // Create
+        if (!(name in markdownCache)) {
+          var element = document.createElement('mdi-markdown');
+          container.appendChild(element);
+          element.text = text;
+          markdownCache[name] = false;
+        }
+        // Flip
+        markdownCache[name] = !markdownCache[name];
+        h2.classList.toggle('open', markdownCache[name]);
+        readme.classList.toggle('active', markdownCache[name]);
+        container.classList.toggle('show', markdownCache[name]);
+      });
+    }
+  </script>
   <div class="wrapper">
     <header>
       <svg viewBox="0 0 24 24">

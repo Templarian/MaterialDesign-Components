@@ -17,6 +17,7 @@
     "@mdi/element": "0.0.20",
     "@popperjs/core": "^2.6.0",
     "dexie": "^3.0.3",
+    "extra-watch-webpack-plugin": "^1.0.3",
     "js-yaml": "^4.0.0",
     "lodash-es": "^4.17.20",
     "prismjs": "^1.23.0",
