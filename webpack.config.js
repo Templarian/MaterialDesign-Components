@@ -8,9 +8,6 @@ const {
 } = require('./scripts/utils');
 const { createIndex } = require('./scripts/createIndex');
 
-// This will generate individual JS files
-const DIST_COMPONENTS = false;
-const IS_DEV = true;
 const DIST_DIR = 'dist';
 
 let filterComponents = [];
@@ -40,12 +37,10 @@ components.forEach(({ input, examples }) => {
 
 module.exports = (env, argv) => {
   const entries = [];
-  if (argv.mode === 'production') {
-    console.log('production');
-  }
+  const mode = argv.mode === 'production' ? 'production' : 'development';
   function addEntries(input, name) {
     entries.push({
-      mode: IS_DEV ? 'development' : 'production',
+      mode: mode,
       entry: input,
       module: {
         rules: [
@@ -73,11 +68,11 @@ module.exports = (env, argv) => {
     });
   }
 
-  if (DIST_COMPONENTS) {
+  /* if (mode === 'production') {
     components.forEach(({ input, name }) => {
       addEntries(input, name);
     });
-  }
+  } */
   addEntries(inputs, 'main');
   // Output Basic Runtime
   console.log(`Stats: ${components.length - 1} Components`);
@@ -94,7 +89,7 @@ module.exports = (env, argv) => {
             components.filter(({ name }) => {
               return !(filterComponents.length && !filterComponents.includes(name));
             }),
-            'production'
+            mode
           );
         });
       }

@@ -1,12 +1,14 @@
 {
   "private": true,
   "name": "@mdi/components",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "license": "MIT",
   "author": "Austin Andrews",
   "scripts": {
     "start": "cross-env NODE_OPTIONS=--max_old_space_size=8192 webpack serve",
     "build": "cross-env NODE_OPTIONS=--max_old_space_size=8192 webpack --mode=production",
+    "publish": "node ./scripts/publish.js && cd publish && npm run build",
+    "build2": "cross-env NODE_OPTIONS=--max_old_space_size=8192 webpack --mode=production",
     "test": "jest --no-cache"
   },
   "repository": {
