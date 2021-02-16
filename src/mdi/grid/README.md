@@ -2,11 +2,26 @@
 
 The `mdi-grid` component allows a standard way to render a configurable grid of icons.
 
+- Performance
+  - Two events are used to track all interactions
+    - `mousemove` tracks mouse within the grid
+    - `mouseleave` tracks mouse leaving grid
+    - When icons are added or removed this means no dom events are binded
+  - Virtual icon grid
+    - Grid height is calculated based on icons present and dynamic container width
+    - Debounced `300` for resize of grid
+- Size
+  - `mdi-scroll` is the only dependency
+    - Grid tests can handle grid specific logic
+    - Complex viewport and overflow container logic is centralized
+  - Tooltips and other interacts are handled via events
+    - Allows more customization in other use cases
+
 > Note: Context menus and tooltips can be triggered with events described below. These are outside of the component so they can be rendered elsewhere in the DOM.
 
 ```typescript
-import '@mdi/components/mdiGrid.js';
-import MdiGrid from '@mdi/components/mdiGrid.js';
+import '@mdi/components/mdiGrid';
+import MdiGrid from '@mdi/components/mdiGrid';
 ```
 
 ```html
@@ -26,7 +41,7 @@ import MdiGrid from '@mdi/components/mdiGrid.js';
 
 ### `icons`
 
-The minimal data set must contain the `name` and `data` field.
+The minimal data set must contain the `id`, `name` and `data` field.
 
 ```json
 [{

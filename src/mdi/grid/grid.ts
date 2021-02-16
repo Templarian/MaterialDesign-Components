@@ -92,6 +92,7 @@ export default class MdiGrid extends HTMLElement {
     var rect = (e.target as any).getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
+    console.log(x, y);
     const column = this.getColumnFromX(x, width, gap, extra);
     const row = this.getRowFromY(y, height, gap, extra);
     const index = column !== -1 && row !== -1 ? column + (row * this.columns) : -1;
@@ -237,6 +238,7 @@ export default class MdiGrid extends HTMLElement {
     } = this.getIconMetrics();
     let x = gap;
     let y = gap;
+    // todo reverse the code above to get the columnIndex
     this.items.forEach(([btn, svg], i) => {
       btn.style.padding = `${padding}px`;
       btn.style.width = `${width}px`;
@@ -332,8 +334,9 @@ export default class MdiGrid extends HTMLElement {
       console.log('init', this.$scroll.height)
       this.$scroll.setAttribute('height', (gap + (rows * rowHeight)).toString());
     } else {
-      this.$scroll.setAttribute('height', '0');
+      this.$scroll.setAttribute('height', '0')
     }
+    this.$none.classList.toggle('show', count === 0);
   }
 
   moveFocus(e: KeyboardEvent, index: number) {
