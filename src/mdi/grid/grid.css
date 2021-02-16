@@ -6,6 +6,14 @@
   display: block;
 }
 
+[part~=none] {
+  display: none;
+}
+
+[part~=none].show {
+  display: block;
+}
+
 [part~=grid] {
   position: relative;
 }

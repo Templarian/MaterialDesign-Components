@@ -1,16 +1,16 @@
 import { Component, Prop, Part } from '@mdi/element';
 
-import template from './icon.html';
-import style from './icon.css';
+import template from './tabs.html';
+import style from './tabs.css';
 
 const noIcon = 'M0 0h24v24H0V0zm2 2v20h20V2H2z';
 
 @Component({
-  selector: 'mdi-icon',
+  selector: 'mdi-tabs',
   style,
   template
 })
-export default class MdiIcon extends HTMLElement {
+export default class MdiTabs extends HTMLElement {
   @Prop() path: string = noIcon;
 
   @Part() $path: SVGPathElement;

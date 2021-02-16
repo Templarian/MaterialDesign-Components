@@ -11,12 +11,13 @@ The website is made of many components, view the `src/mdi` folder to see the sou
 
 ## Contribute to this Project
 
-To run the application locally use the following NPM commands.
+To run the demo application locally use the following NPM commands.
 
 ```bash
 npm install
 npm test
 npm start
+# npm start [mdiButton|mdi-button]
 ```
 
 Open http://localhost:8080 (port could vary)

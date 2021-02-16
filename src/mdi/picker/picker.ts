@@ -13,7 +13,7 @@ window.process = { env: {} } as any;
   style,
   template
 })
-export default class MdiPicker extends MdiButton {
+export default class MdiPicker extends HTMLElement { // extends MdiButton = bug in parent symbol
   @Prop() icons: any[] = [];
 
   @Part() $popover: HTMLDivElement;
@@ -24,7 +24,7 @@ export default class MdiPicker extends MdiButton {
 
   isVisible = false;
   connectedCallback() {
-    createPopper(this.$button, this.$popover, {
+    /*createPopper(this.$button, this.$popover, {
       placement: 'bottom-start',
       modifiers: [
         {
@@ -53,7 +53,7 @@ export default class MdiPicker extends MdiButton {
     this.$search.addEventListener('input', (e: any) => {
       this.search = e.target.value;
       this.render();
-    });
+    });*/
   }
 
   search: string = '';

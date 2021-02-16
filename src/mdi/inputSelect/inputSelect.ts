@@ -16,6 +16,7 @@ interface InputSelectItem {
 export default class MdiInputSelect extends HTMLElement {
   @Prop() options: InputSelectItem[] = [];
   @Prop() value: string;
+  @Prop() name: string = '';
 
   @Part() $select: HTMLSelectElement;
 
@@ -36,5 +37,21 @@ export default class MdiInputSelect extends HTMLElement {
         this.$select.value = this.value;
       }
     }
+  }
+
+  connectedCallback() {
+    this.$select.addEventListener('change', this.handleSelect.bind(this));
+  }
+
+  handleSelect(e) {
+    const { value } = e.target;
+    this.dispatchEvent(
+      new CustomEvent('change', {
+        detail: {
+          value,
+          name: this.name
+        }
+      })
+    )
   }
 }

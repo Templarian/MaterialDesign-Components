@@ -10,6 +10,13 @@ import style from './grid.css';
 
 declare const ResizeObserver;
 
+const KEY = {
+  ArrowUp: 'ArrowUp',
+  ArrowRight: 'ArrowRight',
+  ArrowDown: 'ArrowDown',
+  ArrowLeft: 'ArrowLeft'
+}
+
 interface MouseMeta {
   gridX: number,
   gridY: number,
@@ -37,6 +44,7 @@ export default class MdiGrid extends HTMLElement {
   @Prop() width: string = 'auto';
   @Prop() height: string = 'auto';
 
+  @Part() $none: HTMLDivElement;
   @Part() $scroll: MdiScroll;
   @Part() $grid: HTMLDivElement;
 
@@ -84,6 +92,7 @@ export default class MdiGrid extends HTMLElement {
     var rect = (e.target as any).getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
+    console.log(x, y);
     const column = this.getColumnFromX(x, width, gap, extra);
     const row = this.getRowFromY(y, height, gap, extra);
     const index = column !== -1 && row !== -1 ? column + (row * this.columns) : -1;
@@ -229,6 +238,7 @@ export default class MdiGrid extends HTMLElement {
     } = this.getIconMetrics();
     let x = gap;
     let y = gap;
+    // todo reverse the code above to get the columnIndex
     this.items.forEach(([btn, svg], i) => {
       btn.style.padding = `${padding}px`;
       btn.style.width = `${width}px`;
@@ -296,8 +306,9 @@ export default class MdiGrid extends HTMLElement {
   }
 
   calculateColumns(width, rowHeight) {
-    let w = width - this.currentGap;
-    return Math.floor(w / rowHeight);
+    const actualWidth = width - this.currentGap;
+    const columns = Math.floor(actualWidth / rowHeight);
+    return columns > 0 ? columns : 1;
   }
 
   render(changes) {
@@ -316,37 +327,43 @@ export default class MdiGrid extends HTMLElement {
     }
     // Virtual Grid
     const count = this.icons.length;
-    const rows = Math.ceil(count / this.columns);
-    this.currentRow = -1;
-    this.$scroll.height = gap + (rows * rowHeight);
+    if (count) {
+      const rows = Math.ceil(count / this.columns);
+      this.currentRow = -1;
+      console.log('---', gap + (rows * rowHeight));
+      console.log('init', this.$scroll.height)
+      this.$scroll.setAttribute('height', (gap + (rows * rowHeight)).toString());
+    } else {
+      this.$scroll.setAttribute('height', '0')
+    }
+    this.$none.classList.toggle('show', count === 0);
   }
 
   moveFocus(e: KeyboardEvent, index: number) {
-    console.log(e.which, index);
     let newIndex;
-    switch (e.which) {
-      case 37:
+    switch (e.key) {
+      case KEY.ArrowLeft:
         newIndex = index - 1;
         if (newIndex >= 0) {
           this.items[newIndex][0].focus();
           e.preventDefault();
         }
         break;
-      case 38:
+      case KEY.ArrowUp:
         newIndex = index - this.columns;
         if (newIndex >= 0) {
           this.items[newIndex][0].focus();
           e.preventDefault();
         }
         break;
-      case 39:
+      case KEY.ArrowRight:
         newIndex = index + 1;
         if (newIndex < this.icons.length) {
           this.items[newIndex][0].focus();
           e.preventDefault();
         }
         break;
-      case 40:
+      case KEY.ArrowDown:
         newIndex = index + this.columns;
         if (newIndex < this.icons.length) {
           this.items[newIndex][0].focus();
