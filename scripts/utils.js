@@ -163,7 +163,7 @@ exports.getComponents = function(srcDir) {
       if (fs.existsSync(file)) {
         const name = `${namespace}${component[0].toUpperCase()}${component.substr(1)}`;
         const input = `./src/${namespace}/${component}/${component}.ts`;
-        components.push({ input, name, namespace });
+        components.push({ input, name, namespace, component });
         components[components.length - 1].examples = [];
         const examplesDir = `${componentDir}/__examples__`;
         if ((fs.existsSync(examplesDir))) {
