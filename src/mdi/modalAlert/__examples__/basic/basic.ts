@@ -1,5 +1,5 @@
 import { Component, Part, Prop } from '@mdi/element';
-import MdiModalAlert from './../../../modalAlert/modalAlert';
+import MdiModalAlert from './../../modalAlert';
 
 import template from './basic.html';
 

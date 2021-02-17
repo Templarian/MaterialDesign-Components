@@ -10,11 +10,11 @@ const noIcon = 'M0 0h24v24H0V0zm2 2v20h20V2H2z';
   style,
   template
 })
-export default class MdiIcon extends HTMLElement {
+export default class MdiPreview extends HTMLElement {
   @Prop() path: string = noIcon;
   @Prop() width: number = 24;
   @Prop() height: number = 24;
-  @Prop() size: number = 4;
+  @Prop() size: number = 8;
 
   @Part() $svg: SVGSVGElement;
   @Part() $path: SVGPathElement;

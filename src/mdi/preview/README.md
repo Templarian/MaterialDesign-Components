@@ -11,7 +11,9 @@ import MdiIcon from '@mdi/components/mdi/preview';
 <mdi-preview path="..." size="4"></mdi-preview>
 ```
 
-| Attributes | Tested   | Description |
-| ---------- | -------- | ----------- |
-| path       | &#x2705; | Set path data |
-| size       | &#x2705; | 4 |
+| Attributes | Tested   | Default | Description |
+| ---------- | -------- | ------- | ----------- |
+| path       | &#x2705; |         | Set path data |
+| size       | &#x2705; | 4       |   |
+| width      |          | 24      |   |
+| height     |          | 24      |   |
