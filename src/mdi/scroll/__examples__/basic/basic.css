@@ -1,0 +1,4 @@
+[part=scrollList] {
+  display: flex;
+  flex-direction: column;
+}

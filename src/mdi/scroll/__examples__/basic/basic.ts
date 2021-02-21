@@ -2,10 +2,12 @@ import { Component, Part, Prop } from '@mdi/element';
 import MdiScroll from 'mdi/scroll/scroll';
 
 import template from './basic.html';
+import style from './basic.css';
 
 @Component({
   selector: 'x-mdi-scroll-basic',
-  template
+  template,
+  style
 })
 export default class XMdiScrollBasic extends HTMLElement {
 

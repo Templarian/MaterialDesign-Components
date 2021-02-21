@@ -21,9 +21,7 @@ export default class XMdiModalAlertBasic extends HTMLElement {
       header: 'Delete Item',
       message: 'Are you sure you want to delete the item?'
     });
-    if (result) {
-      this.$result.innerText = result;
-    }
+    this.$result.innerText = `${result}`;
   }
 
 }

@@ -13,10 +13,9 @@ declare const ResizeObserver;
 })
 export default class MdiScroll extends HTMLElement {
 
-  @Prop() height: string | number = 16;
+  @Prop() height: string | number = 0;
 
   @Part() $scroll: HTMLDivElement;
-  @Part() $text: HTMLDivElement;
 
   scrollElement;
   currentHeight = -1;

@@ -10,6 +10,7 @@ const {
   copyFolderContentsSync,
   eachComponent
 } = require('./utils');
+const { execSync } = require("child_process");
 
 // publish/
 // - dist/
@@ -22,6 +23,7 @@ const {
 folder('publish');
 // Copy README.md to publish/README.md
 copyFileSync('README.md', 'publish/README.md');
+copyFileSync('tsconfig.json', 'publish/tsconfig.json');
 console.log(`Done: "README.md" copied to "publish/README.md`);
 // Write publish/package.json
 const package = JSON.parse(read('package.json'));
@@ -37,8 +39,6 @@ console.log(`Done: "package.json" with version "${package.version}"`);
 copyFolderContentsSync('src', 'publish');
 // Remove index.html
 remove('publish/index.html');
-// Copy dist
-copyFolderSync('dist', 'publish');
 // Remove "dist/api" and "index.html"
 removeFolder('publish/dist/api');
 remove('publish/dist/index.html');
@@ -52,6 +52,8 @@ eachComponent('publish', ({ cls, namespace, component }) => {
     ].join('\n'));
   }
 });
-console.log(`Done injecting "index.ts" into each component`);
+console.log(`Done: injecting "index.ts" into each component`);
+console.log(`Starting: npm install and build`);
+execSync('cd publish && npm install && npm run build');
 // Final Message
-console.log(`Done run "cd publish" and "npm publish".`);
+console.log(`Done! Please run "cd publish" and "npm publish".`);
