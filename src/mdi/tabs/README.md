@@ -1,19 +1,31 @@
-# `<mdi-icon>`
+# `<mdi-tabs>`
 
-The `mdi-icon` component allows a standard way to render [MaterialDesignIcons.com](https://materialdesignicons.com) icons.
+The `mdi-tabs` component allows a standard way to render tabs.
 
 ```typescript
-import '@mdi/components/mdi/icon';
-import MdiIcon from '@mdi/components/mdi/icon';
+import '@mdi/components/mdi/tabs';
+import MdiTabs from '@mdi/components/mdi/tabs';
 ```
 
 ```html
-<mdi-icon path="..."></mdi-icon>
+<mdi-tabs>
+  <mdi-tab label="Tab 1">
+    Content 1
+  </mdi-tab>
+  <mdi-tab label="Tab 2">
+    Content 2
+  </mdi-tab>
+</mdi-tabs>
 ```
 
 | Attributes | Tested   | Description |
 | ---------- | -------- | ----------- |
 | path       | &#x2705; | Set path data |
+
+
+| Events     | Tested   | Description |
+| ---------- | -------- | ----------- |
+| onselect   | &#x2705; | Set path data |
 
 
 | CSS Variable        | Default   | Description |
