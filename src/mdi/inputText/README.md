@@ -4,7 +4,7 @@ The `mdi-input-text` component creates an input that accepts text input.
 
 ```typescript
 import '@mdi/components/mdiInputText';
-import { MdiInputRange } from '@mdi/components/mdiInputText';
+import { MdiInputText } from '@mdi/components/mdiInputText';
 ```
 
 ```html
@@ -13,10 +13,11 @@ import { MdiInputRange } from '@mdi/components/mdiInputText';
 
 ## Attributes
 
-| Attributes | Tested   | Description |
-| ---------- | -------- | ----------- |
-| name       |          | Unique name in `mdi-form` |
-| value      |          | Field value |
+| Attributes  | Tested   | Description |
+| ----------- | -------- | ----------- |
+| name        |          | Unique name in `mdi-form` |
+| value       |          | Field value |
+| placeholder |          | Placeholder text |
 
 ## Events
 

@@ -1,8 +1,6 @@
 import { Component, Prop, Part, Local } from '@mdi/element';
 // import { createPopper } from '@popperjs/core';
-import { addInfoToast } from '../shared/toast';
 import { debounce, } from './../shared/debounce';
-import { getCopySvgInline, copyText } from './../shared/copy';
 import MdiScroll from './../scroll/scroll';
 
 import template from './grid.html';

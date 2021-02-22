@@ -62,7 +62,6 @@ export default class MdiInputCheckList extends HTMLElement {
           if (option.disabled === true) {
             button.disabled = true;
           }
-          console.log('check...', this.value, option.value);
           const checked = this.value.includes(option.value);
           button.classList.toggle('checked', checked);
           button.classList.toggle('blank', !checked);
