@@ -148,7 +148,9 @@ exports.eachComponent = (srcDir, callback) => {
   }]
  */
 exports.getComponents = function(srcDir) {
-  const srcDir2 = path.join(__dirname, '..', srcDir);
+  const srcDir2 = srcDir
+    ? path.join(__dirname, '..', srcDir)
+    : path.join(__dirname, '..');
   console.log(srcDir2);
   const components = [];
   const namespaces = fs.readdirSync(srcDir2)

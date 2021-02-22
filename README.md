@@ -28,6 +28,12 @@ To build just the components.
 npm run build
 ```
 
+## Publish
+
+```bash
+npm run publish
+```
+
 ### Web Components
 
 Web Components with a very basic wrapper. The only magic is...

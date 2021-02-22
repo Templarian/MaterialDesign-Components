@@ -5,9 +5,9 @@
   "license": "MIT",
   "author": "Austin Andrews",
   "scripts": {
-    "start": "cross-env NODE_OPTIONS=--max_old_space_size=8192 webpack serve",
-    "build": "cross-env NODE_OPTIONS=--max_old_space_size=8192 webpack --mode=production",
-    "publish": "node ./scripts/publish.js",
+    "start": "webpack serve",
+    "build": "webpack --mode=production",
+    "publish": "cross-env NODE_OPTIONS=--max_old_space_size=8192 webpack --config webpack.publish.config.js && node ./scripts/publish.js",
     "test": "jest --no-cache"
   },
   "repository": {
