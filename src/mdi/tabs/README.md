@@ -18,14 +18,10 @@ import MdiTabs from '@mdi/components/mdi/tabs';
 </mdi-tabs>
 ```
 
-| Attributes | Tested   | Description |
-| ---------- | -------- | ----------- |
-| path       | &#x2705; | Set path data |
 
-
-| Events     | Tested   | Description |
-| ---------- | -------- | ----------- |
-| onselect   | &#x2705; | Set path data |
+| Events     | Description   |
+| ---------- | ------------- |
+| onselect   | Set path data |
 
 
 | CSS Variable        | Default   | Description |
