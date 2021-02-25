@@ -13,7 +13,7 @@ const KEY = {
   ArrowRight: 'ArrowRight',
   ArrowDown: 'ArrowDown',
   ArrowLeft: 'ArrowLeft'
-}
+};
 
 interface MouseMeta {
   gridX: number,

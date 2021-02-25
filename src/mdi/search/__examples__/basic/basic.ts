@@ -1,5 +1,6 @@
 import { Component, Part, Prop } from '@mdi/element';
 import MdiSearch from './../../search';
+import { mdiAccount, mdiAccountBox, mdiAccountCircle } from './constants';
 
 import template from './basic.html';
 
@@ -20,9 +21,9 @@ export default class XMdiSearchBasic extends HTMLElement {
       { type: 'Documentation', name: 'Foo Angular Foo Angular', url: '/getting-started/bootstraps' }
     ];
     this.$search.icons = [
-      { name: 'account', aliases: [{ name: 'user' }] },
-      { name: 'account-box', aliases: [{ name: 'user-box' }] },
-      { name: 'account-circle', aliases: [{ name: 'user-circle' }] }
+      { name: 'account', data: mdiAccount, aliases: [{ name: 'user' }] },
+      { name: 'account-box', data: mdiAccountBox, aliases: [{ name: 'user-box' }] },
+      { name: 'account-circle', data: mdiAccountCircle, aliases: [{ name: 'user-circle' }] }
     ] as any;
   }
 }

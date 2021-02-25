@@ -14,6 +14,13 @@ interface Item {
   url: string
 }
 
+const KEY = {
+  ArrowUp: 'ArrowUp',
+  ArrowRight: 'ArrowRight',
+  ArrowDown: 'ArrowDown',
+  ArrowLeft: 'ArrowLeft'
+};
+
 @Component({
   selector: 'mdi-search',
   style,
@@ -71,16 +78,19 @@ export default class MdiSearch extends HTMLElement {
   }
 
   keydown(e: KeyboardEvent) {
-    if (e.which === 40) {
-      this.keyIndex += 1;
-      this.setActive();
-      e.preventDefault();
-      e.stopPropagation();
-    } else if (e.which === 38) {
-      this.keyIndex -= 1;
-      this.setActive();
-      e.preventDefault();
-      e.stopPropagation();
+    switch(e.key) {
+      case KEY.ArrowDown:
+        this.keyIndex += 1;
+        this.setActive();
+        e.preventDefault();
+        e.stopPropagation();
+      break;
+      case KEY.ArrowUp:
+        this.keyIndex -= 1;
+        this.setActive();
+        e.preventDefault();
+        e.stopPropagation();
+        break;
     }
   }
 
