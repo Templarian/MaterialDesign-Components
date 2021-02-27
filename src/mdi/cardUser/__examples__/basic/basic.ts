@@ -1,6 +1,7 @@
 import { Component, Part, Prop } from '@mdi/element';
 import MdiCardUser from './../../cardUser';
 import { AVATAR } from './constants';
+import { User } from './../../../shared/models/user';
 
 import template from './basic.html';
 
@@ -13,7 +14,7 @@ export default class XMdiCardUserBasic extends HTMLElement {
   @Part() $cardUser1: MdiCardUser;
 
   connectedCallback() {
-    this.$cardUser1.user = {
+    this.$cardUser1.user = new User().from({
       "id": "c4ea5584-07e3-11e4-bf19-842b2b6cfe1b",
       "name": "Austin Andrews",
       "description": "Hello, I am a developer that gets bored and makes icons, then websites for icons, then more icons. Open Source is pretty awesome.",
@@ -24,6 +25,6 @@ export default class XMdiCardUserBasic extends HTMLElement {
       "website": "http:\/\/templarian.com",
       "sponsored": true,
       "core": true
-    } as any;
+    } as any);
   }
 }
