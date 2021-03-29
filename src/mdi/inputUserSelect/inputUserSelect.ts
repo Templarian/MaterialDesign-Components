@@ -39,6 +39,7 @@ export default class MdiInputUserSelect extends HTMLElement {
   @Prop() clear: boolean = false;
   @Prop() noDataText: string = 'Empty Users List';
   @Prop() noSelectionText: string = 'Select a User';
+  @Prop() name: string = '';
 
   @Part() $select: HTMLButtonElement;
   @Part() $selectedAvatar: HTMLImageElement;
@@ -69,6 +70,7 @@ export default class MdiInputUserSelect extends HTMLElement {
   }
 
   handleClose(e) {
+    // This is wrong
     const target = e.target as MdiInputUserSelect;
     if (target.nodeName === this.nodeName && target.isOpen) {
       // Do nothing!
@@ -96,11 +98,17 @@ export default class MdiInputUserSelect extends HTMLElement {
   }
 
   handleSelect(e) {
+    console.log('clicked');
     const { id } = e.currentTarget.dataset;
     const selected = this.options?.find(d => d.id === id);
     this.value = selected || null;
     this.dispatchEvent(
-      new CustomEvent('change')
+      new CustomEvent('change', {
+        detail: {
+          value: this.value,
+          name: this.name
+        }
+      })
     );
     this.close();
   }
